@@ -412,7 +412,7 @@ public class TabGui1 extends EventListener {
 		String version = BaseClient.instance.getClientVersion();
 		String author = BaseClient.instance.getAuthor();
 
-		RenderUtils.drawString(String.format("%s %s - %s", watermark, version, author), 5, 5,
+		RenderUtils.drawString(String.format("%s %s", watermark, version, author), 5, 5,
 				tabGuiRainbow ? Colors.getRGBWave(10, 1, 0.7F, watermark.toCharArray().length)
 						: new Color(255, 255, 255).getRGB());
 
@@ -442,7 +442,7 @@ public class TabGui1 extends EventListener {
 					item = "&a" + item;
 			}
 
-			RenderUtils.drawString(item, 10, height * (i + 2) - 5, -1);
+			RenderUtils.drawString(item, 10, height * (i + 2) - 3, -1);
 		}
 
 		if (indentation != 1 || getCurrentModule() == null)
