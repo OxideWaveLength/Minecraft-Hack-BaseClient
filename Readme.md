@@ -1,4 +1,4 @@
-# Base Client
+# Base Client 1.8.8
 
 ### Features
 
@@ -23,6 +23,7 @@
 - Help command
 - Better FileManager / ConfigManager
 - Enhance some code
+- Multi Versioning! Exactly, joining 1.12 servers in 1.8.8...
 
 ------------
 
