@@ -1,4 +1,14 @@
-# Base Client 1.8.8
+# Minecraft Hacked Client Base Client 1.8.8 (with optifine)
+
+### Setup
+
+- Decompile the [Minecraft Coders Pack 918 (1.8.8)](http://www.modcoderpack.com/files/mcp918.zip)
+- Download the project as ZIP
+- Delete the "src" folder's content
+- Copy the ZIP content over to the "src" folder
+- Launch Eclipse into the "eclipse" folder as workspace
+
+------------
 
 ### Features
 
@@ -17,6 +27,7 @@
 ------------
 
 ### Coming Soon / TODO
+
 - Better hotbar overlay
 - Better module "arraylist"
 - Better font manager
@@ -27,8 +38,8 @@
 
 ------------
 
-
 ### Most Important TODOs
+
 - Create a wiki for every part of the client
 - Finish all of the event handlers
 - Finish the TabGui, so that the module settings can be changed from there (they can be seen already, but not changed)
