@@ -13,7 +13,7 @@
 ### Features
 
 - CommandManager (with ~~two~~ three commands, "irc", ~~and~~ "set" and "help")
-- ModuleManager (with one example module, and the "AdvancedTabGui" module AND module settings)
+- ModuleManager (with module settings, one example module (the fly/flight module) and the "AdvancedTabGui" module)
 - EventManager (not all of the event handlers are working or cancellable, some marked as cancellable are not _yet_)
 - FileManager
 - ConfigManager
@@ -41,7 +41,7 @@
 ### Most Important TODOs
 
 - Create a wiki for every part of the client
-- Finish all of the event handlers
+- Finish all of the event handlers (almost there!)
 - Finish the TabGui, so that the module settings can be changed from there (they can be seen already, but not changed)
 
 ------------
