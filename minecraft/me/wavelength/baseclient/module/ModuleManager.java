@@ -18,7 +18,7 @@ public class ModuleManager extends EventListener {
 
 	public ModuleManager() {
 		this.modules = new ArrayList<Module>();
-		BaseClient.instance.getEventManager().registerEvent(this);
+		BaseClient.instance.getEventManager().registerListener(this);
 
 		registerModules();
 	}

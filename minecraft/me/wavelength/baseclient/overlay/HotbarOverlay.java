@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 public class HotbarOverlay extends EventListener {
 
 	public HotbarOverlay() {
-		BaseClient.instance.getEventManager().registerEvent(this);
+		BaseClient.instance.getEventManager().registerListener(this);
 	}
 
 	@Override

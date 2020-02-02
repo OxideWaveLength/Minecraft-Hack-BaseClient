@@ -23,14 +23,48 @@ public class EventManager {
 	public EventManager() {
 		this.eventListeners = new ArrayList<EventListener>();
 	}
-
+	
+	/**
+	 * @deprecated this method will be removed soon. Use the new {@link #registerListener(EventListener)}
+	 */
+	@Deprecated
 	public void registerEvent(EventListener eventListener) {
-		this.eventListeners.add(eventListener);
+		registerListener(eventListener);
+	}
+	
+	/**
+	 * @deprecated this method will be removed soon. Use the new {@link #unregisterListener(EventListener)}
+	 */
+	@Deprecated
+	public void unregisterEvent(EventListener eventListener) {
+		unregisterListener(eventListener);
 	}
 
-	public void unregisterEvent(EventListener eventListener) {
+	public void registerListener(EventListener eventListener) {
+		this.eventListeners.add(eventListener);
+	}
+	
+	/**
+	 * This way you can unregister an event listener from the INSTANCE.
+	 * 
+	 * NOTE: there is only one small drawback, you need to have the class's instance.
+	 * Or if you are unregistering the listener from within the listener's class, you can just do {@link #unregisterEventListener()} with "this" as parameter
+	 * 
+	 * @param clasz the listener's class
+	 */
+	public void unregisterListener(EventListener eventListener) {
 		if (eventListeners.contains(eventListener))
 			eventListeners.remove(eventListener);
+	}
+	
+	/**
+	 * This way you can unregister an event listener from the class (NOTE: doing this will unregister ALL of the instances of a class)
+	 * @param clasz the listener's class
+	 */
+	public void unregisterListener(Class<? extends EventListener> clasz) {
+		for(int i = 0; i < eventListeners.size(); i++)
+			if(eventListeners.get(i).getClass().equals(clasz))
+				eventListeners.remove(i);
 	}
 
 	public Event call(Event event) {
