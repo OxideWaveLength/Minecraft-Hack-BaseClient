@@ -17,6 +17,15 @@ public class Strings {
 		return translateColors(string).replaceAll("\u00A7[a-z-A-z-0-9]", "");
 	}
 	
+	public static boolean startsWithColor(String string) {
+		string = translateColors(string);
+		
+		if(string.length() < 2)
+			return false;
+		
+		return string.substring(0, 1).equals("\u00A7[a-z-A-z-0-9]");
+	}
+	
 	public static String capitalizeOnlyFirstLetter(String string) {
 		return string.substring(0, 1).toUpperCase() + string.substring(1, string.length()).toLowerCase();
 	}
