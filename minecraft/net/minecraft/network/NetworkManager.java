@@ -1,7 +1,22 @@
 package net.minecraft.network;
 
+import java.net.InetAddress;
+import java.net.SocketAddress;
+import java.util.Queue;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import javax.crypto.SecretKey;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.Validate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelException;
@@ -28,15 +43,8 @@ import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import me.wavelength.baseclient.BaseClient;
+import me.wavelength.baseclient.event.events.PacketReceivedEvent;
 import me.wavelength.baseclient.event.events.PacketSentEvent;
-
-import java.net.InetAddress;
-import java.net.SocketAddress;
-import java.util.Queue;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import javax.crypto.SecretKey;
-
-import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.CryptManager;
@@ -47,12 +55,6 @@ import net.minecraft.util.MessageDeserializer;
 import net.minecraft.util.MessageDeserializer2;
 import net.minecraft.util.MessageSerializer;
 import net.minecraft.util.MessageSerializer2;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.Validate;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
 
 public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 	
@@ -135,10 +137,16 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 		this.closeChannel(chatcomponenttranslation);
 	}
 
-	protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet p_channelRead0_2_) throws Exception {
+	protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet packetIn) throws Exception {
 		if (this.channel.isOpen()) {
 			try {
-				p_channelRead0_2_.processPacket(this.packetListener);
+				PacketReceivedEvent packetReceivedEvent = (PacketReceivedEvent) BaseClient.instance.getEventManager().call(new PacketReceivedEvent(packetIn));
+				if(packetReceivedEvent.isCancelled())
+					return;
+				
+				packetIn = packetReceivedEvent.getPacket();
+				
+				packetIn.processPacket(this.packetListener);
 			} catch (ThreadQuickExitException var4) {
 				;
 			}
