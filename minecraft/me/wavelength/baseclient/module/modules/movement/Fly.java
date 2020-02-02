@@ -2,8 +2,6 @@ package me.wavelength.baseclient.module.modules.movement;
 
 import org.lwjgl.input.Keyboard;
 
-import me.wavelength.baseclient.event.events.MessageReceivedEvent;
-import me.wavelength.baseclient.event.events.PacketReceivedEvent;
 import me.wavelength.baseclient.event.events.UpdateEvent;
 import me.wavelength.baseclient.module.AntiCheat;
 import me.wavelength.baseclient.module.Category;
