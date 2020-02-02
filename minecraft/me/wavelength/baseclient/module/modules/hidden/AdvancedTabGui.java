@@ -14,7 +14,7 @@ public class AdvancedTabGui extends Module {
 	 * -98 is the CUSTOM mouse wheel click code
 	 */
 	public AdvancedTabGui() {
-		super("AdvancedTabGui", "Interact with the TabGui in an advanced way", -98, Category.HIDDEN);
+		super("AdvancedTabGui", "Interact with the TabGui in an advanced way", -98, Category.SEMI_HIDDEN);
 	}
 
 	@Override

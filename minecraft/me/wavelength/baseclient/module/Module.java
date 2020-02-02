@@ -1,10 +1,11 @@
 package me.wavelength.baseclient.module;
 
+import java.awt.Color;
 import java.util.Arrays;
-import java.util.List;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.EventListener;
+import me.wavelength.baseclient.utils.Random;
 
 public class Module extends EventListener {
 
@@ -20,6 +21,8 @@ public class Module extends EventListener {
 
 	protected boolean toggled;
 
+	private Color color;
+
 	public Module(String name, String description, int key, Category category, AntiCheat... allowedAntiCheats) {
 		this.name = name;
 		this.description = description;
@@ -30,6 +33,7 @@ public class Module extends EventListener {
 		this.antiCheat = this.allowedAntiCheats[0];
 
 		this.moduleSettings = new ModuleSettings(this);
+
 		setup();
 		loadFromSettings();
 	}
@@ -72,10 +76,14 @@ public class Module extends EventListener {
 		return toggled;
 	}
 
+	public Color getColor() {
+		return color;
+	}
+
 	public void setup() {
 
 	}
-	
+
 	public void onEnable() {
 
 	}
@@ -91,6 +99,7 @@ public class Module extends EventListener {
 	public void setToggled(boolean toggled) {
 		this.toggled = toggled;
 		if (toggled) {
+			this.color = Random.getRandomLightColor();
 			BaseClient.instance.getEventManager().registerListener(this);
 			onEnable();
 		} else {

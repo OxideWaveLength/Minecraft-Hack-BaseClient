@@ -18,8 +18,10 @@ import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.module.ModuleSettings;
 import me.wavelength.baseclient.module.modules.hidden.AdvancedTabGui;
+import me.wavelength.baseclient.utils.Random;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Strings;
+import net.minecraft.client.Minecraft;
 
 public class TabGui1 extends EventListener {
 
@@ -106,7 +108,7 @@ public class TabGui1 extends EventListener {
 		/** If inside the Category indentation scroll through it */
 		case 0:
 		default: {
-			currentCategory = (direction == 0 ? (currentCategory == Category.values().length - 2 ? 0 : currentCategory + 1) : (currentCategory == 0 ? Category.values().length - 2 : currentCategory - 1));
+			currentCategory = (direction == 0 ? (currentCategory == Category.values().length - 3 ? 0 : currentCategory + 1) : (currentCategory == 0 ? Category.values().length - 3 : currentCategory - 1));
 			break;
 		}
 		/** If inside the Module indentation scroll through it */
@@ -207,9 +209,16 @@ public class TabGui1 extends EventListener {
 			menuInteract(1);
 			break;
 		}
+		case 4: {
+			if (!(indentation == 1))
+				break;
+
+			getCurrentModule().toggle();
+		}
 		default:
 			return;
 		}
+
 	}
 
 	private void renderCategories(Render2DEvent event) {
@@ -219,7 +228,7 @@ public class TabGui1 extends EventListener {
 		for (int i = 0; i < categories.length; i++) {
 			Category category = categories[i];
 
-			if (category.equals(Category.HIDDEN))
+			if (category.equals(Category.HIDDEN) || category.equals(Category.SEMI_HIDDEN))
 				continue;
 
 			items.add(Strings.capitalizeOnlyFirstLetter(category.name()));
@@ -233,7 +242,7 @@ public class TabGui1 extends EventListener {
 		List<String> items = new ArrayList<String>();
 		for (int i = 0; i < modules.size(); i++) {
 			Module module = modules.get(i);
-			items.add((module.isToggled() ? "&c" : "") + Strings.capitalizeOnlyFirstLetter(module.getName()));
+			items.add((module.isToggled() ? "&a" : "") + Strings.capitalizeOnlyFirstLetter(module.getName()));
 		}
 		renderMenu(items, currentModule);
 	}
@@ -247,7 +256,9 @@ public class TabGui1 extends EventListener {
 	private void renderMenu(List<String> items, int currentItem) {
 		int height = 15;
 
-		RenderUtils.drawRect(5, 12, maxItemWidth + 15 + 5, height * (items.size() + 1) - 3, new Color(0, 0, 0, 130).getRGB());
+		RenderUtils.drawString(String.format("&f%1$s &8-&b %2$s", BaseClient.instance.getClientName(), BaseClient.instance.getClientVersion()), 5, 12, FontType.OUTLINE_THIN, -1, -16777216);
+
+		RenderUtils.drawRect(5, height * 2 - 3, maxItemWidth + 15 + 5, height * (items.size() + 2) - 3, new Color(0, 0, 0, 130).getRGB());
 		for (int i = 0; i < items.size(); i++) {
 			String item = items.get(i);
 
@@ -261,20 +272,20 @@ public class TabGui1 extends EventListener {
 			Color backgroundColor = new Color(255, 255, 255);
 
 			if (isCurrentItem) {
-				backgroundColor = new Color(227, 161, 18);
+				backgroundColor = new Color(84, 199, 222);
 
-				RenderUtils.drawRect(5, 10 + height * (i + 1) - height + 2, maxItemWidth + 15 + 5, height * (i + 2) - 3, new Color(18, 227, 220, 140).getRGB());
+				RenderUtils.drawRect(5, 10 + height * (i + 2) - height + 2, maxItemWidth + 15 + 5, height * (i + 3) - 3, backgroundColor.getRGB());
 			}
 
-			RenderUtils.drawString(item, 10, height * (i + 1), FontType.OUTLINE_THIN, -1, -16777216);
+			RenderUtils.drawString(item, 10, height * (i + 2), FontType.OUTLINE_THIN, -1, -16777216);
 		}
 
 		if (indentation != 1 || getCurrentModule() == null)
 			return;
 
 		String description = getCurrentModule().getDescription();
-		RenderUtils.drawRect(5, 10 + height * (items.size() + 2) - height + 2, Strings.getStringWidth(description) + 15 + 5, height * (items.size() + 3) - 3, new Color(0, 0, 0, 100).getRGB());
-		RenderUtils.drawString(description, 10, height * (items.size() + 2), FontType.OUTLINE_THIN, -1, -16777216);
+		RenderUtils.drawRect(5, 9 + height * (items.size() + 3) - height + 2, Strings.getStringWidthCFR(description) + 12, height * (items.size() + 4) - 3, new Color(0, 0, 0, 100).getRGB());
+		RenderUtils.drawString(description, 8, height * (items.size() + 3), FontType.OUTLINE_THIN, -1, -16777216);
 	}
 
 }
