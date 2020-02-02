@@ -38,7 +38,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 - [Module ArrayList](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Modules-ArrayList-(or-%22ToggledModules%22))
 - Overlay above hotbar
 - Alt Manager (By Russian412)
-- NahrFont (font manager) ported to 1.8.8 (By Russian412)
+- NahrFont (Font Manager) ported to 1.8.8 (By Russian412)
 - IRC Client
 
 ------------
@@ -46,9 +46,9 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 ### Coming Soon / TODO
 
 - Better hotbar overlay
-- ~~Better module arraylist~~ (added in the commit #29 / 070586b!)
+- ~~Better module arraylist~~ (Added in the commit #29 / 070586b!)
 - Better font manager
-- ~~Help command~~ (done)
+- ~~Help command~~ (Done)
 - Better FileManager / ConfigManager
 - Enhance some code
 - Multi Versioning! Exactly, joining 1.12 servers in 1.8.8...
@@ -58,7 +58,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 ### Most Important TODOs
 
 - Create a wiki for every part of the client
-- Finish all of the event handlers (almost there!)
+- ~~Finish all of the event handlers~~ (Done! Added in the commit #38 / a2c72e1)
 - Finish the TabGui, so that the module settings can be changed from there (they can be seen already, but not changed)
 
 ------------
