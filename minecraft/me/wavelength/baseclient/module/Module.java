@@ -41,7 +41,9 @@ public class Module extends EventListener {
 	}
 
 	private void loadFromSettings() {
-		this.toggled = moduleSettings.getBoolean("toggled");
+		if(moduleSettings.getBoolean("toggled"))
+			setToggled(true);
+		
 		this.key = moduleSettings.getInt("key");
 		this.antiCheat = AntiCheat.valueOf(moduleSettings.getString("anticheat").toUpperCase());
 		this.antiCheat = (Arrays.stream(allowedAntiCheats).anyMatch(antiCheat::equals) ? antiCheat : allowedAntiCheats[0]);
