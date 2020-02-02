@@ -12,7 +12,7 @@
 
 ### Features
 
-- CommandManager (with two commands, "irc" and "set")
+- CommandManager (with ~~two~~ commands, "irc", ~~and~~ "set" and "help")
 - ModuleManager (with one example module, and the "AdvancedTabGui" module AND module settings)
 - EventManager (not all of the event handlers are working or cancellable, some marked as cancellable are not _yet_)
 - FileManager
