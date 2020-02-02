@@ -8,7 +8,9 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 
 import me.wavelength.baseclient.BaseClient;
-import me.wavelength.baseclient.command.commands.*;
+import me.wavelength.baseclient.command.commands.HelpCommand;
+import me.wavelength.baseclient.command.commands.IRCCommand;
+import me.wavelength.baseclient.command.commands.SetCommand;
 import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MessageSentEvent;
@@ -25,7 +27,7 @@ public class CommandManager extends EventListener {
 	private String trigger;
 
 	private Minecraft mc;
-
+	
 	public CommandManager(String trigger) {
 		this.commands = new ArrayList<Command>();
 
@@ -34,7 +36,6 @@ public class CommandManager extends EventListener {
 		this.mc = Minecraft.getMinecraft();
 
 		BaseClient.instance.getEventManager().registerEvent(this);
-		registerCommands();
 	}
 
 	public String getTrigger() {
@@ -46,8 +47,33 @@ public class CommandManager extends EventListener {
 	}
 
 	public void registerCommands() {
+		registerCommand(new HelpCommand("help", "help [module]", "Returns all the commands or a command description."));
 		registerCommand(new IRCCommand("irc", "irc <connect|disconnect|status>", "Connects to the IRC Server."));
 		registerCommand(new SetCommand("set", "set <module> <key> <value>", "Sets something for the module."));
+	}
+
+	public List<Command> getCommands() {
+		return commands;
+	}
+
+	public String getHelpMessage(String command) {
+		return String.format("&cThe command &e%1$s&c does not exist.", command);
+	}
+	
+	/**
+	 * @param name Command's name or alias
+	 * @return a command which name's is @param name, or has @param name as alias
+	 */
+	public Command getCommand(String name) {
+		for (int i = 0; i < commands.size(); i++) {
+			Command command = commands.get(i);
+			if (!(command.getName().equalsIgnoreCase(name)) && !(Arrays.stream(command.getAliases()).anyMatch(name::equalsIgnoreCase)))
+				continue;
+
+			return command;
+		}
+
+		return null;
 	}
 
 	@Override
@@ -82,17 +108,17 @@ public class CommandManager extends EventListener {
 
 		event.setCancelled(true);
 
-		for (int i = 0; i < commands.size(); i++) {
-			Command command = commands.get(i);
-			if (!(command.getName().equalsIgnoreCase(name)) && !(Arrays.stream(command.getAliases()).anyMatch(name::equalsIgnoreCase)))
-				continue;
+		Command command = getCommand(name);
 
-			String result = command.executeCommand(line, commandArgs);
+		String result = getHelpMessage(args[0]);
 
-			if (result != null && !(result.trim().isEmpty()))
-				Player.sendMessage(result);
-		}
+		if (command == null)
+			;
+		else
+			result = command.executeCommand(line, commandArgs);
 
+		if (result != null && !(result.trim().isEmpty()))
+			Player.sendMessage(result);
 	}
 
 	/** This will open the chat with the trigger when the period key is pressed. */
@@ -104,5 +130,5 @@ public class CommandManager extends EventListener {
 			mc.displayGuiScreen(new GuiChat("@"));
 		}
 	}
-
+	
 }

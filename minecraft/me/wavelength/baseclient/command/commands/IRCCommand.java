@@ -10,8 +10,8 @@ public class IRCCommand extends Command {
 
 	private IRCClient ircClient;
 
-	public IRCCommand(String name, String usage, String description, String... aliases) {
-		super(name, usage, description, aliases);
+	public IRCCommand(String name, String syntax, String usage, String... aliases) {
+		super(name, syntax, usage, aliases);
 
 		this.ircClient = BaseClient.instance.getIRCClient();
 	}
@@ -19,7 +19,7 @@ public class IRCCommand extends Command {
 	@Override
 	public String executeCommand(String line, String[] args) {
 		if (args.length < 1) {
-			return String.format("&c%1$s", getUsage());
+			return String.format("&c%1$s", getSyntax());
 		}
 		
 		switch (args[0].toLowerCase()) {

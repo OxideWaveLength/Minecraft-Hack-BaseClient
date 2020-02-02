@@ -11,14 +11,14 @@ import me.wavelength.baseclient.utils.Strings;
 
 public class SetCommand extends Command {
 
-	public SetCommand(String name, String usage, String description, String... aliases) {
-		super(name, usage, description, aliases);
+	public SetCommand(String name, String syntax, String usage, String... aliases) {
+		super(name, syntax, usage, aliases);
 	}
 
 	@Override
 	public String executeCommand(String line, String[] args) {
 		if (args.length < 1) {
-			return getUsage();
+			return getSyntax();
 		}
 
 		Module module = BaseClient.instance.getModuleManager().getModule(args[0]);
