@@ -15,7 +15,7 @@ import me.wavelength.baseclient.irc.IRCClient;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.overlay.HotbarOverlay;
 import me.wavelength.baseclient.overlay.TabGui1;
-import me.wavelength.baseclient.overlay.ToggledModules;
+import me.wavelength.baseclient.overlay.ToggledModules1;
 import me.wavelength.baseclient.thealtening.AltService;
 import net.minecraft.client.Minecraft;
 
@@ -100,7 +100,7 @@ public class BaseClient {
 
 	private void registerHuds() {
 		new HotbarOverlay();
-		new ToggledModules();
+		new ToggledModules1();
 		new TabGui1();
 	}
 

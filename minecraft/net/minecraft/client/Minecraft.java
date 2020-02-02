@@ -1628,18 +1628,18 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
 					/** Mouse Click Event */
 
-					int button = -1;
+					int button = 0;
 
 					boolean cancelled = false;
-					if (Mouse.isButtonDown(0))
-						button = 0;
-					else if (Mouse.isButtonDown(1))
-						button = 1;
-					else if (Mouse.isButtonDown(2))
-						button = 2;
 
-					if (button != -1)
-						cancelled = handleButtonClick(button);
+					synchronized (this) {
+						for (button = 0; button < 15; button++) {
+							if (!(Mouse.isButtonDown(button)))
+								continue;
+							
+							cancelled = handleButtonClick(button);
+						}
+					}
 
 					if (!(cancelled) && !(buttonsDown.contains(button))) {
 						if (this.currentScreen == null) {

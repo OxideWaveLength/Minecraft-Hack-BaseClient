@@ -9,6 +9,7 @@ import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.module.modules.hidden.AdvancedTabGui;
 import me.wavelength.baseclient.module.modules.movement.Fly;
+import me.wavelength.baseclient.module.modules.movement.TestModule;
 
 public class ModuleManager extends EventListener {
 
@@ -30,6 +31,7 @@ public class ModuleManager extends EventListener {
 	public void registerModules() {
 		registerModule(new Fly());
 		registerModule(new AdvancedTabGui());
+		registerModule(new TestModule());
 	}
 
 	public Module getModule(Class<? extends Module> clasz) {
