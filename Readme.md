@@ -1,12 +1,29 @@
 # Minecraft Hacked Client Base Client 1.8.8 (with optifine)
 
+### What's needed
+
+- Internet connection
+- At least 4gb of ram
+- Java JDK (1.8)
+- Java JRE (1.8)
+- An IDE (The setup is for Eclipse, but MCP can also be setup on [IntelliJ Idea](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+IntelliJ+Idea))
+
+------------
+
 ### Setup
 
-- Decompile the [Minecraft Coders Pack 918 (1.8.8)](http://www.modcoderpack.com/files/mcp918.zip)
+_Note: the instructions in italics apply ONLY to Eclipse, if you have a different IDE, [search how to set the project up on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
+
+- Decompile the [Minecraft Coders Pack 918 (1.8.8)](http://www.modcoderpack.com/files/mcp918.zip) _(or MCP)_ in a folder (it might take a few minutes)
 - Download the project as ZIP
-- Delete the "src" folder's content
-- Copy the ZIP content over to the "src" folder
-- Launch Eclipse into the "eclipse" folder as workspace
+- Enter the folder where you decompiled the MCP in
+- Enter the "src" folder
+- Delete the "minecraft" folder
+- Copy the ZIP's "minecraft" folder into the "src" folder
+- _Launch Eclipse into the "eclipse" folder (that is inside the folder you decompiled the MCP in) as workspace_
+- Optionally delete the Server project (it is safe to do so)
+- _Optionally enable the @formatting tags (Window -> Preferences -> Java -> Code Style -> Formatter -> Edit -> Expand "Off/On tags" -> Tick the "Enable Off/On tags" -> Change the Profile Name (or you will not be able to save) -> OK -> Apply and Close)_
+- Change the JRE version from JRE1\_6 to JRE1\_8 _(Right click on "Client" -> Build Path -> Libraries -> Scroll to the bottom -> Double click "JRE System" -> Choose a JRE1\_8 -> Finish -> Apply and Close)_
 
 ------------
 
