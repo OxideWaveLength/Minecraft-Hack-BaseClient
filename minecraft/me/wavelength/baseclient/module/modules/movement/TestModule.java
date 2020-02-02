@@ -8,7 +8,7 @@ import me.wavelength.baseclient.module.Module;
 public class TestModule extends Module {
 
 	public TestModule() {
-		super("TestModule", "This is a test module...", 0, Category.MOVEMENT, AntiCheat.VANILLA);
+		super("TestModule", "This is a test module...", 0, Category.MOVEMENT, AntiCheat.AAC);
 	}
 
 	@Override

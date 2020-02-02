@@ -6,6 +6,7 @@ import java.util.Arrays;
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.utils.Random;
+import me.wavelength.baseclient.utils.Strings;
 
 public class Module extends EventListener {
 
@@ -78,6 +79,10 @@ public class Module extends EventListener {
 
 	public Color getColor() {
 		return color;
+	}
+
+	public String getNameWithAntiCheat() {
+		return name + (antiCheat.equals(AntiCheat.VANILLA) ? "" : " &7-&f " + (antiCheat.isCapital() ? antiCheat.name() : Strings.capitalizeOnlyFirstLetter(antiCheat.name())));
 	}
 
 	public void setup() {
