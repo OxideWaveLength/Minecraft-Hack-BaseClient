@@ -21,9 +21,9 @@ If applicable, add screenshots to help explain your problem.
 
 **Versions:**
  - OS: [e.g. Windows 10]
- - Java [e.g. JDK1_8]
- - IDE [e.g. Eclipse]
- - Commit / Release number [e.g Commit #2 or Release #1)
+ - Java: [e.g. JDK1_8, JRE1_8]
+ - IDE: [e.g. Eclipse]
+ - Commit / Release: [Commit SHA-Hash or Release SHA-Has (if possible, else Commit number or Release version)]
 
 **Additional context**
 Add any other context about the problem here.
