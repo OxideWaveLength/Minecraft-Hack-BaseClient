@@ -280,7 +280,6 @@ public class RenderUtils {
 	}
 
 	public static void renderBoundingBox(Entity entityIn, double x, double y, double z, float partialTicks, int red, int green, int blue, double xAdd, double yAdd, double zAdd) {
-		/** Called from the RenderManager */
 		GlStateManager.depthMask(false);
 		GlStateManager.disableTexture2D();
 		GlStateManager.disableLighting();
