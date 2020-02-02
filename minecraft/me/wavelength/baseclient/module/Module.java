@@ -29,20 +29,22 @@ public class Module extends EventListener {
 		this.description = description;
 		this.key = key;
 		this.category = category;
-		this.allowedAntiCheats = (allowedAntiCheats == null || allowedAntiCheats.length == 0 ? new AntiCheat[] { AntiCheat.VANILLA } : allowedAntiCheats);
+		allowedAntiCheats = (allowedAntiCheats == null || allowedAntiCheats.length == 0 ? new AntiCheat[] { AntiCheat.VANILLA } : allowedAntiCheats);
 
-		this.antiCheat = this.allowedAntiCheats[0];
+		this.allowedAntiCheats = allowedAntiCheats;
+		this.antiCheat = allowedAntiCheats[0];
 
 		this.moduleSettings = new ModuleSettings(this);
-
+		
 		setup();
 		loadFromSettings();
 	}
 
 	private void loadFromSettings() {
-		key = moduleSettings.getInt("key");
-		antiCheat = AntiCheat.valueOf(moduleSettings.getString("anticheat").toUpperCase());
-		antiCheat = (Arrays.stream(allowedAntiCheats).anyMatch(antiCheat::equals) ? antiCheat : allowedAntiCheats[0]);
+		this.toggled = moduleSettings.getBoolean("toggled");
+		this.key = moduleSettings.getInt("key");
+		this.antiCheat = AntiCheat.valueOf(moduleSettings.getString("anticheat").toUpperCase());
+		this.antiCheat = (Arrays.stream(allowedAntiCheats).anyMatch(antiCheat::equals) ? antiCheat : allowedAntiCheats[0]);
 	}
 
 	public String getName() {
@@ -105,9 +107,11 @@ public class Module extends EventListener {
 		this.toggled = toggled;
 		if (toggled) {
 			this.color = Random.getRandomLightColor();
+			moduleSettings.set("toggled", true);
 			BaseClient.instance.getEventManager().registerListener(this);
 			onEnable();
 		} else {
+			moduleSettings.set("toggled", false);
 			BaseClient.instance.getEventManager().unregisterListener(this);
 			onDisable();
 		}

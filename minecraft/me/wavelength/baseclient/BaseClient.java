@@ -97,7 +97,7 @@ public class BaseClient {
 
 		registerHuds();
 	}
-
+	
 	private void registerHuds() {
 		new HotbarOverlay();
 		new ToggledModules1();

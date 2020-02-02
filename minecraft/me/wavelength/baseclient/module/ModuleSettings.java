@@ -28,9 +28,9 @@ public class ModuleSettings {
 			Files.createDirectory(path, clientName + "\\modules\\" + module.getCategory().toString().toLowerCase());
 
 		this.config = new Config(path, clientName + "\\modules\\" + module.getCategory().toString().toLowerCase() + "\\" + module.getName() + ".cfg");
-		config.addDefault("enabled", false);
+		config.addDefault("toggled", false);
 		config.addDefault("key", module.getKey());
-		config.addDefault("anticheat", "vanilla");
+		config.addDefault("anticheat", module.getAntiCheat().name().toLowerCase());
 		config.generateConfigs();
 	}
 
