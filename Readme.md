@@ -31,7 +31,7 @@
 - Better hotbar overlay
 - Better module "arraylist"
 - Better font manager
-- Help command
+- ~~Help command~~ (done)
 - Better FileManager / ConfigManager
 - Enhance some code
 - Multi Versioning! Exactly, joining 1.12 servers in 1.8.8...
