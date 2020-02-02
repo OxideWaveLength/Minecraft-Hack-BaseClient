@@ -13,7 +13,7 @@ public class Player {
 	}
 
 	public static void sendMessage(String message, boolean prefix) {
-		mc.ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(Strings.translateColors((prefix ? "" : "") + message)));
+		mc.ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(Strings.translateColors((prefix ? "" : "") + message)), false);
 	}
 	
 }

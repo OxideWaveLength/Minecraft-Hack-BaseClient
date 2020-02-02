@@ -115,16 +115,30 @@ public class GuiNewChat extends Gui {
 	}
 
 	public void printChatMessage(IChatComponent p_146227_1_) {
-		this.printChatMessageWithOptionalDeletion(p_146227_1_, 0);
+		this.printChatMessageWithOptionalDeletion(p_146227_1_, 0, true);
+	}
+	
+	public void printChatMessageWithOptionalDeletion(IChatComponent chatComponent, int id) {
+		printChatMessageWithOptionalDeletion(chatComponent, id, true);
+	}
+	
+	/**
+	 * @param fromMinecraft If set to true then the MessageReceivedEvent is going to be fired, that means that if we send a message to the player this MUST be set to false
+	 */
+	public void printChatMessage(IChatComponent p_146227_1_, boolean fromMinecraft) {
+		this.printChatMessageWithOptionalDeletion(p_146227_1_, 0, fromMinecraft);
 	}
 
 	/**
-	 * prints the ChatComponent to Chat. If the ID is not 0, deletes an existing
+	 * @formatter:off
+	 * Prints the ChatComponent to Chat. If the ID is not 0, deletes an existing
 	 * Chat Line of that ID from the GUI
+	 * @formatter:on
+	 * @param fromMinecraft If set to true then the MessageReceivedEvent is going to be fired, that means that if we send a message to the player this MUST be set to false
 	 */
-	public void printChatMessageWithOptionalDeletion(IChatComponent chatComponent, int id) {
+	public void printChatMessageWithOptionalDeletion(IChatComponent chatComponent, int id, boolean fromMinecraft) {
 		/** Handles the MessageReceivedEvent */
-		if (((MessageReceivedEvent) BaseClient.instance.getEventManager().call(new MessageReceivedEvent((chatComponent == null ? null : chatComponent.getUnformattedText())))).isCancelled())
+		if (fromMinecraft && ((MessageReceivedEvent) BaseClient.instance.getEventManager().call(new MessageReceivedEvent((chatComponent == null ? null : chatComponent.getUnformattedText())))).isCancelled())
 			return;
 
 		this.setChatLine(chatComponent, id, this.mc.ingameGUI.getUpdateCounter(), false);

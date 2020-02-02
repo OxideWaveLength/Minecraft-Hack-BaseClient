@@ -25,7 +25,6 @@ public class HelpCommand extends Command {
 			}
 
 			int maxWidth = Strings.getMaxChars(help.split("\n"));
-			System.out.println(Strings.multiplyString("-", maxWidth / 4 - 1));
 			
 			String spaces = String.format("&7%1$s&f", Strings.multiplyString(" ", maxWidth / 4)); // TODO: Make this work with a line that will be too long (example: https://prnt.sc/qw9w3s)
 			String dashes = String.format("&f&7&m%1$s&f", Strings.multiplyString("-", maxWidth / 6));
