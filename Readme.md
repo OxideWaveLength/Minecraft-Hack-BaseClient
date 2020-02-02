@@ -31,7 +31,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 
 - CommandManager (with ~~two~~ three commands, "irc", ~~and~~ "set" and "help")
 - ModuleManager (with module settings, one example module (the fly/flight module) and the "AdvancedTabGui" module)
-- EventManager (not all of the event handlers are working or cancellable, some marked as cancellable are not _yet_)
+- [EventManager](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/EventManager) (not all of the event handlers are working or cancellable, some marked as cancellable are not _yet_)
 - FileManager
 - ConfigManager
 - [TabGUI](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Tab-GUI)
