@@ -82,7 +82,7 @@ public class EventManager {
 				eventListeners.get(i).onMessageSent((MessageSentEvent) event);
 			}
 			if (event instanceof PacketReceivedEvent) {
-				eventListeners.get(i).onPacketReceived((PacketReceivedEvent) event); // TODO: Implement
+				eventListeners.get(i).onPacketReceived((PacketReceivedEvent) event); // Class: NetworkManager#channelRead0()
 			}
 			if (event instanceof PacketSentEvent) {
 				eventListeners.get(i).onPacketSent((PacketSentEvent) event); // Class: NetworkManager#sendPacket()
