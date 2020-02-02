@@ -35,7 +35,7 @@ public class CommandManager extends EventListener {
 
 		this.mc = Minecraft.getMinecraft();
 
-		BaseClient.instance.getEventManager().registerEvent(this);
+		BaseClient.instance.getEventManager().registerListener(this);
 	}
 
 	public String getTrigger() {

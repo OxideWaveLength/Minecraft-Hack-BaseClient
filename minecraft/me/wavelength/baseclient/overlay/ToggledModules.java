@@ -17,7 +17,7 @@ import net.minecraft.client.gui.FontRenderer;
 public class ToggledModules extends EventListener {
 
 	public ToggledModules() {
-		BaseClient.instance.getEventManager().registerEvent(this);
+		BaseClient.instance.getEventManager().registerListener(this);
 	}
 
 	@Override

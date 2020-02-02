@@ -91,10 +91,10 @@ public class Module extends EventListener {
 	public void setToggled(boolean toggled) {
 		this.toggled = toggled;
 		if (toggled) {
-			BaseClient.instance.getEventManager().registerEvent(this);
+			BaseClient.instance.getEventManager().registerListener(this);
 			onEnable();
 		} else {
-			BaseClient.instance.getEventManager().unregisterEvent(this);
+			BaseClient.instance.getEventManager().unregisterListener(this);
 			onDisable();
 		}
 	}
