@@ -24,7 +24,7 @@ public class ToggledModules1 extends EventListener {
 	public void onRender2D(Render2DEvent event) {
 		List<Module> modules = BaseClient.instance.getModuleManager().getToggledModules();
 
-		modules.sort((o1, o2) -> Strings.getStringWidthCFR(o2.getName()) - Strings.getStringWidthCFR(o1.getName()));
+		modules.sort((module1, module2) -> Strings.getStringWidthCFR(module2.getNameWithAntiCheat()) - Strings.getStringWidthCFR(module1.getNameWithAntiCheat()));
 		int y = 1;
 
 		int offset = 15;
@@ -43,23 +43,17 @@ public class ToggledModules1 extends EventListener {
 			if ((i) > 0)
 				previousModule = modules.get(i - 1);
 
-			String s = Strings.translateColors(module.getName() + (module.getAntiCheat().equals(AntiCheat.VANILLA) ? "" : " &8-&f " + Strings.capitalizeOnlyFirstLetter(module.getAntiCheat().name())));
+			String s = Strings.translateColors(module.getNameWithAntiCheat());
 			int mWidth = Strings.getStringWidthCFR(s);
 
 			/** Draws The Black Background */
 			RenderUtils.drawRect(event.getWidth() - mWidth - 6, y - 1, event.getWidth(), y + offset, new Color(0, 0, 0, 100).getRGB());
-			
+
 			RenderUtils.drawRect(event.getWidth() - mWidth - 6, y - 1, event.getWidth() - mWidth - 4, y + offset, module.getColor().getRGB());
 
 			RenderUtils.drawString(s, event.getWidth() - mWidth - 3, y + 3, FontType.OUTLINE_THIN, module.getColor().getRGB(), new Color(0, 0, 0, 255).getRGB());
 			y += offset + 1;
 		}
 	}
-
-	public static int rainbow(int delay) {
-		double rainbowState = Math.ceil((System.currentTimeMillis() + delay) / 15.0);
-		rainbowState %= 360;
-		return Color.getHSBColor((float) (rainbowState / 360.0f), 0.7f, 0.8f).getRGB();
-	}
-
+	
 }
