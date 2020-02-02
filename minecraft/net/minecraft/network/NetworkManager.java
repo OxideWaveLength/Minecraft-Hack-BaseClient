@@ -35,6 +35,8 @@ import java.net.SocketAddress;
 import java.util.Queue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.crypto.SecretKey;
+
+import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.CryptManager;
@@ -155,8 +157,11 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 
 	public void sendPacket(Packet packetIn) {
 		/** Handles the PacketSentEvent */
-		if(((PacketSentEvent) BaseClient.instance.getEventManager().call(new PacketSentEvent(packetIn))).isCancelled())
+		PacketSentEvent packetSentEvent = (PacketSentEvent) BaseClient.instance.getEventManager().call(new PacketSentEvent(packetIn));
+		if(packetSentEvent.isCancelled())
 			return;
+		
+		packetIn = packetSentEvent.getPacket();
 		
 		if (this.isChannelOpen()) {
 			this.flushOutboundQueue();
@@ -174,8 +179,11 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 
 	public void sendPacket(Packet packetIn, GenericFutureListener<? extends Future<? super Void>> listener, GenericFutureListener<? extends Future<? super Void>>... listeners) {
 		/** Handles the PacketSentEvent */
-		if(((PacketSentEvent) BaseClient.instance.getEventManager().call(new PacketSentEvent(packetIn))).isCancelled())
+		PacketSentEvent packetSentEvent = (PacketSentEvent) BaseClient.instance.getEventManager().call(new PacketSentEvent(packetIn));
+		if(packetSentEvent.isCancelled())
 			return;
+		
+		packetIn = packetSentEvent.getPacket();
 		
 		if (this.isChannelOpen()) {
 			this.flushOutboundQueue();

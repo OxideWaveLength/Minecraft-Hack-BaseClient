@@ -14,5 +14,9 @@ public class PacketSentEvent extends CancellableEvent {
 	public Packet getPacket() {
 		return packet;
 	}
+	
+	public void setPacket(Packet packet) {
+		this.packet = packet;
+	}
 
 }
