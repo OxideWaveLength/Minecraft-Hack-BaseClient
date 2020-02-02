@@ -29,16 +29,16 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 
 ### Features
 
-- CommandManager (with ~~two~~ three commands, "irc", ~~and~~ "set" and "help")
+- CommandManager (with three commands, "irc", "set" and "help")
 - ModuleManager (with module settings, one example module (the fly/flight module) and the "AdvancedTabGui" module)
 - [EventManager](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/EventManager) (not all of the event handlers are working or cancellable, some marked as cancellable are not _yet_)
 - FileManager
 - ConfigManager
 - [TabGUI](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Tab-GUI)
-- Module rainbow "ArrayList"
+- [Module ArrayList](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Modules-ArrayList-(or-%22ToggledModules%22))
 - Overlay above hotbar
 - Alt Manager (By Russian412)
-- NahrFont ported to 1.8.8 (By Russian412)
+- NahrFont (font manager) ported to 1.8.8 (By Russian412)
 - IRC Client
 
 ------------
@@ -46,7 +46,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 ### Coming Soon / TODO
 
 - Better hotbar overlay
-- Better module "arraylist"
+- ~~Better module arraylist~~ (added in the commit #29 / 070586b!)
 - Better font manager
 - ~~Help command~~ (done)
 - Better FileManager / ConfigManager
