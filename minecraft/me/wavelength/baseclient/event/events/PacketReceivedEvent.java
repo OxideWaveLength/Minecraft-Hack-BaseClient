@@ -1,7 +1,18 @@
 package me.wavelength.baseclient.event.events;
 
-import me.wavelength.baseclient.event.Event;
+import me.wavelength.baseclient.event.CancellableEvent;
+import net.minecraft.network.Packet;
 
-public class PacketReceivedEvent extends Event {
+public class PacketReceivedEvent extends CancellableEvent {
+	
+	private Packet packet;
 
+	public PacketReceivedEvent(Packet packet) {
+		this.packet = packet;
+	}
+
+	public Packet getPacket() {
+		return packet;
+	}
+	
 }
