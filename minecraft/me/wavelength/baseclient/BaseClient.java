@@ -70,6 +70,8 @@ public class BaseClient {
 		this.moduleManager = new ModuleManager();
 		this.commandManager = new CommandManager(".");
 
+		commandManager.registerCommands(); // Moved here to make sure the CommandManager instance is created, else the "commandManager" variable in the Command class would be null (since we are getting the CommandManager instance from this class)
+		
 		this.altService = new AltService();
 
 		String accountManagerPath = new File(".").getAbsolutePath();

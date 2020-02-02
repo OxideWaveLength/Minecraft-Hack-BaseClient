@@ -34,6 +34,47 @@ public class Strings {
 		return (int) BaseClient.instance.getFontRenderer().getStringWidth(stripColors(text));
 	}
 	
+	public static int getMaxWidth(String[] lines) {
+		int maxWidth = 0;
+		for(int i = 0; i < lines.length; i++) {
+			int width = getStringWidth(lines[i]);
+			
+			if(maxWidth < width)
+				maxWidth = width;
+		}
+		
+		return maxWidth;
+	}
+	
+	public static int getMaxChars(String[] lines) {
+		int maxChars = 0;
+		for(int i = 0; i < lines.length; i++) {
+			int chars = lines[i].toCharArray().length;
+			
+			if(maxChars < chars)
+				maxChars = chars;
+		}
+		
+		return maxChars;
+	}
+	
+	public static String multiplyString(String string, int amount) {
+		return multiplyString(string, null, amount);
+	}
+	
+	public static String multiplyString(String string, String glue, int amount) {
+		String result = string;
+		
+		if(glue == null)
+			glue = "";
+		
+		for(int i = 0; i < amount; i++) {
+			result += (i == 0 ? "" : glue) + string;
+		}
+		
+		return result;
+	}
+	
 	public static boolean isEmpty(String string) {
 		if (string.isEmpty())
 			return true;
@@ -185,39 +226,6 @@ public class Strings {
 		if (string.equalsIgnoreCase("y") || string.equalsIgnoreCase("yes") || string.equalsIgnoreCase("true") || string.equalsIgnoreCase("on") || (Integers.isInteger(string) && Integer.parseInt(string) > 0))
 			return true;
 		return false;
-	}
-
-	public static String generateCreditCard(String bin, int length) {
-		Random random = new Random(System.currentTimeMillis());
-		int randomNumberLength = length - (bin.length() + 1);
-
-		StringBuilder builder = new StringBuilder(bin);
-		for (int i = 0; i < randomNumberLength; i++) {
-			int digit = random.nextInt(10);
-			builder.append(digit);
-		}
-
-		int checkDigit = getCreditCardCheckDigit(builder.toString());
-		builder.append(checkDigit);
-
-		return builder.toString();
-	}
-
-	public static int getCreditCardCheckDigit(String number) {
-		int sum = 0;
-		for (int i = 0; i < number.length(); i++) {
-			int digit = Integer.parseInt(number.substring(i, (i + 1)));
-
-			if ((i % 2) == 0) {
-				digit = digit * 2;
-				if (digit > 9) {
-					digit = (digit / 10) + (digit % 10);
-				}
-			}
-			sum += digit;
-		}
-		int mod = sum % 10;
-		return ((mod == 0) ? 0 : 10 - mod);
 	}
 
 }

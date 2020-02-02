@@ -6,36 +6,39 @@ import net.minecraft.client.Minecraft;
 
 public abstract class Command extends EventListener {
 
-	private String name;
-	private String usage;
-	private String description;
-	private String[] aliases;
+	protected final String name;
+	protected final String syntax;
+	protected final String usage;
+	protected final String[] aliases;
 
-	protected Minecraft mc;
+	protected final Minecraft mc;
 
-	public Command(String name, String usage, String description, String... aliases) {
+	protected final CommandManager commandManager;
+
+	public Command(String name, String syntax, String usage, String... aliases) {
 		this.name = name;
+		this.syntax = syntax;
 		this.usage = usage;
-		this.description = description;
 		this.aliases = aliases;
 
 		this.mc = Minecraft.getMinecraft();
+		this.commandManager = BaseClient.instance.getCommandManager();
 	}
 
 	public String getName() {
 		return name;
 	}
 
+	public String getSyntax() {
+		return getSyntax(true);
+	}
+
+	public String getSyntax(boolean trigger) {
+		return (trigger ? String.format("%1$s%2$s", BaseClient.instance.getCommandManager().getTrigger(), syntax) : String.format("%1$s", syntax));
+	}
+
 	public String getUsage() {
-		return getUsage(true);
-	}
-
-	public String getUsage(boolean trigger) {
-		return (trigger ? String.format("%1$s%2$s", BaseClient.instance.getCommandManager().getTrigger(), usage) : String.format("%1$s", usage));
-	}
-
-	public String getDescription() {
-		return description;
+		return usage;
 	}
 
 	public String[] getAliases() {
