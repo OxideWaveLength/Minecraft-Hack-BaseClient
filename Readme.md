@@ -17,7 +17,7 @@
 - EventManager (not all of the event handlers are working or cancellable, some marked as cancellable are not _yet_)
 - FileManager
 - ConfigManager
-- TabGui
+- [TabGUI](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Tab-GUI)
 - Module rainbow "ArrayList"
 - Overlay above hotbar
 - Alt Manager (By Russian412)
