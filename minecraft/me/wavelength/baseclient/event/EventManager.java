@@ -42,7 +42,7 @@ public class EventManager {
 				eventListeners.get(i).onKeyPressed((KeyPressedEvent) event);
 			}
 			if (event instanceof MessageReceivedEvent) {
-				eventListeners.get(i).onMessageReceived((MessageReceivedEvent) event); // TODO: Implement
+				eventListeners.get(i).onMessageReceived((MessageReceivedEvent) event); // Class: GuiNewChat#printChatMessageWithOptionalDeletion()
 			}
 			if (event instanceof MessageSentEvent) {
 				eventListeners.get(i).onMessageSent((MessageSentEvent) event);
@@ -51,16 +51,16 @@ public class EventManager {
 				eventListeners.get(i).onPacketReceived((PacketReceivedEvent) event); // TODO: Implement
 			}
 			if (event instanceof PacketSentEvent) {
-				eventListeners.get(i).onPacketSent((PacketSentEvent) event); // TODO: Implement
+				eventListeners.get(i).onPacketSent((PacketSentEvent) event); // Class: NetworkManager#sendPacket()
 			}
 			if (event instanceof UpdateEvent) {
 				eventListeners.get(i).onUpdate((UpdateEvent) event);
 			}
 			if (event instanceof MouseScrollEvent) {
-				eventListeners.get(i).onMouseScroll((MouseScrollEvent) event); // TODO: Implement
+				eventListeners.get(i).onMouseScroll((MouseScrollEvent) event);
 			}
 			if (event instanceof MouseClickEvent) {
-				eventListeners.get(i).onMouseClick((MouseClickEvent) event); // TODO: Implement
+				eventListeners.get(i).onMouseClick((MouseClickEvent) event);
 			}
 			if (event instanceof PreMotionEvent) {
 				eventListeners.get(i).onPreMotion((PreMotionEvent) event);
