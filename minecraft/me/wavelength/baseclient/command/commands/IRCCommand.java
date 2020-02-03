@@ -10,8 +10,8 @@ public class IRCCommand extends Command {
 
 	private IRCClient ircClient;
 
-	public IRCCommand(String name, String syntax, String usage, String... aliases) {
-		super(name, syntax, usage, aliases);
+	public IRCCommand() {
+		super("irc", "irc <connect|disconnect|status>", "Connects to the IRC Server.");
 
 		this.ircClient = BaseClient.instance.getIRCClient();
 	}

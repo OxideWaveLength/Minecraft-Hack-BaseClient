@@ -8,6 +8,7 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 
 import me.wavelength.baseclient.BaseClient;
+import me.wavelength.baseclient.command.commands.BindCommand;
 import me.wavelength.baseclient.command.commands.HelpCommand;
 import me.wavelength.baseclient.command.commands.IRCCommand;
 import me.wavelength.baseclient.command.commands.SetCommand;
@@ -27,7 +28,7 @@ public class CommandManager extends EventListener {
 	private String trigger;
 
 	private Minecraft mc;
-	
+
 	public CommandManager(String trigger) {
 		this.commands = new ArrayList<Command>();
 
@@ -47,9 +48,10 @@ public class CommandManager extends EventListener {
 	}
 
 	public void registerCommands() {
-		registerCommand(new HelpCommand("help", "help [module]", "Returns all the commands or a command description."));
-		registerCommand(new IRCCommand("irc", "irc <connect|disconnect|status>", "Connects to the IRC Server."));
-		registerCommand(new SetCommand("set", "set <module> <key> <value>", "Sets something for the module."));
+		registerCommand(new HelpCommand());
+		registerCommand(new IRCCommand());
+		registerCommand(new SetCommand());
+		registerCommand(new BindCommand());
 	}
 
 	public List<Command> getCommands() {
@@ -59,7 +61,7 @@ public class CommandManager extends EventListener {
 	public String getHelpMessage(String command) {
 		return String.format("&cThe command &e%1$s&c does not exist.", command);
 	}
-	
+
 	/**
 	 * @param name Command's name or alias
 	 * @return a command which name's is @param name, or has @param name as alias
@@ -130,5 +132,5 @@ public class CommandManager extends EventListener {
 			mc.displayGuiScreen(new GuiChat("@"));
 		}
 	}
-	
+
 }
