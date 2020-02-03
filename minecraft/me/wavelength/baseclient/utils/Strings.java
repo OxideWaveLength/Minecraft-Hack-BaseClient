@@ -9,81 +9,157 @@ import net.minecraft.client.Minecraft;
 
 public class Strings {
 
+	/**
+	 * This is the advanced translateColors, it will keep the last color used and
+	 * apply it to the next word. This fixes the issue #3
+	 */
 	public static String translateColors(String string) {
+		String[] raw = string.split(" ");
+
+		String result = "";
+
+		String lastColor = "";
+		for (int wordIndex = 0; wordIndex < raw.length; wordIndex++) {
+			String word = raw[wordIndex];
+			char[] chars = word.toCharArray();
+			for (int charIndex = 0; charIndex < chars.length; charIndex++) {
+				char c = chars[charIndex];
+				if (!(isColorSign(c)))
+					continue;
+
+				if (charIndex + 1 >= chars.length)
+					continue;
+
+				char nextChar = chars[charIndex + 1];
+				String color = String.valueOf(c) + String.valueOf(nextChar);
+				if (!(isColor(color)))
+					continue;
+
+				lastColor = color;
+			}
+			result += (wordIndex == 0 ? "" : " ") + (startsWithColor(word) ? "" : lastColor) + word;
+		}
+
+		return simpleTranslateColors(result);
+	}
+
+	/**
+	 * This is the simple translate colors, this will NOT keep track of the last
+	 * color used, the Issue #3 will still be present if used Although it should
+	 * have less impact on performances
+	 */
+	public static String simpleTranslateColors(String string) {
 		return string.replace("&", "\u00A7");
 	}
-	
+
+	/**
+	 * This removes colors from a string
+	 */
 	public static String stripColors(String string) {
-		return translateColors(string).replaceAll("\u00A7[a-z-A-z-0-9]", "");
+		return simpleTranslateColors(string).replaceAll("\u00A7[a-z-A-z-0-9]", "");
 	}
-	
+
+	/**
+	 * @return if @param string starts with a color or not
+	 */
 	public static boolean startsWithColor(String string) {
-		string = translateColors(string);
-		
-		if(string.length() < 2)
+		string = simpleTranslateColors(string);
+
+		if (string.length() < 2)
 			return false;
-		
+
 		return string.substring(0, 1).equals("\u00A7[a-z-A-z-0-9]");
 	}
-	
+
+	/**
+	 * @return if @param c is the color sign
+	 */
+	public static boolean isColorSign(char c) {
+		return simpleTranslateColors(String.valueOf(c)).equals("\u00A7");
+	}
+
+	/**
+	 * @return if @param text IS a color (&f for example)
+	 */
+	public static boolean isColor(String text) {
+		return text.matches("\u00A7[a-z-A-z-0-9]");
+	}
+
+	/**
+	 * @formatter:off
+	 * @return returns a version of @param string 
+	 * where only the first letter is uppsercase and the rest is be lowercase
+	 * @formatter:on
+	 */
 	public static String capitalizeOnlyFirstLetter(String string) {
 		return string.substring(0, 1).toUpperCase() + string.substring(1, string.length()).toLowerCase();
 	}
-	
+
+	/**
+	 * @formatter:off
+	 * @return returns a version of @param string 
+	 * where the first letter is uppsercase and the rest will stay untouched
+	 * @formatter:on
+	 */
+	public static String capitalizeFirstLetter(String string) {
+		return string.substring(0, 1).toUpperCase() + string.substring(1, string.length());
+	}
+
 	public static int getStringWidth(String text) {
 		return Minecraft.getMinecraft().fontRendererObj.getStringWidth(stripColors(text));
 	}
-	
+
 	/**
 	 * @formatter:off
-	 * CFR stands for CustomFontRenderer, that means that it will get the String Width from the custom font renderer, and not Minecraft's one.
+	 * CFR stands for CustomFontRenderer
+	 * That means that it will get the String Width from the custom font renderer, and not Minecraft's one.
 	 * @formatter:on
 	 */
 	public static int getStringWidthCFR(String text) {
 		return (int) BaseClient.instance.getFontRenderer().getStringWidth(stripColors(text));
 	}
-	
+
 	public static int getMaxWidth(String[] lines) {
 		int maxWidth = 0;
-		for(int i = 0; i < lines.length; i++) {
+		for (int i = 0; i < lines.length; i++) {
 			int width = getStringWidth(lines[i]);
-			
-			if(maxWidth < width)
+
+			if (maxWidth < width)
 				maxWidth = width;
 		}
-		
+
 		return maxWidth;
 	}
-	
+
 	public static int getMaxChars(String[] lines) {
 		int maxChars = 0;
-		for(int i = 0; i < lines.length; i++) {
+		for (int i = 0; i < lines.length; i++) {
 			int chars = lines[i].toCharArray().length;
-			
-			if(maxChars < chars)
+
+			if (maxChars < chars)
 				maxChars = chars;
 		}
-		
+
 		return maxChars;
 	}
-	
+
 	public static String multiplyString(String string, int amount) {
 		return multiplyString(string, null, amount);
 	}
-	
+
 	public static String multiplyString(String string, String glue, int amount) {
 		String result = string;
-		
-		if(glue == null)
+
+		if (glue == null)
 			glue = "";
-		
-		for(int i = 0; i < amount; i++) {
+
+		for (int i = 0; i < amount; i++) {
 			result += (i == 0 ? "" : glue) + string;
 		}
-		
+
 		return result;
 	}
-	
+
 	public static boolean isEmpty(String string) {
 		if (string.isEmpty())
 			return true;

@@ -117,13 +117,15 @@ public class GuiNewChat extends Gui {
 	public void printChatMessage(IChatComponent p_146227_1_) {
 		this.printChatMessageWithOptionalDeletion(p_146227_1_, 0, true);
 	}
-	
+
 	public void printChatMessageWithOptionalDeletion(IChatComponent chatComponent, int id) {
 		printChatMessageWithOptionalDeletion(chatComponent, id, true);
 	}
-	
+
 	/**
-	 * @param fromMinecraft If set to true then the MessageReceivedEvent is going to be fired, that means that if we send a message to the player this MUST be set to false
+	 * @param fromMinecraft If set to true then the MessageReceivedEvent is going to
+	 *                      be fired, that means that if we send a message to the
+	 *                      player this MUST be set to false
 	 */
 	public void printChatMessage(IChatComponent p_146227_1_, boolean fromMinecraft) {
 		this.printChatMessageWithOptionalDeletion(p_146227_1_, 0, fromMinecraft);
