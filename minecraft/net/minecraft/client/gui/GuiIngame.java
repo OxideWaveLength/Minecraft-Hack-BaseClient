@@ -351,8 +351,16 @@ public class GuiIngame extends Gui {
 				int i = sr.getScaledWidth() / 2;
 				float f = this.zLevel;
 				this.zLevel = -90.0F;
-				RenderUtils.drawModalRect(0, 0, sr.getScaledWidth(), 20, new Color(0, 0, 0, 180).getRGB());
-				RenderUtils.drawModalRect(i - 89 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 20, 20, new Color(255, 255, 255, 150).getRGB());
+				RenderUtils.drawModalRect(0, 0, sr.getScaledWidth(), 21, new Color(0, 0, 0, 200).getRGB());
+				RenderUtils.drawModalRect(i - 90, 0, 9 * 20, 2, new Color(174, 190, 210).getRGB());
+
+				int layers = 5;
+				
+				for(int layer = 1; layer <= layers; layer++) {
+					RenderUtils.drawModalRect(i - 90 + entityplayer.inventory.currentItem * 20, layer, 20, 1, new Color(255, 255, 255, 200 - (30 * layer)).getRGB());
+				}
+//				RenderUtils.drawModalRect(i - 90 + entityplayer.inventory.currentItem * 20, layers + 1, 20, 20 - layers, new Color(255, 255, 255, 30).getRGB());
+				
 				this.zLevel = f;
 				GlStateManager.enableRescaleNormal();
 				GlStateManager.enableBlend();

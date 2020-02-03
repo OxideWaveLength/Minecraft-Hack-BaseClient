@@ -411,9 +411,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 				if (theWorld == null)
 					continue;
 
-				for (int i = 0; i < buttonsDown.size(); i++) {
+				for (int i = 0; i < 15; i++) {
 					try {
-						if (!(Mouse.isButtonDown(buttonsDown.get(i))))
+						if (!(buttonsDown.contains(i)))
+							continue;
+
+						if (!(Mouse.isButtonDown(i)))
 							buttonsDown.remove(i);
 					} catch (NullPointerException e) {
 						continue;
@@ -1632,13 +1635,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
 					boolean cancelled = false;
 
-					synchronized (this) {
-						for (button = 0; button < 15; button++) {
-							if (!(Mouse.isButtonDown(button)))
-								continue;
-							
-							cancelled = handleButtonClick(button);
-						}
+					for (button = 0; button < 15; button++) {
+						if (!(Mouse.isButtonDown(button)))
+							continue;
+
+						System.out.println(button);
+						cancelled = handleButtonClick(button);
+						break;
 					}
 
 					if (!(cancelled) && !(buttonsDown.contains(button))) {
