@@ -29,7 +29,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 
 ### Features
 
-- CommandManager (with three commands, "irc", "set" and "help")
+- CommandManager (with four commands, "irc", "set", "help" and bind (added in the commit #41, 0be34e4))
 - ModuleManager (with module settings, one example module (the fly/flight module) and the "AdvancedTabGui" module)
 - [EventManager](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/EventManager) (not all of the event handlers are working or cancellable, some marked as cancellable are not _yet_)
 - FileManager
