@@ -19,10 +19,10 @@ public class HotbarOverlay extends EventListener {
 	/** The rest of the code is in GuiIngame#renderTooltip() */
 	@Override
 	public void onRender2D(Render2DEvent event) {
-		if(BaseClient.instance.isDefaultHotbar())
+		if (BaseClient.instance.isDefaultHotbar())
 			return;
-		
-		RenderUtils.drawModalRectFromRight(5, 0, 5, 20, Color.RED.getRGB());
+
+		RenderUtils.drawModalRectFromRight(5, 0, 5, 21, Color.RED.getRGB());
 
 		RenderUtils.drawStringFromBottomRight(Time.getTime(System.currentTimeMillis(), "HH:mm:ss"), 9, 7, FontType.SHADOW_THIN, Color.YELLOW.getRGB());
 
