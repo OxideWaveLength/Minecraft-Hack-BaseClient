@@ -3,10 +3,10 @@ package me.wavelength.baseclient.utils;
 import org.lwjgl.opengl.GL11;
 
 import me.wavelength.baseclient.BaseClient;
-import me.wavelength.baseclient.font.NahrFont;
 import me.wavelength.baseclient.font.NahrFont.FontType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
@@ -17,12 +17,44 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class RenderUtils {
 
-	public static void drawString(String text, int x, int y, FontType fontType, int color, int color2) {
-		BaseClient.instance.getFontRenderer().drawString(text, x, y, fontType, color, color2);
+	public static void drawString(String text, int x, int y, FontType fontType, int color, int shadowColor) {
+		BaseClient.instance.getFontRenderer().drawString(text, x, y, fontType, color, shadowColor);
+	}
+
+	public static void drawString(String text, int x, int y, FontType fontType, int color) {
+		BaseClient.instance.getFontRenderer().drawString(text, x, y, fontType, color, -16777216);
+	}
+
+	public static void drawStringFromTopRight(String text, int x, int y, FontType fontType, int color, int shadowColor) {
+		drawString(text, getScaledResolution().getScaledWidth() - Strings.getStringWidthCFR(text) - x, y, fontType, color, shadowColor);
+	}
+
+	public static void drawStringFromTopRight(String text, int x, int y, FontType fontType, int color) {
+		drawStringFromTopRight(text, x, y, fontType, color, -16777216);
+	}
+
+	public static void drawStringFromBottomRight(String text, int x, int y, FontType fontType, int color, int shadowColor) {
+		drawStringFromTopRight(text, x, getScaledResolution().getScaledHeight() - y * 2, fontType, color, shadowColor);
+	}
+
+	public static void drawStringFromBottomRight(String text, int x, int y, FontType fontType, int color) {
+		drawStringFromBottomRight(text, x, y, fontType, color, -16777216);
 	}
 
 	public static void drawRect(int left, int top, int right, int bottom, int color) {
 		Gui.drawRect(left, top, right, bottom, color);
+	}
+
+	public static void drawModalRect(int xCord, int yCord, int width, int height, int color) {
+		Gui.drawRect(xCord, getScaledResolution().getScaledHeight() - height, xCord + width, getScaledResolution().getScaledHeight() + yCord, color);
+	}
+
+	public static void drawModalRectFromRight(int xCord, int yCord, int width, int height, int color) {
+		drawModalRect(getScaledResolution().getScaledWidth() - xCord, yCord, width, height, color);
+	}
+
+	public static ScaledResolution getScaledResolution() {
+		return new ScaledResolution(Minecraft.getMinecraft());
 	}
 
 	public static void drawOutlinedBoundingBox(AxisAlignedBB aa) {

@@ -7,8 +7,8 @@ import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.event.events.Render2DEvent;
 import me.wavelength.baseclient.font.NahrFont.FontType;
 import me.wavelength.baseclient.utils.RenderUtils;
-import me.wavelength.baseclient.utils.Strings;
-import net.minecraft.client.Minecraft;
+import me.wavelength.baseclient.utils.Time;
+import net.minecraft.client.gui.ScaledResolution;
 
 public class HotbarOverlay extends EventListener {
 
@@ -18,17 +18,22 @@ public class HotbarOverlay extends EventListener {
 
 	@Override
 	public void onRender2D(Render2DEvent event) {
+		if(BaseClient.instance.isDefaultHotbar())
+			return;
+		
+		RenderUtils.drawModalRectFromRight(5, 0, 5, 20, Color.RED.getRGB());
+
+		RenderUtils.drawStringFromBottomRight(Time.getTime(System.currentTimeMillis(), "HH:mm:ss"), 9, 7, FontType.SHADOW_THIN, Color.YELLOW.getRGB());
+
 		if (mc.currentScreen != null)
 			return;
 
-		RenderUtils.drawRect(event.getWidth(), event.getHeight(), -event.getWidth(), event.getHeight() - 23, new Color(0, 0, 0, 180).getRGB());
-
-		renderText(event, "&7[&dFPS&7]&5 " + mc.getDebugFPS(), 5);
+		renderText(event, "&7[&dFPS&7]&5 " + mc.getDebugFPS(), 2);
 	}
 
 	private void renderText(Render2DEvent event, String text, int x) {
 		String fpsText = text;
-		RenderUtils.drawString(fpsText, x, event.getHeight() - 18, FontType.NORMAL, -1, -16777216);
+		RenderUtils.drawString(fpsText, x, event.getHeight() - 15, FontType.SHADOW_THIN, -1);
 	}
 
 }

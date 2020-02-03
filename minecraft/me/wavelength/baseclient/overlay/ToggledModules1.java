@@ -51,7 +51,7 @@ public class ToggledModules1 extends EventListener {
 
 			RenderUtils.drawRect(event.getWidth() - mWidth - 6, y - 1, event.getWidth() - mWidth - 4, y + offset, module.getColor().getRGB());
 
-			RenderUtils.drawString(s, event.getWidth() - mWidth - 3, y + 3, FontType.OUTLINE_THIN, module.getColor().getRGB(), new Color(0, 0, 0, 255).getRGB());
+			RenderUtils.drawString(s, event.getWidth() - mWidth - 3, y + 3, FontType.SHADOW_THIN, module.getColor().getRGB());
 			y += offset + 1;
 		}
 	}

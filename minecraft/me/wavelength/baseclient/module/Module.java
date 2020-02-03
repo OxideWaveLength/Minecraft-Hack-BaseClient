@@ -37,13 +37,12 @@ public class Module extends EventListener {
 		this.moduleSettings = new ModuleSettings(this);
 		
 		setup();
+		randomColor();
 		loadFromSettings();
 	}
 
 	private void loadFromSettings() {
-		if(moduleSettings.getBoolean("toggled"))
-			setToggled(true);
-		
+		this.toggled = moduleSettings.getBoolean("toggled");
 		this.key = moduleSettings.getInt("key");
 		this.antiCheat = AntiCheat.valueOf(moduleSettings.getString("anticheat").toUpperCase());
 		this.antiCheat = (Arrays.stream(allowedAntiCheats).anyMatch(antiCheat::equals) ? antiCheat : allowedAntiCheats[0]);
@@ -109,11 +108,15 @@ public class Module extends EventListener {
 	public void toggle() {
 		setToggled(!(toggled));
 	}
+	
+	private void randomColor() {
+		this.color = Random.getRandomLightColor();
+	}
 
 	public void setToggled(boolean toggled) {
 		this.toggled = toggled;
 		if (toggled) {
-			this.color = Random.getRandomLightColor();
+			randomColor();
 			moduleSettings.set("toggled", true);
 			BaseClient.instance.getEventManager().registerListener(this);
 			onEnable();

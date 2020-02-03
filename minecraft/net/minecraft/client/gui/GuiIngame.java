@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
@@ -10,6 +11,7 @@ import com.google.common.collect.Lists;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.events.Render2DEvent;
+import me.wavelength.baseclient.utils.RenderUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -319,29 +321,54 @@ public class GuiIngame extends Gui {
 
 	protected void renderTooltip(ScaledResolution sr, float partialTicks) {
 		if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			this.mc.getTextureManager().bindTexture(widgetsTexPath);
-			EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
-			int i = sr.getScaledWidth() / 2;
-			float f = this.zLevel;
-			this.zLevel = -90.0F;
-			this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
-			this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
-			this.zLevel = f;
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-			RenderHelper.enableGUIStandardItemLighting();
+			if (BaseClient.instance.isDefaultHotbar()) {
+				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				this.mc.getTextureManager().bindTexture(widgetsTexPath);
+				EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
+				int i = sr.getScaledWidth() / 2;
+				float f = this.zLevel;
+				this.zLevel = -90.0F;
+				this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
+				this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+				this.zLevel = f;
+				GlStateManager.enableRescaleNormal();
+				GlStateManager.enableBlend();
+				GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+				RenderHelper.enableGUIStandardItemLighting();
 
-			for (int j = 0; j < 9; ++j) {
-				int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
-				int l = sr.getScaledHeight() - 16 - 3;
-				this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
+				for (int j = 0; j < 9; ++j) {
+					int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
+					int l = sr.getScaledHeight() - 16 - 3;
+					this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
+				}
+
+				RenderHelper.disableStandardItemLighting();
+				GlStateManager.disableRescaleNormal();
+				GlStateManager.disableBlend();
+			} else {
+				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
+				int i = sr.getScaledWidth() / 2;
+				float f = this.zLevel;
+				this.zLevel = -90.0F;
+				RenderUtils.drawModalRect(0, 0, sr.getScaledWidth(), 20, new Color(0, 0, 0, 180).getRGB());
+				RenderUtils.drawModalRect(i - 89 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 20, 20, new Color(255, 255, 255, 150).getRGB());
+				this.zLevel = f;
+				GlStateManager.enableRescaleNormal();
+				GlStateManager.enableBlend();
+				GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+				RenderHelper.enableGUIStandardItemLighting();
+
+				for (int j = 0; j < 9; ++j) {
+					int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
+					int l = sr.getScaledHeight() - 16 - 3;
+					this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
+				}
+
+				RenderHelper.disableStandardItemLighting();
+				GlStateManager.disableRescaleNormal();
+				GlStateManager.disableBlend();
 			}
-
-			RenderHelper.disableStandardItemLighting();
-			GlStateManager.disableRescaleNormal();
-			GlStateManager.disableBlend();
 		}
 	}
 
@@ -890,7 +917,7 @@ public class GuiIngame extends Gui {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
-	private void renderHotbarItem(int index, int xPos, int yPos, float partialTicks, EntityPlayer p_175184_5_) {
+	public void renderHotbarItem(int index, int xPos, int yPos, float partialTicks, EntityPlayer p_175184_5_) {
 		ItemStack itemstack = p_175184_5_.inventory.mainInventory[index];
 
 		if (itemstack != null) {

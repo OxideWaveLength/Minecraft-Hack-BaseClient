@@ -55,6 +55,8 @@ public class BaseClient {
 	
 	private String packageBase = "me.wavelength.baseclient";
 
+	private boolean defaultHotbar = false;
+	
 	public BaseClient() {
 		instance = this;
 	}
@@ -152,6 +154,10 @@ public class BaseClient {
 		return packageBase;
 	}
 
+	public boolean isDefaultHotbar() {
+		return defaultHotbar;
+	}
+	
 	public void switchToMojang() {
 		try {
 			this.altService.switchService(AltService.EnumAltService.MOJANG);
