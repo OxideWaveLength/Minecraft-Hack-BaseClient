@@ -242,7 +242,7 @@ public class TabGui1 extends EventListener {
 		List<String> items = new ArrayList<String>();
 		for (int i = 0; i < modules.size(); i++) {
 			Module module = modules.get(i);
-			items.add((module.isToggled() ? "&a" : "") + Strings.capitalizeOnlyFirstLetter(module.getName()));
+			items.add((module.isToggled() ? "&a" : "") + Strings.capitalizeFirstLetter(module.getName()));
 		}
 		renderMenu(items, currentModule);
 	}

@@ -16,6 +16,7 @@ public class HotbarOverlay extends EventListener {
 		BaseClient.instance.getEventManager().registerListener(this);
 	}
 
+	/** The rest of the code is in GuiIngame#renderTooltip() */
 	@Override
 	public void onRender2D(Render2DEvent event) {
 		if(BaseClient.instance.isDefaultHotbar())

@@ -24,7 +24,7 @@ public class ToggledModules1 extends EventListener {
 	public void onRender2D(Render2DEvent event) {
 		List<Module> modules = BaseClient.instance.getModuleManager().getToggledModules();
 
-		modules.sort((module1, module2) -> Strings.getStringWidthCFR(module2.getNameWithAntiCheat()) - Strings.getStringWidthCFR(module1.getNameWithAntiCheat()));
+		modules.sort((module1, module2) -> Strings.getStringWidthCFR(Strings.capitalizeFirstLetter(module2.getNameWithAntiCheat())) - Strings.getStringWidthCFR(Strings.capitalizeFirstLetter(module1.getNameWithAntiCheat())));
 		int y = 1;
 
 		int offset = 15;
@@ -43,7 +43,7 @@ public class ToggledModules1 extends EventListener {
 			if ((i) > 0)
 				previousModule = modules.get(i - 1);
 
-			String s = Strings.translateColors(module.getNameWithAntiCheat());
+			String s = Strings.capitalizeFirstLetter(Strings.translateColors(module.getNameWithAntiCheat()));
 			int mWidth = Strings.getStringWidthCFR(s);
 
 			/** Draws The Black Background */
@@ -55,5 +55,5 @@ public class ToggledModules1 extends EventListener {
 			y += offset + 1;
 		}
 	}
-	
+
 }
