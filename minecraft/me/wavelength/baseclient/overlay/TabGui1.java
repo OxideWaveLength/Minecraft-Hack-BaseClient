@@ -256,7 +256,7 @@ public class TabGui1 extends EventListener {
 	private void renderMenu(List<String> items, int currentItem) {
 		int height = 15;
 
-		RenderUtils.drawString(String.format("&f%1$s &8-&b %2$s", BaseClient.instance.getClientName(), BaseClient.instance.getClientVersion()), 5, 12, FontType.OUTLINE_THIN, -1, -16777216);
+		RenderUtils.drawString(String.format("&f%1$s &8-&b %2$s", BaseClient.instance.getClientName(), BaseClient.instance.getClientVersion()), 5, 12, FontType.SHADOW_THIN, -1);
 
 		RenderUtils.drawRect(5, height * 2 - 3, maxItemWidth + 15 + 5, height * (items.size() + 2) - 3, new Color(0, 0, 0, 130).getRGB());
 		for (int i = 0; i < items.size(); i++) {
@@ -277,7 +277,7 @@ public class TabGui1 extends EventListener {
 				RenderUtils.drawRect(5, 10 + height * (i + 2) - height + 2, maxItemWidth + 15 + 5, height * (i + 3) - 3, backgroundColor.getRGB());
 			}
 
-			RenderUtils.drawString(item, 10, height * (i + 2), FontType.OUTLINE_THIN, -1, -16777216);
+			RenderUtils.drawString(item, 10, height * (i + 2), FontType.SHADOW_THIN, -1);
 		}
 
 		if (indentation != 1 || getCurrentModule() == null)
@@ -285,7 +285,7 @@ public class TabGui1 extends EventListener {
 
 		String description = getCurrentModule().getDescription();
 		RenderUtils.drawRect(5, 9 + height * (items.size() + 3) - height + 2, Strings.getStringWidthCFR(description) + 12, height * (items.size() + 4) - 3, new Color(0, 0, 0, 100).getRGB());
-		RenderUtils.drawString(description, 8, height * (items.size() + 3), FontType.OUTLINE_THIN, -1, -16777216);
+		RenderUtils.drawString(description, 8, height * (items.size() + 3), FontType.SHADOW_THIN, -1);
 	}
 
 }
