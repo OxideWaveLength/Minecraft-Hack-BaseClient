@@ -11,8 +11,8 @@ import me.wavelength.baseclient.utils.Strings;
 
 public class SetCommand extends Command {
 
-	public SetCommand(String name, String syntax, String usage, String... aliases) {
-		super(name, syntax, usage, aliases);
+	public SetCommand() {
+		super("set", "set <module> <key> <value>", "Sets something for the module.");
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class SetCommand extends Command {
 
 		Module module = BaseClient.instance.getModuleManager().getModule(args[0]);
 		if (module == null) {
-			return String.format("&cThe module &f%1$s&c does not exist.", args[0]);
+			return String.format("&cThe module &e%1$s&c does not exist.", args[0]);
 		}
 
 		ModuleSettings moduleSettings = module.getModuleSettings();

@@ -13,16 +13,16 @@ public class Module extends EventListener {
 	protected String name;
 	protected String description;
 	protected int key;
-	protected Category category;
+	protected final Category category;
 	protected AntiCheat[] allowedAntiCheats;
 
 	protected AntiCheat antiCheat;
 
-	protected ModuleSettings moduleSettings;
+	protected final ModuleSettings moduleSettings;
 
-	protected boolean toggled;
+	private boolean toggled;
 
-	private Color color;
+	protected Color color;
 
 	public Module(String name, String description, int key, Category category, AntiCheat... allowedAntiCheats) {
 		this.name = name;
@@ -59,6 +59,11 @@ public class Module extends EventListener {
 
 	public int getKey() {
 		return key;
+	}
+	
+	public void setKey(int key) {
+		this.key = key;
+		moduleSettings.set("key", key);
 	}
 
 	public Category getCategory() {

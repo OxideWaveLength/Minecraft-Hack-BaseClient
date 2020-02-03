@@ -52,6 +52,24 @@ public class ModuleManager extends EventListener {
 		return null;
 	}
 
+	public List<Module> getModules(int key) {
+		List<Module> modules = new ArrayList<Module>();
+		for (int i = 0; i < this.modules.size(); i++) {
+			if (this.modules.get(i).getKey() == key)
+				modules.add(this.modules.get(i));
+		}
+
+		return modules;
+	}
+
+	public Module getModule(int key) {
+		List<Module> modules = getModules(key);
+		if (modules.size() == 0)
+			return null;
+
+		return modules.get(0);
+	}
+
 	public List<Module> getModules() {
 		return modules;
 	}
@@ -67,21 +85,28 @@ public class ModuleManager extends EventListener {
 		return modules;
 	}
 
+	/**
+	 * @formatter:off
+	 * The module's key will be equal to the button id passed (a list can be found in the MouseClickEvent class) BUT negative,
+	 * MINUS 1 (since 0 is used for NONE, and we don't want modules to get activated when the mouse button 0 is pressed).
+	 * So mouse button 0 is going to be -1, button 1 is -2 and so on
+	 * @formatter:on
+	 */
 	@Override
 	public void onMouseClick(MouseClickEvent event) {
+		List<Module> modules = new ArrayList<Module>(getModules(-event.getButton() - 1));
+
 		for (int i = 0; i < modules.size(); i++) {
-			Module module = modules.get(i);
-			if (module.getKey() == -100 + event.getButton())
-				module.toggle();
+			modules.get(i).toggle();
 		}
 	}
 
 	@Override
 	public void onKeyPressed(KeyPressedEvent event) {
+		List<Module> modules = new ArrayList<Module>(getModules(event.getKey()));
+
 		for (int i = 0; i < modules.size(); i++) {
-			Module module = modules.get(i);
-			if (module.getKey() == event.getKey())
-				module.toggle();
+			modules.get(i).toggle();
 		}
 	}
 

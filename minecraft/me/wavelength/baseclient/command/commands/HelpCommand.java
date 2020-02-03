@@ -8,8 +8,8 @@ import me.wavelength.baseclient.utils.Strings;
 
 public class HelpCommand extends Command {
 
-	public HelpCommand(String name, String syntax, String usage, String... aliases) {
-		super(name, syntax, usage, aliases);
+	public HelpCommand() {
+		super("help", "help [module]", "Returns all the commands or a command description.");
 	}
 
 	@Override
