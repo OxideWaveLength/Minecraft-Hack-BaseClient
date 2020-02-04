@@ -5,6 +5,7 @@ import java.util.List;
 
 import me.wavelength.baseclient.command.Command;
 import me.wavelength.baseclient.utils.Player;
+import me.wavelength.baseclient.utils.Random;
 import me.wavelength.baseclient.utils.Strings;
 
 public class HelpCommand extends Command {
@@ -26,8 +27,9 @@ public class HelpCommand extends Command {
 			}
 
 			int maxWidth = Strings.getMaxChars(help.split("\n"));
-			
-			String spaces = String.format("&7%1$s&f", Strings.multiplyString(" ", maxWidth / 4)); // TODO: Make this work with a line that will be too long (example: https://prnt.sc/qw9w3s)
+
+			String spaces = String.format("&7%1$s&f", Strings.multiplyString(" ", maxWidth / 4)); // TODO: Make this work with a line that will be too long (example:
+																									// https://prnt.sc/qw9w3s)
 			String dashes = String.format("&f&7&m%1$s&f", Strings.multiplyString("-", maxWidth / 6));
 			help = (spaces + dashes + " &5Help " + dashes) + "\n" + help;
 

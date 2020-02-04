@@ -91,10 +91,12 @@ public class TabGui1 extends EventListener {
 			break;
 		}
 		/** If inside the Module Settings indentation draw it */
+		case 3:
 		case 2: {
 			renderSettings(event);
 			break;
 		}
+
 		}
 	}
 
@@ -120,6 +122,9 @@ public class TabGui1 extends EventListener {
 			currentSetting = (direction == 0 ? (currentSetting == getCurrentSettingsList().size() - 1 ? 0 : currentSetting + 1) : (currentSetting == 0 ? getCurrentSettingsList().size() - 1 : currentSetting - 1));
 			break;
 		}
+//		case 3: {
+//
+//		}
 		}
 	}
 

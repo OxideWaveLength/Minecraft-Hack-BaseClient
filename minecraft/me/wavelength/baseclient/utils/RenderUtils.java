@@ -46,7 +46,7 @@ public class RenderUtils {
 	}
 
 	public static void drawModalRect(int xCord, int yCord, int width, int height, int color) {
-		Gui.drawRect(xCord, getScaledResolution().getScaledHeight() - height, xCord + width, getScaledResolution().getScaledHeight() + yCord, color);
+		Gui.drawRect(xCord, getScaledResolution().getScaledHeight() - yCord, xCord + width, getScaledResolution().getScaledHeight() - yCord - height, color);
 	}
 
 	public static void drawModalRectFromRight(int xCord, int yCord, int width, int height, int color) {

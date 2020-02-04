@@ -36,7 +36,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 - ConfigManager
 - [TabGUI](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Tab-GUI)
 - [Module ArrayList](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Modules-ArrayList-(or-%22ToggledModules%22))
-- Hotbar overlay
+- [Hotbar Overlay](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Hotbar-Overlay)
 - Alt Manager (By Russian412)
 - NahrFont (Font Manager) ported to 1.8.8 (By Russian412)
 - IRC Client
