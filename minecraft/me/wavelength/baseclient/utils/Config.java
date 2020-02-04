@@ -56,7 +56,7 @@ public class Config {
 	public File getDirectory() {
 		if (file.isDirectory())
 			return file;
-		if (Strings.getOsName().contains("indows"))
+		if (Strings.getOsName().toLowerCase().contains("windows"))
 			return new File(file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf("\\")));
 		else
 			return new File(file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf("/")));
@@ -100,7 +100,7 @@ public class Config {
 		}
 		return null;
 	}
-	
+
 	public void deleteLine(int line) {
 		Files.deleteLine(file, line);
 	}
@@ -108,7 +108,7 @@ public class Config {
 	public void deleteLine(String line) {
 		Files.deleteLine(file, line);
 	}
-	
+
 	public void removeLine(int line) {
 		Files.removeLine(file, line);
 	}
@@ -116,7 +116,7 @@ public class Config {
 	public void removeLine(String line) {
 		Files.removeLine(file, line);
 	}
-	
+
 	public Object getObject(String path) {
 		try {
 			List<String> lines = readLines();
@@ -231,7 +231,7 @@ public class Config {
 	public void set(String path, List<?> value) {
 		set(path, (Object) value);
 	}
-	
+
 	public LinkedHashMap<String, Object> getDefaultSettings() {
 		return defaultSettings;
 	}

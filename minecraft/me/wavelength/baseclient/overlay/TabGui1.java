@@ -203,8 +203,6 @@ public class TabGui1 extends EventListener {
 		if (getMode() != 1)
 			return;
 
-		event.setCancelled(true);
-
 		switch (event.getButton()) {
 		case 1: {
 			menuInteract(0);

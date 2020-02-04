@@ -429,7 +429,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 		}).start();
 	}
 
-
 	public void run() {
 		this.running = true;
 
@@ -1515,12 +1514,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 	}
 
 	/** Custom hook to handle mouse clicks */
-	private boolean handleButtonClick(int button) {
+	private void handleButtonClick(int button) {
 		if (buttonsDown.contains(button))
-			return false;
+			return;
 
 		buttonsDown.add(button);
-		return ((MouseClickEvent) BaseClient.instance.getEventManager().call(new MouseClickEvent(button))).isCancelled();
+		BaseClient.instance.getEventManager().call(new MouseClickEvent(button));
 	}
 
 	/**
@@ -1636,24 +1635,19 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 					/** Mouse Click Event */
 					int button = 0;
 
-					boolean cancelled = false;
-
 					for (button = 0; button < 15; button++) {
 						if (!(Mouse.isButtonDown(button)))
 							continue;
 
-						cancelled = handleButtonClick(button);
-						break;
+						handleButtonClick(button);
 					}
 
-					if (!(cancelled) && !(buttonsDown.contains(button))) {
-						if (this.currentScreen == null) {
-							if (!this.inGameHasFocus && Mouse.getEventButtonState()) {
-								this.setIngameFocus();
-							}
-						} else if (this.currentScreen != null) {
-							this.currentScreen.handleMouseInput();
+					if (this.currentScreen == null) {
+						if (!this.inGameHasFocus && Mouse.getEventButtonState()) {
+							this.setIngameFocus();
 						}
+					} else if (this.currentScreen != null) {
+						this.currentScreen.handleMouseInput();
 					}
 				}
 			}
