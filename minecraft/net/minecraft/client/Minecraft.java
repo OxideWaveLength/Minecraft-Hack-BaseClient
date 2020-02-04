@@ -61,6 +61,7 @@ import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.event.events.MouseScrollEvent;
+import me.wavelength.baseclient.module.modules.hidden.AdvancedTabGui;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.audio.MusicTicker;
@@ -406,25 +407,28 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 		this.buttonsDown = new ArrayList<Integer>();
 
 		new Thread(() -> {
-			while (!(Thread.interrupted())) {
+			while (running) {
 
 				if (theWorld == null)
 					continue;
 
-				for (int i = 0; i < 15; i++) {
+				for (int i = 0; i < buttonsDown.size(); i++) {
 					try {
-						if (!(buttonsDown.contains(i)))
+						int button = buttonsDown.get(i);
+
+						if (Mouse.isButtonDown(button))
 							continue;
 
-						if (!(Mouse.isButtonDown(i)))
-							buttonsDown.remove(i);
-					} catch (NullPointerException e) {
+						buttonsDown.remove(i);
+					} catch (NullPointerException | IndexOutOfBoundsException e) {
 						continue;
 					}
 				}
+
 			}
 		}).start();
 	}
+
 
 	public void run() {
 		this.running = true;
@@ -1630,7 +1634,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 					}
 
 					/** Mouse Click Event */
-
 					int button = 0;
 
 					boolean cancelled = false;
@@ -1639,7 +1642,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 						if (!(Mouse.isButtonDown(button)))
 							continue;
 
-						System.out.println(button);
 						cancelled = handleButtonClick(button);
 						break;
 					}
