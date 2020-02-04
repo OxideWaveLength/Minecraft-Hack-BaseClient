@@ -1,16 +1,20 @@
-# Minecraft Hacked Client Base Client 1.8.8 (with optifine)
+# Minecraft Base Hacked Client 1.8.8 (with Optifine)
 
-### What's needed
+## Welcome!
+We have a _new_ FAQ (Q&A) section! If you are interested you can click [here](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/FAQ-(Q&A))
 
+------------
+
+### Setup
+
+#### What's needed
 - Internet connection
 - At least 4gb of ram
 - Java JDK (1.8)
 - Java JRE (1.8)
 - An IDE (The setup is for Eclipse, but MCP can also be setup on [IntelliJ Idea](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+IntelliJ+Idea))
 
-------------
-
-### Setup
+#### Let's get started
 
 _Note: the instructions in italics apply ONLY to Eclipse, if you have a different IDE, [search how to set the project up on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
 
