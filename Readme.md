@@ -63,7 +63,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 
 - Create a wiki for every part of the client
 - ~~Finish all of the event handlers~~ (Done! Added in the commit #38 / a2c72e1)
-- Finish the TabGui, so that the module settings can be changed from there (they can be seen already, but not changed)
+- ~~Finish the TabGui, so that the module settings can be changed from there (they can be seen already, but not changed)~~ (Done, added in the commit #55 / 26c5f09)
 
 ------------
 
