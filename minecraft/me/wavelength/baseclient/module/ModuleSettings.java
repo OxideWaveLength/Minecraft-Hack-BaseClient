@@ -73,6 +73,30 @@ public class ModuleSettings {
 	public void set(String key, Object value) {
 		config.set(key.toLowerCase(), value);
 	}
+	
+	public void set(String key, String value) {
+		config.set(key.toLowerCase(), value);
+	}
+	
+	public void set(String key, boolean value) {
+		config.set(key.toLowerCase(), value);
+	}
+	
+	public void set(String key, int value) {
+		config.set(key.toLowerCase(), value);
+	}
+	
+	public void set(String key, char value) {
+		config.set(key.toLowerCase(), value);
+	}
+	
+	public void set(String key, double value) {
+		config.set(key.toLowerCase(), value);
+	}
+	
+	public void set(String key, float value) {
+		config.set(key.toLowerCase(), value);
+	}
 
 	public String getString(String key) {
 		return config.getString(key.toLowerCase());

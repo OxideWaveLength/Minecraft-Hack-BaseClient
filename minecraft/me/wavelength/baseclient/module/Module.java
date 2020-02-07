@@ -127,4 +127,12 @@ public class Module extends EventListener {
 		}
 	}
 
+	public void setAntiCheat(AntiCheat antiCheat) {
+		if(!(Arrays.stream(allowedAntiCheats).anyMatch(antiCheat::equals)))
+			return;
+		
+		this.antiCheat = antiCheat;
+		moduleSettings.set("anticheat", antiCheat.name().toLowerCase());
+	}
+
 }

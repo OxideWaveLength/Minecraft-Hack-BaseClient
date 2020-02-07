@@ -31,7 +31,16 @@ public class Integers {
 	}
 
 	public static boolean isDouble(String s) {
+		return isDouble(s, false);
+	}
+
+	public static boolean isDouble(String s, boolean strict) {
+		if(strict)
+			if(!(s.contains(".")))
+				return false;
+		
 		return DOUBLE_PATTERN.matcher(s).matches();
 	}
+	
 
 }

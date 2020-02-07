@@ -1,7 +1,9 @@
 package me.wavelength.baseclient.overlay;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.lwjgl.input.Keyboard;
@@ -13,21 +15,23 @@ import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.event.events.MouseScrollEvent;
 import me.wavelength.baseclient.event.events.Render2DEvent;
 import me.wavelength.baseclient.font.NahrFont.FontType;
+import me.wavelength.baseclient.module.AntiCheat;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.module.ModuleSettings;
 import me.wavelength.baseclient.module.modules.hidden.AdvancedTabGui;
-import me.wavelength.baseclient.utils.Random;
+import me.wavelength.baseclient.utils.Integers;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Strings;
-import net.minecraft.client.Minecraft;
 
 public class TabGui1 extends EventListener {
 
 	private int currentCategory;
 	private int currentModule;
 	private int currentSetting;
+
+	private String[] moduleSettingsExceptions;
 
 	/**
 	 * @formatter:off
@@ -48,11 +52,13 @@ public class TabGui1 extends EventListener {
 		BaseClient.instance.getEventManager().registerListener(this);
 
 		this.moduleManager = BaseClient.instance.getModuleManager();
+
+		this.moduleSettingsExceptions = new String[] { "toggled", "key" };
 	}
 
 	/**
 	 * @return The current mode, 0 = default mode (ARROW KEYS), 1 = "Advanced" mode
-	 *         (MOUSE WHEEL AND MOUSE CLICKS)
+	 *         (MOUSE WHEEL (CAN BE BOUND) AND MOUSE CLICKS)
 	 */
 	private int getMode() {
 		return (BaseClient.instance.getModuleManager().getModule(AdvancedTabGui.class).isToggled() ? 1 : 0);
@@ -68,6 +74,29 @@ public class TabGui1 extends EventListener {
 
 	private List<String> getCurrentSettingsList() {
 		return getCurrentModule().getModuleSettings().getConfig().readLines();
+	}
+
+	private List<String> getFilteredSettingsList() {
+		List<String> settings = new ArrayList<String>(getCurrentSettingsList());
+		for (int i = 0; i < moduleSettingsExceptions.length; i++) {
+			for (int j = 0; j < settings.size(); j++) {
+				String setting = settings.get(j);
+				setting = setting.substring(0, setting.indexOf(":"));
+
+				if (moduleSettingsExceptions[i].equalsIgnoreCase(setting))
+					settings.remove(j);
+			}
+		}
+
+		return settings;
+	}
+
+	private String getCurrentSettings() {
+		return getCurrentSettingsList().get(currentSetting);
+	}
+
+	private String getCurrentSettingsFiltered() {
+		return getFilteredSettingsList().get(currentSetting);
 	}
 
 	private ModuleSettings getCurrentModuleSettings() {
@@ -106,6 +135,53 @@ public class TabGui1 extends EventListener {
 	 * @formatter:on
 	 */
 	private void menuScroll(int direction) {
+		if (indentation == 3) {
+			String[] currentSetting = getCurrentSettingsFiltered().split(": ");
+
+			String key = currentSetting[0];
+			String value = currentSetting[1];
+
+			Module module = getCurrentModule();
+
+			if (Integers.isInteger(value)) {
+				int v = Integers.getInteger(value);
+				v += (direction == 0 ? -1 : 1);
+				getCurrentModule().getModuleSettings().set(key, v);
+			} else if (Integers.isDouble(value)) {
+				double v = Double.parseDouble(value);
+				double incr = mc.gameSettings.keyBindSneak.isKeyDown() ? 1 : 0.1D;
+				
+				v += (direction == 0 ? -incr : incr);
+				
+				v = Double.valueOf(new DecimalFormat("#.#").format(v));
+				
+				if(v < 0)
+					v = 0.0D;
+				
+				if(!(Double.toString(v).contains(".")))
+					v = Double.parseDouble(v + ".0");
+				
+				getCurrentModule().getModuleSettings().set(key, v);
+			} else if (Strings.isBoolean(value)) {
+				boolean v = Strings.getBooleanValue(value);
+				v = !v;
+				getCurrentModule().getModuleSettings().set(key, v);
+			} else {
+				if (key.equalsIgnoreCase("anticheat")) {
+					AntiCheat[] allowedAntiCheats = getCurrentModule().getAllowedAntiCheats();
+
+					int currentAntiCheat = Arrays.asList(allowedAntiCheats).indexOf(AntiCheat.valueOf(value.toUpperCase()));
+
+					int newAntiCheat = (direction == 0 ? (currentAntiCheat == 0 ? allowedAntiCheats.length - 1 : currentAntiCheat - 1) : (currentAntiCheat + 1 >= allowedAntiCheats.length ? 0 : currentAntiCheat + 1));
+
+					getCurrentModule().setAntiCheat(allowedAntiCheats[newAntiCheat]);
+				}
+			}
+			
+			maxItemWidth = 0;
+			return;
+		}
+
 		switch (indentation) {
 		/** If inside the Category indentation scroll through it */
 		case 0:
@@ -118,13 +194,11 @@ public class TabGui1 extends EventListener {
 			currentModule = (direction == 0 ? (currentModule == getModules().size() - 1 ? 0 : currentModule + 1) : (currentModule == 0 ? getModules().size() - 1 : currentModule - 1));
 			break;
 		}
-		case 2: {
-			currentSetting = (direction == 0 ? (currentSetting == getCurrentSettingsList().size() - 1 ? 0 : currentSetting + 1) : (currentSetting == 0 ? getCurrentSettingsList().size() - 1 : currentSetting - 1));
+		case 2:
+		case 3: {
+			currentSetting = (direction == 0 ? (currentSetting == getFilteredSettingsList().size() - 1 ? 0 : currentSetting + 1) : (currentSetting == 0 ? getFilteredSettingsList().size() - 1 : currentSetting - 1));
 			break;
 		}
-//		case 3: {
-//
-//		}
 		}
 	}
 
@@ -134,11 +208,21 @@ public class TabGui1 extends EventListener {
 	 * @formatter:on
 	 */
 	private void menuInteract(int direction) {
-		boolean next = (indentation == 2 ? false : (indentation == 0 && getModules().size() == 0 ? false : (indentation == 1 && getCurrentSettingsList().size() == 0 ? false : true)));
+		if (indentation == 3) {
+			indentation -= 2;
+			menuInteract(1);
+			return;
+		}
 
-		int difference = (direction == 0 ? (indentation == 0 ? 0 : -1) : (next ? 1 : 0));
+		boolean next = (indentation == 0 && getModules().size() == 0 ? false : (indentation == 1 && getCurrentSettingsList().size() == 0 ? false : true));
+
+		int difference = (direction == 0 ? (indentation == 0 ? 0 : (indentation == 3 ? 0 : -1)) : (next ? 1 : 0));
 
 		indentation += difference;
+
+		if (indentation < 2)
+			currentSetting = 0;
+
 		maxItemWidth = (difference == 0 ? maxItemWidth : 0);
 	}
 
@@ -188,7 +272,16 @@ public class TabGui1 extends EventListener {
 			menuScroll(1);
 			break;
 		}
+		case 240: {
+			menuScroll(1);
+			menuScroll(1);
+		}
 		case -120: {
+			menuScroll(0);
+			break;
+		}
+		case -240: {
+			menuScroll(0);
 			menuScroll(0);
 			break;
 		}
@@ -253,7 +346,7 @@ public class TabGui1 extends EventListener {
 	private void renderSettings(Render2DEvent event) {
 		List<String> moduleSettingsList = new ArrayList<String>(getCurrentSettingsList());
 
-		renderMenu(getCurrentSettingsList(), currentSetting);
+		renderMenu(getFilteredSettingsList(), currentSetting);
 	}
 
 	private void renderMenu(List<String> items, int currentItem) {
@@ -262,6 +355,9 @@ public class TabGui1 extends EventListener {
 		RenderUtils.drawString(String.format("&f%1$s &8-&b %2$s", BaseClient.instance.getClientName(), BaseClient.instance.getClientVersion()), 5, 12, FontType.SHADOW_THIN, -1);
 
 		RenderUtils.drawRect(5, height * 2 - 3, maxItemWidth + 15 + 5, height * (items.size() + 2) - 3, new Color(0, 0, 0, 130).getRGB());
+
+		int localMaxItemWidth = 0;
+
 		for (int i = 0; i < items.size(); i++) {
 			String item = items.get(i);
 
@@ -278,6 +374,8 @@ public class TabGui1 extends EventListener {
 				backgroundColor = new Color(84, 199, 222);
 
 				RenderUtils.drawRect(5, 10 + height * (i + 2) - height + 2, maxItemWidth + 15 + 5, height * (i + 3) - 3, backgroundColor.getRGB());
+				if (indentation == 3)
+					item = "&a" + item;
 			}
 
 			RenderUtils.drawString(item, 10, height * (i + 2), FontType.SHADOW_THIN, -1);
