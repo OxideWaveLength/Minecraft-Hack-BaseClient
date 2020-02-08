@@ -70,6 +70,10 @@ public class TabGui1 extends EventListener {
 	}
 
 	private Module getCurrentModule() {
+		int modulesSize = getModules().size();
+		if(modulesSize <= currentModule)
+			currentModule = modulesSize;
+		
 		return getModules().get(currentModule);
 	}
 
