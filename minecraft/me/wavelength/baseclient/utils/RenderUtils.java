@@ -6,16 +6,44 @@ import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.font.NahrFont.FontType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 
 public class RenderUtils {
+
+	public static void renderItem(int xPos, int yPos, ItemStack itemStack) {
+		GuiIngame guiInGame = Minecraft.getMinecraft().ingameGUI;
+
+		if (guiInGame == null)
+			return;
+
+		if (itemStack == null)
+			return;
+
+		RenderItem itemRenderer = guiInGame.itemRenderer;
+
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+		RenderHelper.enableGUIStandardItemLighting();
+		itemRenderer.renderItemAndEffectIntoGUI(itemStack, xPos, yPos);
+
+		itemRenderer.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, itemStack, xPos, yPos, "");
+
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+	}
 
 	public static void drawString(String text, int x, int y, FontType fontType, int color, int shadowColor) {
 		BaseClient.instance.getFontRenderer().drawString(text, x, y, fontType, color, shadowColor);
