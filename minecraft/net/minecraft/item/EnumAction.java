@@ -1,10 +1,5 @@
 package net.minecraft.item;
 
-public enum EnumAction
-{
-    NONE,
-    EAT,
-    DRINK,
-    BLOCK,
-    BOW;
+public enum EnumAction {
+	NONE, EAT, DRINK, BLOCK, BOW;
 }

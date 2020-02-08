@@ -61,7 +61,6 @@ import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.event.events.MouseScrollEvent;
-import me.wavelength.baseclient.module.modules.hidden.AdvancedTabGui;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.audio.MusicTicker;

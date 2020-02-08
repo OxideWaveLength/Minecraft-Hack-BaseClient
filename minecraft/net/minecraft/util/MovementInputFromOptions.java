@@ -3,7 +3,7 @@ package net.minecraft.util;
 import net.minecraft.client.settings.GameSettings;
 
 public class MovementInputFromOptions extends MovementInput {
-	
+
 	private final GameSettings gameSettings;
 
 	public MovementInputFromOptions(GameSettings gameSettingsIn) {
@@ -38,5 +38,5 @@ public class MovementInputFromOptions extends MovementInput {
 			this.moveForward = (float) ((double) this.moveForward * 0.3D);
 		}
 	}
-	
+
 }

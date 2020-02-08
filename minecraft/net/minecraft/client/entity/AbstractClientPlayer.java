@@ -1,10 +1,14 @@
 package net.minecraft.client.entity;
 
-import com.mojang.authlib.GameProfile;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
+
+import org.apache.commons.io.FilenameUtils;
+
+import com.mojang.authlib.GameProfile;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.IImageBuffer;
@@ -25,10 +29,8 @@ import optfine.Config;
 import optfine.PlayerConfigurations;
 import optfine.Reflector;
 
-import org.apache.commons.io.FilenameUtils;
-
 public abstract class AbstractClientPlayer extends EntityPlayer {
-	
+
 	private NetworkPlayerInfo playerInfo;
 	private ResourceLocation ofLocationCape = null;
 	private static final String __OBFID = "CL_00000935";
@@ -197,5 +199,5 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 		graphics.dispose();
 		return bufferedimage;
 	}
-	
+
 }

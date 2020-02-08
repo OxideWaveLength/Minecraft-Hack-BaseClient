@@ -1,12 +1,7 @@
 package net.minecraft.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.lwjgl.input.Mouse;
 
-import me.wavelength.baseclient.BaseClient;
-import me.wavelength.baseclient.event.events.MouseClickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -65,7 +60,7 @@ public abstract class GuiSlot {
 	protected boolean hasListHeader;
 	protected int headerPadding;
 	private boolean enabled = true;
-	
+
 	public GuiSlot(Minecraft mcIn, int width, int height, int topIn, int bottomIn, int slotHeightIn) {
 		this.mc = mcIn;
 		this.width = width;

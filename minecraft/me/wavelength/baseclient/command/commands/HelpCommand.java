@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.wavelength.baseclient.command.Command;
-import me.wavelength.baseclient.utils.Player;
-import me.wavelength.baseclient.utils.Random;
 import me.wavelength.baseclient.utils.Strings;
 
 public class HelpCommand extends Command {

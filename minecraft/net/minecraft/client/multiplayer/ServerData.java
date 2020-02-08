@@ -133,13 +133,13 @@ public class ServerData {
 			return this.motd;
 		}
 	}
-	
+
 	public boolean isConnected() {
 		return connected;
 	}
-	
+
 	public boolean setConnected(boolean connected) {
 		return this.connected = connected;
 	}
-	
+
 }

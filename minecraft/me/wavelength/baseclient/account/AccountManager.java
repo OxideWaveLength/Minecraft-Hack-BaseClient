@@ -15,7 +15,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class AccountManager {
-	
+
 	private ArrayList<Account> accounts = new ArrayList<>();
 
 	private final Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
@@ -132,15 +132,15 @@ public class AccountManager {
 
 	public ArrayList<Account> getNotBannedAccounts() {
 		List<Account> accounts = new ArrayList<Account>(this.accounts);
-		for(int i = 0; i < accounts.size(); i++) {
-			if(accounts.get(i).isBanned())
+		for (int i = 0; i < accounts.size(); i++) {
+			if (accounts.get(i).isBanned())
 				accounts.remove(i);
 		}
 		return this.accounts;
 	}
-	
+
 	public ArrayList<Account> getAccounts() {
 		return this.accounts;
 	}
-	
+
 }

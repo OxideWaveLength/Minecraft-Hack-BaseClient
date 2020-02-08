@@ -1,5 +1,4 @@
 package optfine;
 
-public class CustomItemProperties
-{
+public class CustomItemProperties {
 }

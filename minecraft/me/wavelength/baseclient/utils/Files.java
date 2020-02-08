@@ -10,6 +10,24 @@ import java.util.List;
 
 public class Files {
 
+	public static void createRecursiveFolder(String path) {
+		createRecursiveFolder("", path);
+	}
+
+	public static void createRecursiveFolder(String base, String path) {
+		String p = base;
+
+		String[] dirs = path.split("\\" + Strings.getSplitter());
+		for (int i = 0; i < dirs.length; i++) {
+			String dir = dirs[i];
+			p = (p == null || p.equals("") ? "" : p + (p.endsWith(Strings.getSplitter()) ? "" : Strings.getSplitter())) + dir;
+
+			File file = new File(p);
+			if (!(file.exists()))
+				file.mkdir();
+		}
+	}
+
 	public static boolean fileExists(String path) {
 		File file = new File(path);
 		return file.exists();

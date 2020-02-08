@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +106,7 @@ public class GuiDisconnected extends GuiScreen {
 			BaseClient.instance.getAccountManager().save();
 			BaseClient.instance.getAccountManager().setLastAlt(null);
 			GuiAltManager.INSTANCE.currentAccount = null;
-			
+
 			status = "&eThe alt has been removed succesfully.";
 		}
 		if (button.id == 5 || button.id == 6) {

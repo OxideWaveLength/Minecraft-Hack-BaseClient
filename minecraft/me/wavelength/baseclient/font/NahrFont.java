@@ -1,21 +1,29 @@
 package me.wavelength.baseclient.font;
 
-import java.awt.image.*;
-import java.util.regex.*;
-import net.minecraft.util.*;
-import java.io.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
 
-import java.awt.geom.*;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL11;
 
 import me.wavelength.baseclient.utils.Strings;
-import net.minecraft.client.renderer.*;
-import java.util.*;
-import java.util.List;
-import java.awt.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StringUtils;
 
 public class NahrFont {
 
@@ -49,7 +57,7 @@ public class NahrFont {
 		this.setupGraphics2D();
 		this.createFont(font, size);
 	}
-	
+
 	public void setFontSize(int size) {
 		this.size = size;
 		changeFont(font, size);
@@ -66,7 +74,7 @@ public class NahrFont {
 		}
 		GlStateManager.popMatrix();
 	}
-	
+
 	public float getFontSize() {
 		return size;
 	}
@@ -104,7 +112,7 @@ public class NahrFont {
 			this.theGraphics.setFont(this.font);
 		}
 	}
-	
+
 	public void drawCenteredString(String text, float x, float y, FontType fontType, int color, int color2) {
 		this.drawString(text, x - this.getStringWidth(text) / 2.0f, y, fontType, color, color2);
 	}
@@ -115,7 +123,7 @@ public class NahrFont {
 
 	public static void drawString(String text, float x, float y, FontType fontType, int color, int color2) {
 		text = Strings.translateColors(text);
-		
+
 		GlStateManager.pushMatrix();
 		try {
 			text = stripUnsupported(text);

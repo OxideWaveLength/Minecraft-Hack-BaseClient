@@ -57,7 +57,7 @@ import net.minecraft.util.MessageSerializer;
 import net.minecraft.util.MessageSerializer2;
 
 public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
-	
+
 	private static final Logger logger = LogManager.getLogger();
 	public static final Marker logMarkerNetwork = MarkerManager.getMarker("NETWORK");
 	public static final Marker logMarkerPackets = MarkerManager.getMarker("NETWORK_PACKETS", logMarkerNetwork);
@@ -141,11 +141,11 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 		if (this.channel.isOpen()) {
 			try {
 				PacketReceivedEvent packetReceivedEvent = (PacketReceivedEvent) BaseClient.instance.getEventManager().call(new PacketReceivedEvent(packetIn));
-				if(packetReceivedEvent.isCancelled())
+				if (packetReceivedEvent.isCancelled())
 					return;
-				
+
 				packetIn = packetReceivedEvent.getPacket();
-				
+
 				packetIn.processPacket(this.packetListener);
 			} catch (ThreadQuickExitException var4) {
 				;
@@ -166,11 +166,11 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 	public void sendPacket(Packet packetIn) {
 		/** Handles the PacketSentEvent */
 		PacketSentEvent packetSentEvent = (PacketSentEvent) BaseClient.instance.getEventManager().call(new PacketSentEvent(packetIn));
-		if(packetSentEvent.isCancelled())
+		if (packetSentEvent.isCancelled())
 			return;
-		
+
 		packetIn = packetSentEvent.getPacket();
-		
+
 		if (this.isChannelOpen()) {
 			this.flushOutboundQueue();
 			this.dispatchPacket(packetIn, (GenericFutureListener<? extends Future<? super Void>>[]) null);
@@ -188,11 +188,11 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 	public void sendPacket(Packet packetIn, GenericFutureListener<? extends Future<? super Void>> listener, GenericFutureListener<? extends Future<? super Void>>... listeners) {
 		/** Handles the PacketSentEvent */
 		PacketSentEvent packetSentEvent = (PacketSentEvent) BaseClient.instance.getEventManager().call(new PacketSentEvent(packetIn));
-		if(packetSentEvent.isCancelled())
+		if (packetSentEvent.isCancelled())
 			return;
-		
+
 		packetIn = packetSentEvent.getPacket();
-		
+
 		if (this.isChannelOpen()) {
 			this.flushOutboundQueue();
 			this.dispatchPacket(packetIn, (GenericFutureListener[]) ArrayUtils.add(listeners, 0, listener));
@@ -447,5 +447,5 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 			this.futureListeners = inFutureListeners;
 		}
 	}
-	
+
 }

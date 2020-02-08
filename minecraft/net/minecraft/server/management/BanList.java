@@ -1,47 +1,40 @@
 package net.minecraft.server.management;
 
-import com.google.gson.JsonObject;
 import java.io.File;
 import java.net.SocketAddress;
 
-public class BanList extends UserList<String, IPBanEntry>
-{
-    public BanList(File bansFile)
-    {
-        super(bansFile);
-    }
+import com.google.gson.JsonObject;
 
-    protected UserListEntry<String> createEntry(JsonObject entryData)
-    {
-        return new IPBanEntry(entryData);
-    }
+public class BanList extends UserList<String, IPBanEntry> {
+	public BanList(File bansFile) {
+		super(bansFile);
+	}
 
-    public boolean isBanned(SocketAddress address)
-    {
-        String s = this.addressToString(address);
-        return this.hasEntry(s);
-    }
+	protected UserListEntry<String> createEntry(JsonObject entryData) {
+		return new IPBanEntry(entryData);
+	}
 
-    public IPBanEntry getBanEntry(SocketAddress address)
-    {
-        String s = this.addressToString(address);
-        return (IPBanEntry)this.getEntry(s);
-    }
+	public boolean isBanned(SocketAddress address) {
+		String s = this.addressToString(address);
+		return this.hasEntry(s);
+	}
 
-    private String addressToString(SocketAddress address)
-    {
-        String s = address.toString();
+	public IPBanEntry getBanEntry(SocketAddress address) {
+		String s = this.addressToString(address);
+		return (IPBanEntry) this.getEntry(s);
+	}
 
-        if (s.contains("/"))
-        {
-            s = s.substring(s.indexOf(47) + 1);
-        }
+	private String addressToString(SocketAddress address) {
+		String s = address.toString();
 
-        if (s.contains(":"))
-        {
-            s = s.substring(0, s.indexOf(58));
-        }
+		if (s.contains("/")) {
+			s = s.substring(s.indexOf(47) + 1);
+		}
 
-        return s;
-    }
+		if (s.contains(":")) {
+			s = s.substring(0, s.indexOf(58));
+		}
+
+		return s;
+	}
 }

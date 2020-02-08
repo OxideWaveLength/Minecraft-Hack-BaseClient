@@ -5,6 +5,7 @@ import java.io.File;
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.utils.Config;
 import me.wavelength.baseclient.utils.Files;
+import me.wavelength.baseclient.utils.Strings;
 
 public class ModuleSettings {
 
@@ -20,14 +21,9 @@ public class ModuleSettings {
 
 		String clientName = BaseClient.instance.getClientName();
 
-		if (!(Files.fileExists(path, clientName + "\\")))
-			Files.createDirectory(path, clientName);
-		if (!(Files.fileExists(path, clientName + "\\modules")))
-			Files.createDirectory(path, clientName + "\\modules");
-		if (!(Files.fileExists(path, clientName + "\\modules\\" + module.getCategory().toString().toLowerCase())))
-			Files.createDirectory(path, clientName + "\\modules\\" + module.getCategory().toString().toLowerCase());
+		Files.createRecursiveFolder(path, clientName + Strings.getSplitter() + "modules" + Strings.getSplitter() + module.getCategory().name().toLowerCase());
 
-		this.config = new Config(path, clientName + "\\modules\\" + module.getCategory().toString().toLowerCase() + "\\" + module.getName() + ".cfg");
+		this.config = new Config(path, clientName + Strings.getSplitter() + "modules" + Strings.getSplitter() + module.getCategory().toString().toLowerCase() + Strings.getSplitter() + module.getName() + ".cfg");
 		config.addDefault("toggled", false);
 		config.addDefault("key", module.getKey());
 		config.addDefault("anticheat", module.getAntiCheat().name().toLowerCase());
@@ -73,27 +69,27 @@ public class ModuleSettings {
 	public void set(String key, Object value) {
 		config.set(key.toLowerCase(), value);
 	}
-	
+
 	public void set(String key, String value) {
 		config.set(key.toLowerCase(), value);
 	}
-	
+
 	public void set(String key, boolean value) {
 		config.set(key.toLowerCase(), value);
 	}
-	
+
 	public void set(String key, int value) {
 		config.set(key.toLowerCase(), value);
 	}
-	
+
 	public void set(String key, char value) {
 		config.set(key.toLowerCase(), value);
 	}
-	
+
 	public void set(String key, double value) {
 		config.set(key.toLowerCase(), value);
 	}
-	
+
 	public void set(String key, float value) {
 		config.set(key.toLowerCase(), value);
 	}
@@ -121,5 +117,5 @@ public class ModuleSettings {
 	public int getInt(String key) {
 		return config.getInt(key.toLowerCase());
 	}
-	
+
 }

@@ -7,7 +7,6 @@ import com.mojang.authlib.Agent;
 import com.mojang.authlib.UserAuthentication;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
-import com.mojang.realmsclient.dto.RealmsServer.McoServerComparator;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.account.Account;

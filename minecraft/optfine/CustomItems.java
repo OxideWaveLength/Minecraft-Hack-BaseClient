@@ -1,5 +1,4 @@
 package optfine;
 
-public class CustomItems
-{
+public class CustomItems {
 }

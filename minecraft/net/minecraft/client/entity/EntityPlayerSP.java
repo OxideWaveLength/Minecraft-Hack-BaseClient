@@ -1,13 +1,7 @@
 package net.minecraft.client.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.input.Mouse;
-
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.events.MessageSentEvent;
-import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.event.events.PostMotionEvent;
 import me.wavelength.baseclient.event.events.PreMotionEvent;
 import me.wavelength.baseclient.event.events.UpdateEvent;
@@ -776,6 +770,18 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 			this.capabilities.isFlying = false;
 			this.sendPlayerAbilities();
 		}
+	}
+
+	public int wrapAngleToDirection(final float yaw, final int zones) {
+		int angle = (int) (yaw + 360 / (2 * zones) + 0.5) % 360;
+		if (angle < 0) {
+			angle += 360;
+		}
+		return angle / (360 / zones);
+	}
+
+	public Direction getDirection() {
+		return Direction.values()[wrapAngleToDirection(rotationYaw, Direction.values().length)];
 	}
 
 }

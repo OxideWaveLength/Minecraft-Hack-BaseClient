@@ -21,6 +21,7 @@ import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.module.ModuleSettings;
 import me.wavelength.baseclient.module.modules.hidden.AdvancedTabGui;
+import me.wavelength.baseclient.utils.Config;
 import me.wavelength.baseclient.utils.Integers;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Strings;
@@ -150,17 +151,17 @@ public class TabGui1 extends EventListener {
 			} else if (Integers.isDouble(value)) {
 				double v = Double.parseDouble(value);
 				double incr = mc.gameSettings.keyBindSneak.isKeyDown() ? 1 : 0.1D;
-				
+
 				v += (direction == 0 ? -incr : incr);
-				
-				v = Double.valueOf(new DecimalFormat("#.#").format(v));
-				
-				if(v < 0)
+
+				v = Double.valueOf(new DecimalFormat("#.#").format(v).replace(",", "."));
+
+				if (v < 0)
 					v = 0.0D;
-				
-				if(!(Double.toString(v).contains(".")))
+
+				if (!(Double.toString(v).contains(".")))
 					v = Double.parseDouble(v + ".0");
-				
+
 				getCurrentModule().getModuleSettings().set(key, v);
 			} else if (Strings.isBoolean(value)) {
 				boolean v = Strings.getBooleanValue(value);
@@ -177,7 +178,7 @@ public class TabGui1 extends EventListener {
 					getCurrentModule().setAntiCheat(allowedAntiCheats[newAntiCheat]);
 				}
 			}
-			
+
 			maxItemWidth = 0;
 			return;
 		}
@@ -371,7 +372,9 @@ public class TabGui1 extends EventListener {
 			Color backgroundColor = new Color(255, 255, 255);
 
 			if (isCurrentItem) {
-				backgroundColor = new Color(84, 199, 222);
+				Config genericConfig = BaseClient.instance.getGenericConfig();
+				String tabGuiColor = genericConfig.getString("tabguicolor");
+				backgroundColor = (Integers.isInteger(tabGuiColor) ? new Color(Integers.getInteger(tabGuiColor)) : Strings.getColor(tabGuiColor));
 
 				RenderUtils.drawRect(5, 10 + height * (i + 2) - height + 2, maxItemWidth + 15 + 5, height * (i + 3) - 3, backgroundColor.getRGB());
 				if (indentation == 3)

@@ -1,5 +1,6 @@
 package me.wavelength.baseclient.utils;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -8,6 +9,15 @@ import me.wavelength.baseclient.BaseClient;
 import net.minecraft.client.Minecraft;
 
 public class Strings {
+
+	public static Color getColor(String name) {
+		try {
+			return (Color) Color.class.getField(name.toUpperCase()).get(null);
+		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+		}
+
+		return null;
+	}
 
 	/**
 	 * This is the advanced translateColors, it will keep the last color used and

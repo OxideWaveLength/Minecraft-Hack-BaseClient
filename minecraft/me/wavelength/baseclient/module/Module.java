@@ -2,11 +2,14 @@ package me.wavelength.baseclient.module;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.utils.Random;
 import me.wavelength.baseclient.utils.Strings;
+import me.wavelength.baseclient.utils.Timer;
 
 public class Module extends EventListener {
 
@@ -24,6 +27,11 @@ public class Module extends EventListener {
 
 	protected Color color;
 
+	protected Timer timer;
+
+	protected ExecutorService singleExecutorService;
+	protected ExecutorService executorService;
+
 	public Module(String name, String description, int key, Category category, AntiCheat... allowedAntiCheats) {
 		this.name = name;
 		this.description = description;
@@ -35,14 +43,22 @@ public class Module extends EventListener {
 		this.antiCheat = allowedAntiCheats[0];
 
 		this.moduleSettings = new ModuleSettings(this);
-		
+
+		this.timer = new Timer(true);
+		this.singleExecutorService = Executors.newFixedThreadPool(1);
+		this.executorService = Executors.newCachedThreadPool();
+
 		setup();
 		randomColor();
 		loadFromSettings();
 	}
 
 	private void loadFromSettings() {
-		this.toggled = moduleSettings.getBoolean("toggled");
+		if (moduleSettings.getBoolean("toggled")) {
+			toggled = true;
+			BaseClient.instance.getEventManager().registerListener(this);
+		}
+
 		this.key = moduleSettings.getInt("key");
 		this.antiCheat = AntiCheat.valueOf(moduleSettings.getString("anticheat").toUpperCase());
 		this.antiCheat = (Arrays.stream(allowedAntiCheats).anyMatch(antiCheat::equals) ? antiCheat : allowedAntiCheats[0]);
@@ -59,7 +75,7 @@ public class Module extends EventListener {
 	public int getKey() {
 		return key;
 	}
-	
+
 	public void setKey(int key) {
 		this.key = key;
 		moduleSettings.set("key", key);
@@ -108,9 +124,13 @@ public class Module extends EventListener {
 	public void toggle() {
 		setToggled(!(toggled));
 	}
-	
+
 	private void randomColor() {
 		this.color = Random.getRandomLightColor();
+	}
+
+	public Timer getTimer() {
+		return timer;
 	}
 
 	public void setToggled(boolean toggled) {
@@ -128,9 +148,9 @@ public class Module extends EventListener {
 	}
 
 	public void setAntiCheat(AntiCheat antiCheat) {
-		if(!(Arrays.stream(allowedAntiCheats).anyMatch(antiCheat::equals)))
+		if (!(Arrays.stream(allowedAntiCheats).anyMatch(antiCheat::equals)))
 			return;
-		
+
 		this.antiCheat = antiCheat;
 		moduleSettings.set("anticheat", antiCheat.name().toLowerCase());
 	}

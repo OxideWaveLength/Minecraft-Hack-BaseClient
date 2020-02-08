@@ -103,19 +103,17 @@ public abstract class IRCClient implements Runnable {
 		send("JOIN " + channel);
 	}
 
-
 	public void quit() throws IOException {
 		quit("", false);
 	}
-	
+
 	public void quit(boolean shouldExit) throws IOException {
 		quit("", shouldExit);
 	}
-	
+
 	public void quit(String reason) throws IOException {
 		quit(reason, false);
 	}
-	
 
 	public void quit(String reason, boolean shouldExit) throws IOException {
 		send("QUIT (" + reason + ")");

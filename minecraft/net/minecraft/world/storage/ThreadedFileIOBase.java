@@ -1,101 +1,83 @@
 package net.minecraft.world.storage;
 
-import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.List;
 
-public class ThreadedFileIOBase implements Runnable
-{
-    /** Instance of ThreadedFileIOBase */
-    private static final ThreadedFileIOBase threadedIOInstance = new ThreadedFileIOBase();
-    private List<IThreadedFileIO> threadedIOQueue = Collections.<IThreadedFileIO>synchronizedList(Lists.<IThreadedFileIO>newArrayList());
-    private volatile long writeQueuedCounter;
-    private volatile long savedIOCounter;
-    private volatile boolean isThreadWaiting;
+import com.google.common.collect.Lists;
 
-    private ThreadedFileIOBase()
-    {
-        Thread thread = new Thread(this, "File IO Thread");
-        thread.setPriority(1);
-        thread.start();
-    }
+public class ThreadedFileIOBase implements Runnable {
+	/** Instance of ThreadedFileIOBase */
+	private static final ThreadedFileIOBase threadedIOInstance = new ThreadedFileIOBase();
+	private List<IThreadedFileIO> threadedIOQueue = Collections.<IThreadedFileIO>synchronizedList(Lists.<IThreadedFileIO>newArrayList());
+	private volatile long writeQueuedCounter;
+	private volatile long savedIOCounter;
+	private volatile boolean isThreadWaiting;
 
-    /**
-     * Retrieves an instance of the threadedFileIOBase.
-     */
-    public static ThreadedFileIOBase getThreadedIOInstance()
-    {
-        return threadedIOInstance;
-    }
+	private ThreadedFileIOBase() {
+		Thread thread = new Thread(this, "File IO Thread");
+		thread.setPriority(1);
+		thread.start();
+	}
 
-    public void run()
-    {
-        while (true)
-        {
-            this.processQueue();
-        }
-    }
+	/**
+	 * Retrieves an instance of the threadedFileIOBase.
+	 */
+	public static ThreadedFileIOBase getThreadedIOInstance() {
+		return threadedIOInstance;
+	}
 
-    /**
-     * Process the items that are in the queue
-     */
-    private void processQueue()
-    {
-        for (int i = 0; i < this.threadedIOQueue.size(); ++i)
-        {
-            IThreadedFileIO ithreadedfileio = (IThreadedFileIO)this.threadedIOQueue.get(i);
-            boolean flag = ithreadedfileio.writeNextIO();
+	public void run() {
+		while (true) {
+			this.processQueue();
+		}
+	}
 
-            if (!flag)
-            {
-                this.threadedIOQueue.remove(i--);
-                ++this.savedIOCounter;
-            }
+	/**
+	 * Process the items that are in the queue
+	 */
+	private void processQueue() {
+		for (int i = 0; i < this.threadedIOQueue.size(); ++i) {
+			IThreadedFileIO ithreadedfileio = (IThreadedFileIO) this.threadedIOQueue.get(i);
+			boolean flag = ithreadedfileio.writeNextIO();
 
-            try
-            {
-                Thread.sleep(this.isThreadWaiting ? 0L : 10L);
-            }
-            catch (InterruptedException interruptedexception1)
-            {
-                interruptedexception1.printStackTrace();
-            }
-        }
+			if (!flag) {
+				this.threadedIOQueue.remove(i--);
+				++this.savedIOCounter;
+			}
 
-        if (this.threadedIOQueue.isEmpty())
-        {
-            try
-            {
-                Thread.sleep(25L);
-            }
-            catch (InterruptedException interruptedexception)
-            {
-                interruptedexception.printStackTrace();
-            }
-        }
-    }
+			try {
+				Thread.sleep(this.isThreadWaiting ? 0L : 10L);
+			} catch (InterruptedException interruptedexception1) {
+				interruptedexception1.printStackTrace();
+			}
+		}
 
-    /**
-     * threaded io
-     */
-    public void queueIO(IThreadedFileIO p_75735_1_)
-    {
-        if (!this.threadedIOQueue.contains(p_75735_1_))
-        {
-            ++this.writeQueuedCounter;
-            this.threadedIOQueue.add(p_75735_1_);
-        }
-    }
+		if (this.threadedIOQueue.isEmpty()) {
+			try {
+				Thread.sleep(25L);
+			} catch (InterruptedException interruptedexception) {
+				interruptedexception.printStackTrace();
+			}
+		}
+	}
 
-    public void waitForFinish() throws InterruptedException
-    {
-        this.isThreadWaiting = true;
+	/**
+	 * threaded io
+	 */
+	public void queueIO(IThreadedFileIO p_75735_1_) {
+		if (!this.threadedIOQueue.contains(p_75735_1_)) {
+			++this.writeQueuedCounter;
+			this.threadedIOQueue.add(p_75735_1_);
+		}
+	}
 
-        while (this.writeQueuedCounter != this.savedIOCounter)
-        {
-            Thread.sleep(10L);
-        }
+	public void waitForFinish() throws InterruptedException {
+		this.isThreadWaiting = true;
 
-        this.isThreadWaiting = false;
-    }
+		while (this.writeQueuedCounter != this.savedIOCounter) {
+			Thread.sleep(10L);
+		}
+
+		this.isThreadWaiting = false;
+	}
 }

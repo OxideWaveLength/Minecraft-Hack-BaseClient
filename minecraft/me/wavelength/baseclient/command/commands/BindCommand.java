@@ -3,15 +3,12 @@ package me.wavelength.baseclient.command.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.command.Command;
 import me.wavelength.baseclient.irc.IRCClient;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.module.ModuleManager;
-import me.wavelength.baseclient.utils.Integers;
 import me.wavelength.baseclient.utils.KeyUtils;
 
 public class BindCommand extends Command {
@@ -45,7 +42,7 @@ public class BindCommand extends Command {
 		boundModules.forEach(mod -> mod.setKey(0));
 
 		module.setKey(key);
-		
+
 		return String.format("&aThe module &e%1$s&a has been bound to &d%2$s", module.getName(), KeyUtils.getKeyName(key));
 	}
 

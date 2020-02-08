@@ -1,9 +1,5 @@
 package me.wavelength.baseclient.module.modules.hidden;
 
-import org.lwjgl.input.Mouse;
-
-import me.wavelength.baseclient.BaseClient;
-import me.wavelength.baseclient.event.events.MouseScrollEvent;
 import me.wavelength.baseclient.event.events.UpdateEvent;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;

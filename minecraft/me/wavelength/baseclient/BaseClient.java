@@ -2,7 +2,6 @@ package me.wavelength.baseclient;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 
 import org.lwjgl.opengl.Display;
 
@@ -17,6 +16,9 @@ import me.wavelength.baseclient.overlay.HotbarOverlay;
 import me.wavelength.baseclient.overlay.TabGui1;
 import me.wavelength.baseclient.overlay.ToggledModules1;
 import me.wavelength.baseclient.thealtening.AltService;
+import me.wavelength.baseclient.utils.Config;
+import me.wavelength.baseclient.utils.Files;
+import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.Minecraft;
 
 public class BaseClient {
@@ -52,11 +54,13 @@ public class BaseClient {
 	private AltService altService;
 
 	private NahrFont fontRenderer;
-	
+
 	private String packageBase = "me.wavelength.baseclient";
 
 	private boolean defaultHotbar = false;
-	
+
+	private Config genericConfig;
+
 	public BaseClient() {
 		instance = this;
 	}
@@ -72,17 +76,25 @@ public class BaseClient {
 		this.moduleManager = new ModuleManager();
 		this.commandManager = new CommandManager(".");
 
-		commandManager.registerCommands(); // Moved here to make sure the CommandManager instance is created, else the "commandManager" variable in the Command class would be null (since we are getting the CommandManager instance from this class)
-		
+		commandManager.registerCommands(); // Moved here to make sure the CommandManager instance is created, else the
+											// "commandManager" variable in the Command class would be null (since we are
+											// getting the CommandManager instance from this class)
+
 		this.altService = new AltService();
 
-		String accountManagerPath = new File(".").getAbsolutePath();
+		String clientFolder = new File(".").getAbsolutePath();
 
-		accountManagerPath = (accountManagerPath.contains("jars") ? new File(".").getAbsolutePath().substring(0, accountManagerPath.length() - 2) : new File(".").getAbsolutePath());
+		clientFolder = (clientFolder.contains("jars") ? new File(".").getAbsolutePath().substring(0, clientFolder.length() - 2) : new File(".").getAbsolutePath()) + Strings.getSplitter() + clientName;
 
-		this.accountManager = new AccountManager(new File(accountManagerPath + "\\" + clientName + "\\alts"));
-		// TODO: RECURSIVELY CREATE THE FOLDER.
+		String accountManagerFolder = clientFolder + Strings.getSplitter() + "alts";
+
+		Files.createRecursiveFolder(accountManagerFolder);
+
+		this.accountManager = new AccountManager(new File(accountManagerFolder));
 		switchToMojang();
+
+		this.genericConfig = new Config(new File(clientFolder + Strings.getSplitter() + "config.cfg"));
+		genericConfig.addDefault("tabguicolor", "5556190");
 	}
 
 	public void afterMinecraft() {
@@ -91,15 +103,15 @@ public class BaseClient {
 		Object font = "Verdana";
 
 		InputStream stream = BaseClient.class.getResourceAsStream(("/" + packageBase.replace(".", "/") + "/font/fonts/" + "BwModelicaSS01-RegularCondensed.ttf"));
-		
-		if(stream != null)
+
+		if (stream != null)
 			font = stream;
-		
+
 		this.fontRenderer = new NahrFont(font, (stream == null ? 20 : 25)); // If the font looks weird, change the font size
 
 		registerHuds();
 	}
-	
+
 	private void registerHuds() {
 		new HotbarOverlay();
 		new ToggledModules1();
@@ -145,11 +157,11 @@ public class BaseClient {
 	public AltService getAltService() {
 		return altService;
 	}
-	
+
 	public NahrFont getFontRenderer() {
 		return fontRenderer;
 	}
-	
+
 	public String getPackageBase() {
 		return packageBase;
 	}
@@ -157,7 +169,11 @@ public class BaseClient {
 	public boolean isDefaultHotbar() {
 		return defaultHotbar;
 	}
-	
+
+	public Config getGenericConfig() {
+		return genericConfig;
+	}
+
 	public void switchToMojang() {
 		try {
 			this.altService.switchService(AltService.EnumAltService.MOJANG);

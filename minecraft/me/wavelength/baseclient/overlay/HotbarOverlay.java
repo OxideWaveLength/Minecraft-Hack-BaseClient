@@ -8,7 +8,6 @@ import me.wavelength.baseclient.event.events.Render2DEvent;
 import me.wavelength.baseclient.font.NahrFont.FontType;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Time;
-import net.minecraft.client.gui.ScaledResolution;
 
 public class HotbarOverlay extends EventListener {
 

@@ -21,7 +21,7 @@ public class IRCCommand extends Command {
 		if (args.length < 1) {
 			return String.format("&c%1$s", getSyntax());
 		}
-		
+
 		switch (args[0].toLowerCase()) {
 		case "connect": {
 			if (ircClient.isActive())
@@ -37,9 +37,9 @@ public class IRCCommand extends Command {
 			return String.format("%1$s&e&oConnecting to the IRC...", ircClient.getPrefix());
 		}
 		case "disconnect": {
-			if(!(ircClient.isActive()))
+			if (!(ircClient.isActive()))
 				return String.format("%1$s&cYou are not connected to the IRC.", ircClient.getPrefix());
-			
+
 			try {
 				ircClient.quit("Client disconnected.", false);
 			} catch (IOException e) {

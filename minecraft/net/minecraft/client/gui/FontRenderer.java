@@ -1,8 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.ibm.icu.text.ArabicShaping;
-import com.ibm.icu.text.ArabicShapingException;
-import com.ibm.icu.text.Bidi;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,6 +8,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+
+import org.apache.commons.io.IOUtils;
+import org.lwjgl.opengl.GL11;
+
+import com.ibm.icu.text.ArabicShaping;
+import com.ibm.icu.text.ArabicShapingException;
+import com.ibm.icu.text.Bidi;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -23,9 +28,6 @@ import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
 import optfine.Config;
-
-import org.apache.commons.io.IOUtils;
-import org.lwjgl.opengl.GL11;
 
 public class FontRenderer implements IResourceManagerReloadListener {
 	private static final ResourceLocation[] unicodePageLocations = new ResourceLocation[256];

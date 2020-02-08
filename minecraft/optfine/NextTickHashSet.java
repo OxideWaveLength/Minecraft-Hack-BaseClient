@@ -1,12 +1,14 @@
 package optfine;
 
-import com.google.common.collect.Iterators;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import com.google.common.collect.Iterators;
+
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.LongHashMap;
 import net.minecraft.world.ChunkCoordIntPair;

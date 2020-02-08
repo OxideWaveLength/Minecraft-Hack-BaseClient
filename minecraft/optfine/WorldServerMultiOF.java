@@ -1,5 +1,4 @@
 package optfine;
 
-public class WorldServerMultiOF
-{
+public class WorldServerMultiOF {
 }

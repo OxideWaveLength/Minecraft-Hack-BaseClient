@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public final class TheAltening {
-	
+
 	private final String apiKey;
 
 	private final String website = "http://api.thealtening.com/v1/";
@@ -56,5 +56,5 @@ public final class TheAltening {
 	private String attachAccount(String website, AlteningAlt account) {
 		return website + "?token=" + this.apiKey + "&acctoken=" + account.getToken();
 	}
-	
+
 }

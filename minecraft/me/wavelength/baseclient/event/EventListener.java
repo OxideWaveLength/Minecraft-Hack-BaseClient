@@ -17,11 +17,11 @@ import net.minecraft.client.Minecraft;
 public class EventListener {
 
 	protected Minecraft mc;
-	
+
 	public EventListener() {
 		this.mc = Minecraft.getMinecraft();
 	}
-	
+
 	public void onPacketSent(PacketSentEvent event) {
 	}
 
@@ -42,7 +42,7 @@ public class EventListener {
 
 	public void onMouseScroll(MouseScrollEvent event) {
 	}
-	
+
 	public void onMouseClick(MouseClickEvent event) {
 	}
 
@@ -51,10 +51,10 @@ public class EventListener {
 
 	public void onPostMotion(PostMotionEvent event) {
 	}
-	
+
 	public void onRender2D(Render2DEvent event) {
 	}
-	
+
 	public void onRender3D(Render3DEvent event) {
 	}
 
