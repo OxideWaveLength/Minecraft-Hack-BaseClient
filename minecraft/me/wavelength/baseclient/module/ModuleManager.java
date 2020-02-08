@@ -7,9 +7,9 @@ import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
-import me.wavelength.baseclient.module.modules.hidden.AdvancedTabGui;
 import me.wavelength.baseclient.module.modules.movement.Fly;
 import me.wavelength.baseclient.module.modules.movement.TestModule;
+import me.wavelength.baseclient.module.modules.semi_hidden.AdvancedTabGui;
 
 public class ModuleManager extends EventListener {
 

@@ -20,7 +20,7 @@ import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.module.ModuleSettings;
-import me.wavelength.baseclient.module.modules.hidden.AdvancedTabGui;
+import me.wavelength.baseclient.module.modules.semi_hidden.AdvancedTabGui;
 import me.wavelength.baseclient.utils.Config;
 import me.wavelength.baseclient.utils.Integers;
 import me.wavelength.baseclient.utils.RenderUtils;
@@ -216,6 +216,28 @@ public class TabGui1 extends EventListener {
 		}
 
 		boolean next = (indentation == 0 && getModules().size() == 0 ? false : (indentation == 1 && getCurrentSettingsList().size() == 0 ? false : true));
+
+		if (indentation == 0 && getModules().size() == 0)
+			next = false;
+
+		if (indentation == 1) {
+			if (getFilteredSettingsList().size() == 0)
+				next = false;
+			else {
+				List<String> moduleSettings = getFilteredSettingsList();
+				next = false;
+				for (int i = 0; i < moduleSettings.size(); i++) {
+					String moduleSetting = moduleSettings.get(i);
+					moduleSetting = moduleSetting.substring(0, moduleSetting.indexOf(":"));
+					if (moduleSetting.equals("anticheat")) {
+						if (getCurrentModule().getAllowedAntiCheats().length == 1)
+							continue;
+					}
+					next = true;
+					break;
+				}
+			}
+		}
 
 		int difference = (direction == 0 ? (indentation == 0 ? 0 : (indentation == 3 ? 0 : -1)) : (next ? 1 : 0));
 

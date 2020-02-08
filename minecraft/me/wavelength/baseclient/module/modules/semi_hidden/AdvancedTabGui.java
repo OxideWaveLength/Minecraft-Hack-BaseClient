@@ -1,4 +1,4 @@
-package me.wavelength.baseclient.module.modules.hidden;
+package me.wavelength.baseclient.module.modules.semi_hidden;
 
 import me.wavelength.baseclient.event.events.UpdateEvent;
 import me.wavelength.baseclient.module.Category;
