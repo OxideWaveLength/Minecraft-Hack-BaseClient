@@ -14,8 +14,10 @@ We have a _new_ FAQ (Q&A) section! If you are interested you can click [here](ht
 - Java JRE (1.8)
 - An IDE (The setup is for Eclipse, but MCP can also be setup on [IntelliJ Idea](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+IntelliJ+Idea))
 
-#### Let's get started
+#### Video!
+Now a [video](https://www.youtube.com/watch?v=MIMqi82yzbQ) is available, showing how to set up the client
 
+#### Let's get started
 _Note: the instructions in italics apply ONLY to Eclipse, if you have a different IDE, [search how to set the project up on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
 
 - Decompile the [Minecraft Coders Pack 918 (1.8.8)](http://www.modcoderpack.com/files/mcp918.zip) _(or MCP)_ in a folder (it might take a few minutes)
