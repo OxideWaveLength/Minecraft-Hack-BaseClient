@@ -249,6 +249,8 @@ public class TabGui1 extends EventListener {
 
 		if (indentation < 2)
 			currentSetting = 0;
+		if (indentation < 1)
+			currentModule = 0;
 
 		maxItemWidth = (difference == 0 ? maxItemWidth : 0);
 	}
