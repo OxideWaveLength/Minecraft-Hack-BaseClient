@@ -5,6 +5,8 @@ We have a _new_ FAQ (Q&A) section! If you are interested you can click [here](ht
 
 We also have a new Discord server! Click [here](https://discord.gg/pDweRGz) to join
 
+If you don't have Discord, but have Twitter and need help or want to stay updated, you can follow me [here](https://twitter.com/OxideWaveLength)
+
 ------------
 
 ### Setup
