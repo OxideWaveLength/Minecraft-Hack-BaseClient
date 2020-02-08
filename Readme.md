@@ -3,6 +3,8 @@
 ## Welcome!
 We have a _new_ FAQ (Q&A) section! If you are interested you can click [here](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/FAQ-(Q&A))
 
+We also have a new Discord server! Click [here](https://discord.gg/pDweRGz) to join
+
 ------------
 
 ### Setup
