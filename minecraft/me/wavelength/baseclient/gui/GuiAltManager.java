@@ -39,7 +39,7 @@ public class GuiAltManager extends GuiScreen {
 
 	private final Random random = new Random();
 
-	private String status = "Waiting for login...";
+	private String status = "&eWaiting for login...";
 
 	public GuiAltManager() {
 		INSTANCE = this;

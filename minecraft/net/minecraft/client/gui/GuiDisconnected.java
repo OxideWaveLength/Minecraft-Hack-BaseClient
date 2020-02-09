@@ -8,6 +8,7 @@ import java.util.Random;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.account.Account;
+import me.wavelength.baseclient.event.events.ServerLeaveEvent;
 import me.wavelength.baseclient.gui.GuiAltManager;
 import me.wavelength.baseclient.gui.impl.GuiAlteningLogin;
 import me.wavelength.baseclient.gui.thread.AccountLoginThread;
@@ -41,6 +42,20 @@ public class GuiDisconnected extends GuiScreen {
 
 		this.serverData = Minecraft.getMinecraft().getCurrentServerData();
 		serverData.setConnected(false);
+		
+		BaseClient.instance.getEventManager().call(new ServerLeaveEvent(serverData, reason, message));
+	}
+
+	public GuiDisconnected(GuiScreen screen, String reasonLocalizationKey, IChatComponent chatComp,  boolean minecraft) {
+		this.parentScreen = screen;
+		this.reason = I18n.format(reasonLocalizationKey, new Object[0]);
+		this.message = chatComp;
+
+		this.serverData = Minecraft.getMinecraft().getCurrentServerData();
+		serverData.setConnected(false);
+
+		if (minecraft)
+			BaseClient.instance.getEventManager().call(new ServerLeaveEvent(serverData, reason, message));
 	}
 
 	/**

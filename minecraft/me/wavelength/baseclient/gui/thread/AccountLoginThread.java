@@ -25,7 +25,7 @@ public class AccountLoginThread extends Thread {
 
 	public static boolean unknownBoolean1;
 
-	private String status = "Waiting for login...";
+	private String status = "&eWaiting for login...";
 
 	public AccountLoginThread(String email, String password) {
 		this.email = email;
@@ -54,7 +54,7 @@ public class AccountLoginThread extends Thread {
 		}
 
 		unknownBoolean1 = true;
-		this.status = "Logging in...";
+		this.status = "&6Logging in...";
 		YggdrasilAuthenticationService yService = new YggdrasilAuthenticationService(Proxy.NO_PROXY, UUID.randomUUID().toString());
 		UserAuthentication userAuth = yService.createUserAuthentication(Agent.MINECRAFT);
 		if (userAuth == null) {
@@ -78,10 +78,8 @@ public class AccountLoginThread extends Thread {
 				this.status = String.format("&aLogged in as %s.", account.getName());
 			}
 		} catch (AuthenticationException exception) {
-			exception.printStackTrace();
 			this.status = "&4Login failed.";
 		} catch (NullPointerException exception) {
-			exception.printStackTrace();
 			this.status = "&4Unknown error.";
 		}
 	}

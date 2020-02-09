@@ -11,6 +11,9 @@ import me.wavelength.baseclient.event.events.PostMotionEvent;
 import me.wavelength.baseclient.event.events.PreMotionEvent;
 import me.wavelength.baseclient.event.events.Render2DEvent;
 import me.wavelength.baseclient.event.events.Render3DEvent;
+import me.wavelength.baseclient.event.events.ServerConnectingEvent;
+import me.wavelength.baseclient.event.events.ServerJoinEvent;
+import me.wavelength.baseclient.event.events.ServerLeaveEvent;
 import me.wavelength.baseclient.event.events.UpdateEvent;
 import net.minecraft.client.Minecraft;
 
@@ -56,6 +59,15 @@ public class EventListener {
 	}
 
 	public void onRender3D(Render3DEvent event) {
+	}
+
+	public void onServerConnecting(ServerConnectingEvent event) {
+	}
+
+	public void onServerJoin(ServerJoinEvent event) {
+	}
+
+	public void onServerLeave(ServerLeaveEvent event) {
 	}
 
 }

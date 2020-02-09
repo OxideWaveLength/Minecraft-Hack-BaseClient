@@ -7,6 +7,7 @@ import org.lwjgl.input.Keyboard;
 import me.wavelength.baseclient.account.Account;
 import me.wavelength.baseclient.gui.components.GuiPasswordField;
 import me.wavelength.baseclient.gui.thread.AccountLoginThread;
+import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -44,6 +45,7 @@ public class GuiAltLogin extends GuiScreen {
 			this.email.setFocused(!this.email.isFocused());
 			this.password.setFocused(!this.password.isFocused());
 		}
+		
 		if (keyCode == 28)
 			actionPerformed(this.buttonList.get(0));
 	}
@@ -63,7 +65,7 @@ public class GuiAltLogin extends GuiScreen {
 			drawString(this.mc.fontRendererObj, "Password", this.width / 2 - 96, 106, -7829368);
 		this.email.drawTextBox();
 		this.password.drawTextBox();
-		drawCenteredString(this.mc.fontRendererObj, (this.loginThread == null) ? "Waiting for login..." : this.loginThread.getStatus(), this.width / 2, 30, -1);
+		drawCenteredString(this.mc.fontRendererObj, Strings.simpleTranslateColors((this.loginThread == null) ? "&eWaiting for login..." : this.loginThread.getStatus()), this.width / 2, 30, -1);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 

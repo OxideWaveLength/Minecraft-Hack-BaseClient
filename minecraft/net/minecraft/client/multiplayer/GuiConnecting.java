@@ -8,6 +8,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import me.wavelength.baseclient.BaseClient;
+import me.wavelength.baseclient.event.events.ServerConnectingEvent;
+import me.wavelength.baseclient.event.events.ServerJoinEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiDisconnected;
@@ -55,11 +58,36 @@ public class GuiConnecting extends GuiScreen {
 						return;
 					}
 
+					/** Handle the ServerConnectingEvent - Start */
+					ServerConnectingEvent event = ((ServerConnectingEvent) BaseClient.instance.getEventManager().call(new ServerConnectingEvent(ip, port)));
+
+					cancel = event.isCancelled();
+
+					if (cancel) {
+						GuiConnecting.logger.error((String) "Connection to the server cancelled");
+						GuiConnecting.this.mc.displayGuiScreen(new GuiDisconnected(GuiConnecting.this.previousGuiScreen, "connect.failed", new ChatComponentTranslation("disconnect.genericReason", new Object[] { event.getCancelReason() }), false));
+						return;
+					}
+					/** Handle the ServerConnectingEvent - End */
+
 					inetaddress = InetAddress.getByName(ip);
 					GuiConnecting.this.networkManager = NetworkManager.func_181124_a(inetaddress, port, GuiConnecting.this.mc.gameSettings.func_181148_f());
 					GuiConnecting.this.networkManager.setNetHandler(new NetHandlerLoginClient(GuiConnecting.this.networkManager, GuiConnecting.this.mc, GuiConnecting.this.previousGuiScreen));
 					GuiConnecting.this.networkManager.sendPacket(new C00Handshake(47, ip, port, EnumConnectionState.LOGIN));
 					GuiConnecting.this.networkManager.sendPacket(new C00PacketLoginStart(GuiConnecting.this.mc.getSession().getProfile()));
+
+					/** Handle the ServerJoinEvent - Start */
+					new Thread(() -> {
+						while (mc.currentScreen == null || mc.theWorld == null || mc.thePlayer == null || mc.getCurrentServerData() == null)
+							if (cancel)
+								return;
+
+						if (!mc.getCurrentServerData().isConnected())
+							return;
+
+						BaseClient.instance.getEventManager().call(new ServerJoinEvent(mc.getCurrentServerData()));
+					}).start();
+					/** Handle the ServerJoinEvent - End */
 				} catch (UnknownHostException unknownhostexception) {
 					if (GuiConnecting.this.cancel) {
 						return;
@@ -67,6 +95,7 @@ public class GuiConnecting extends GuiScreen {
 
 					GuiConnecting.logger.error((String) "Couldn\'t connect to server", (Throwable) unknownhostexception);
 					GuiConnecting.this.mc.displayGuiScreen(new GuiDisconnected(GuiConnecting.this.previousGuiScreen, "connect.failed", new ChatComponentTranslation("disconnect.genericReason", new Object[] { "Unknown host" })));
+					cancel = true;
 				} catch (Exception exception) {
 					if (GuiConnecting.this.cancel) {
 						return;
@@ -81,6 +110,7 @@ public class GuiConnecting extends GuiScreen {
 					}
 
 					GuiConnecting.this.mc.displayGuiScreen(new GuiDisconnected(GuiConnecting.this.previousGuiScreen, "connect.failed", new ChatComponentTranslation("disconnect.genericReason", new Object[] { s })));
+					cancel = true;
 				}
 			}
 		}).start();

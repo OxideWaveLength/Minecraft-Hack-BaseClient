@@ -14,6 +14,9 @@ import me.wavelength.baseclient.event.events.PostMotionEvent;
 import me.wavelength.baseclient.event.events.PreMotionEvent;
 import me.wavelength.baseclient.event.events.Render2DEvent;
 import me.wavelength.baseclient.event.events.Render3DEvent;
+import me.wavelength.baseclient.event.events.ServerConnectingEvent;
+import me.wavelength.baseclient.event.events.ServerJoinEvent;
+import me.wavelength.baseclient.event.events.ServerLeaveEvent;
 import me.wavelength.baseclient.event.events.UpdateEvent;
 
 public class EventManager {
@@ -113,6 +116,15 @@ public class EventManager {
 			}
 			if (event instanceof Render3DEvent) {
 				eventListeners.get(i).onRender3D((Render3DEvent) event);
+			}
+			if (event instanceof ServerConnectingEvent) {
+				eventListeners.get(i).onServerConnecting((ServerConnectingEvent) event); // Class GuiConnecting#connect()
+			}
+			if (event instanceof ServerJoinEvent) {
+				eventListeners.get(i).onServerJoin((ServerJoinEvent) event); // Class GuiConnecting#connect() - New Thread
+			}
+			if (event instanceof ServerLeaveEvent) {
+				eventListeners.get(i).onServerLeave((ServerLeaveEvent) event); // Class GuiDisconnect - constructor
 			}
 		}
 
