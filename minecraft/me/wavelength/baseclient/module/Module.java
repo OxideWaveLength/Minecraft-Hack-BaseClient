@@ -35,7 +35,7 @@ public class Module extends EventListener {
 	protected ExecutorService executorService;
 
 	public Module(String name, String description, int key, Category category, AntiCheat... allowedAntiCheats) {
-		initializeModule(name, description, key, category, (category.equals(Category.SEMI_HIDDEN) ? false : true), allowedAntiCheats);
+		initializeModule(name, description, key, category, (category.equals(Category.HIDDEN) ? false : true), allowedAntiCheats);
 	}
 
 	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList, AntiCheat... allowedAntiCheats) {
