@@ -129,6 +129,10 @@ public class Strings {
 		return (int) BaseClient.instance.getFontRenderer().getStringWidth(stripColors(text));
 	}
 
+	public static int getStringHeightCFR(String text) {
+		return (int) BaseClient.instance.getFontRenderer().getStringHeight(stripColors(text));
+	}
+
 	public static int getMaxWidth(String[] lines) {
 		int maxWidth = 0;
 		for (int i = 0; i < lines.length; i++) {
