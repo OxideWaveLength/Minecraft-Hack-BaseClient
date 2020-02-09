@@ -26,7 +26,7 @@ public class MouseClickEvent extends Event {
 	}
 	
 	public MouseButton getMouseButton() {
-		return MouseButton.getFromNewCode(button);
+		return MouseButton.getFromDefaultCode(button);
 	}
 
 }
