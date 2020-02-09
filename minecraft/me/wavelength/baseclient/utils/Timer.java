@@ -23,7 +23,7 @@ public class Timer {
 	}
 
 	public boolean hasReached(final double d, boolean reset) {
-		if (this.getTime() - this.getPrevMS() >= d) {
+		if (getTimePassed() >= d) {
 			if (reset)
 				this.reset();
 
@@ -42,6 +42,10 @@ public class Timer {
 
 	public long getPrevMS() {
 		return this.prevMS;
+	}
+	
+	public long getTimePassed() {
+		return this.getTime() - this.getPrevMS();
 	}
 
 }

@@ -16,14 +16,16 @@ public class Module extends EventListener {
 	protected String name;
 	protected String description;
 	protected int key;
-	protected final Category category;
+	protected Category category;
 	protected AntiCheat[] allowedAntiCheats;
 
 	protected AntiCheat antiCheat;
 
-	protected final ModuleSettings moduleSettings;
+	protected ModuleSettings moduleSettings;
 
 	private boolean toggled;
+
+	private boolean showInModuleArraylist;
 
 	protected Color color;
 
@@ -33,6 +35,14 @@ public class Module extends EventListener {
 	protected ExecutorService executorService;
 
 	public Module(String name, String description, int key, Category category, AntiCheat... allowedAntiCheats) {
+		initializeModule(name, description, key, category, (category.equals(Category.SEMI_HIDDEN) ? false : true), allowedAntiCheats);
+	}
+
+	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList, AntiCheat... allowedAntiCheats) {
+		initializeModule(name, description, key, category, showInModuleArrayList, allowedAntiCheats);
+	}
+
+	private void initializeModule(String name, String description, int key, Category category, boolean showInModuleArrayList, AntiCheat... allowedAntiCheats) {
 		this.name = name;
 		this.description = description;
 		this.key = key;
@@ -41,13 +51,15 @@ public class Module extends EventListener {
 
 		this.allowedAntiCheats = allowedAntiCheats;
 		this.antiCheat = allowedAntiCheats[0];
+		
+		this.showInModuleArraylist = showInModuleArrayList;
 
 		this.moduleSettings = new ModuleSettings(this);
 
 		this.timer = new Timer(true);
 		this.singleExecutorService = Executors.newFixedThreadPool(1);
 		this.executorService = Executors.newCachedThreadPool();
-
+		
 		setup();
 		randomColor();
 		loadFromSettings();
@@ -92,6 +104,10 @@ public class Module extends EventListener {
 	public AntiCheat[] getAllowedAntiCheats() {
 		return allowedAntiCheats;
 	}
+	
+	public boolean isShownInModuleArrayList() {
+		return showInModuleArraylist;
+	}
 
 	public ModuleSettings getModuleSettings() {
 		return moduleSettings;
@@ -108,7 +124,7 @@ public class Module extends EventListener {
 	public String getNameWithAntiCheat() {
 		return name + (antiCheat.equals(AntiCheat.VANILLA) ? "" : " &7-&f " + (antiCheat.isCapital() ? antiCheat.name() : Strings.capitalizeOnlyFirstLetter(antiCheat.name())));
 	}
-
+	
 	public void setup() {
 
 	}

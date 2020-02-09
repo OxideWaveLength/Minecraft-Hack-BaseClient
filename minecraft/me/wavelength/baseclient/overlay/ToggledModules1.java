@@ -29,7 +29,7 @@ public class ToggledModules1 extends EventListener {
 
 		for (int i = 0; i < modules.size(); i++) {
 			Module module = modules.get(i);
-			if (module.getCategory() == Category.HIDDEN)
+			if (module.getCategory().equals(Category.HIDDEN) || !(module.isShownInModuleArrayList()))
 				continue;
 
 			Module nextModule = null;
