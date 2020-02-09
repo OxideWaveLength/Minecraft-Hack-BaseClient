@@ -50,8 +50,6 @@ public class TabGui1 extends EventListener {
 	private ModuleManager moduleManager;
 
 	public TabGui1() {
-		BaseClient.instance.getEventManager().registerListener(this);
-
 		this.moduleManager = BaseClient.instance.getModuleManager();
 
 		this.moduleSettingsExceptions = new String[] { "toggled", "key" };
