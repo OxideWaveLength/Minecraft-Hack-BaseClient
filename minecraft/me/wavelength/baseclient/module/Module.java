@@ -35,14 +35,18 @@ public class Module extends EventListener {
 	protected ExecutorService executorService;
 
 	public Module(String name, String description, int key, Category category, AntiCheat... allowedAntiCheats) {
-		initializeModule(name, description, key, category, (category.equals(Category.HIDDEN) ? false : true), allowedAntiCheats);
+		initializeModule(name, description, key, category, (category.equals(Category.HIDDEN) ? false : true), false, allowedAntiCheats);
 	}
 
 	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList, AntiCheat... allowedAntiCheats) {
-		initializeModule(name, description, key, category, showInModuleArrayList, allowedAntiCheats);
+		initializeModule(name, description, key, category, showInModuleArrayList, false, allowedAntiCheats);
+	}
+	
+	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList, boolean enabled, AntiCheat... allowedAntiCheats) {
+		initializeModule(name, description, key, category, showInModuleArrayList, enabled, allowedAntiCheats);
 	}
 
-	private void initializeModule(String name, String description, int key, Category category, boolean showInModuleArrayList, AntiCheat... allowedAntiCheats) {
+	private void initializeModule(String name, String description, int key, Category category, boolean showInModuleArrayList, boolean enabled, AntiCheat... allowedAntiCheats) {
 		this.name = name;
 		this.description = description;
 		this.key = key;
@@ -60,9 +64,9 @@ public class Module extends EventListener {
 		this.singleExecutorService = Executors.newFixedThreadPool(1);
 		this.executorService = Executors.newCachedThreadPool();
 		
+		loadFromSettings();
 		setup();
 		randomColor();
-		loadFromSettings();
 	}
 
 	private void loadFromSettings() {

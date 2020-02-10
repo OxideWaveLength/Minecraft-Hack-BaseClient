@@ -61,8 +61,6 @@ public class BaseClient {
 
 	private Config genericConfig;
 	
-	private TabGui1 tabGui;
-
 	public BaseClient() {
 		instance = this;
 	}
@@ -117,7 +115,7 @@ public class BaseClient {
 	private void registerHuds() {
 		new HotbarOverlay();
 		new ToggledModules1();
-		this.tabGui = new TabGui1();
+		 new TabGui1();
 	}
 
 	public String getClientName() {
@@ -174,10 +172,6 @@ public class BaseClient {
 
 	public Config getGenericConfig() {
 		return genericConfig;
-	}
-	
-	public TabGui1 getTabGui() {
-		return tabGui;
 	}
 
 	public void switchToMojang() {

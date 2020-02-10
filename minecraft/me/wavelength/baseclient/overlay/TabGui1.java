@@ -21,6 +21,7 @@ import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.module.ModuleSettings;
 import me.wavelength.baseclient.module.modules.semi_hidden.AdvancedTabGui;
+import me.wavelength.baseclient.module.modules.semi_hidden.TabGui;
 import me.wavelength.baseclient.utils.Config;
 import me.wavelength.baseclient.utils.Integers;
 import me.wavelength.baseclient.utils.RenderUtils;
@@ -50,6 +51,7 @@ public class TabGui1 extends EventListener {
 	private ModuleManager moduleManager;
 
 	public TabGui1() {
+		BaseClient.instance.getEventManager().registerEvent(this);
 		this.moduleManager = BaseClient.instance.getModuleManager();
 
 		this.moduleSettingsExceptions = new String[] { "toggled", "key" };
@@ -69,9 +71,9 @@ public class TabGui1 extends EventListener {
 
 	private Module getCurrentModule() {
 		int modulesSize = getModules().size();
-		if(modulesSize <= currentModule)
+		if (modulesSize <= currentModule)
 			currentModule = modulesSize;
-		
+
 		return getModules().get(currentModule);
 	}
 
@@ -108,6 +110,9 @@ public class TabGui1 extends EventListener {
 
 	@Override
 	public void onRender2D(Render2DEvent event) {
+		if (!(BaseClient.instance.getModuleManager().getModule(TabGui.class)).isToggled())
+			return;
+
 		// TODO: Render ICON
 
 		switch (indentation) {
