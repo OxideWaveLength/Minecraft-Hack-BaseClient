@@ -14,7 +14,7 @@ import net.minecraft.util.Vec3i;
 public class FaceBakery {
 	private static final float field_178418_a = 1.0F / (float) Math.cos(0.39269909262657166D) - 1.0F;
 	private static final float field_178417_b = 1.0F / (float) Math.cos((Math.PI / 4D)) - 1.0F;
-	private static final String __OBFID = "CL_00002490";
+	
 
 	public BakedQuad makeBakedQuad(Vector3f posFrom, Vector3f posTo, BlockPartFace face, TextureAtlasSprite sprite, EnumFacing facing, ModelRotation modelRotationIn, BlockPartRotation partRotation, boolean uvLocked, boolean shade) {
 		int[] aint = this.makeQuadVertexData(face, sprite, facing, this.getPositionsDiv16(posFrom, posTo), modelRotationIn, partRotation, uvLocked, shade);
@@ -333,7 +333,7 @@ public class FaceBakery {
 	static final class FaceBakery$1 {
 		static final int[] field_178400_a;
 		static final int[] field_178399_b = new int[EnumFacing.Axis.values().length];
-		private static final String __OBFID = "CL_00002489";
+		
 
 		static {
 			try {

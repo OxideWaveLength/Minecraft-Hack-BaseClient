@@ -31,13 +31,9 @@ public class GuiAltManager extends GuiScreen {
 
 	private GuiAccountList accountList;
 
-	private Account selectAccount = null;
-
 	public Account currentAccount;
 
 	public AccountLoginThread loginThread;
-
-	private final Random random = new Random();
 
 	private String status = "&eWaiting for login...";
 
@@ -73,7 +69,7 @@ public class GuiAltManager extends GuiScreen {
 			drawCenteredString(this.mc.fontRendererObj, Strings.translateColors(status), scaledResolution.getScaledWidth() / 2, 6, -3158065);
 			drawCenteredString(this.mc.fontRendererObj, "Accounts: " + BaseClient.instance.getAccountManager().getAccounts().size(), this.width / 2, 20, -1);
 		} else
-			drawCenteredString(this.mc.fontRendererObj, "Logged With TheAltening", this.width / 2, 20, -1);
+			drawCenteredString(this.mc.fontRendererObj, "Logged in with TheAltening", this.width / 2, 20, -1);
 	}
 
 	public void handleMouseInput() throws IOException {

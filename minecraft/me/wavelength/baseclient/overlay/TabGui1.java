@@ -51,7 +51,7 @@ public class TabGui1 extends EventListener {
 	private ModuleManager moduleManager;
 
 	public TabGui1() {
-		BaseClient.instance.getEventManager().registerEvent(this);
+		BaseClient.instance.getEventManager().registerListener(this);
 		this.moduleManager = BaseClient.instance.getModuleManager();
 
 		this.moduleSettingsExceptions = new String[] { "toggled", "key" };
@@ -96,6 +96,7 @@ public class TabGui1 extends EventListener {
 		return settings;
 	}
 
+	@SuppressWarnings("unused")
 	private String getCurrentSettings() {
 		return getCurrentSettingsList().get(currentSetting);
 	}
@@ -104,6 +105,7 @@ public class TabGui1 extends EventListener {
 		return getFilteredSettingsList().get(currentSetting);
 	}
 
+	@SuppressWarnings("unused")
 	private ModuleSettings getCurrentModuleSettings() {
 		return getCurrentModule().getModuleSettings();
 	}
@@ -148,8 +150,6 @@ public class TabGui1 extends EventListener {
 
 			String key = currentSetting[0];
 			String value = currentSetting[1];
-
-			Module module = getCurrentModule();
 
 			if (Integers.isInteger(value)) {
 				int v = Integers.getInteger(value);
@@ -376,8 +376,6 @@ public class TabGui1 extends EventListener {
 	}
 
 	private void renderSettings(Render2DEvent event) {
-		List<String> moduleSettingsList = new ArrayList<String>(getCurrentSettingsList());
-
 		renderMenu(getFilteredSettingsList(), currentSetting);
 	}
 
@@ -387,8 +385,6 @@ public class TabGui1 extends EventListener {
 		RenderUtils.drawString(String.format("&f%1$s &8-&b %2$s", BaseClient.instance.getClientName(), BaseClient.instance.getClientVersion()), 5, 12, FontType.SHADOW_THIN, -1);
 
 		RenderUtils.drawRect(5, height * 2 - 3, maxItemWidth + 15 + 5, height * (items.size() + 2) - 3, new Color(0, 0, 0, 130).getRGB());
-
-		int localMaxItemWidth = 0;
 
 		for (int i = 0; i < items.size(); i++) {
 			String item = items.get(i);

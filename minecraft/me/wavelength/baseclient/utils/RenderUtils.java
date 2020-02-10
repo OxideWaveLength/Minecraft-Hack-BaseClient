@@ -351,14 +351,13 @@ public class RenderUtils {
 		GlStateManager.disableCull();
 		GlStateManager.disableBlend();
 		GlStateManager.disableDepth();
-		float f = entityIn.width / 2.0F;
 		AxisAlignedBB axisalignedbb = entityIn.getEntityBoundingBox();
 		AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(axisalignedbb.minX + xAdd - entityIn.posX + x, axisalignedbb.minY - entityIn.posY + y, axisalignedbb.minZ + zAdd - entityIn.posZ + z, axisalignedbb.maxX - xAdd - entityIn.posX + x, axisalignedbb.maxY + yAdd - entityIn.posY + y, axisalignedbb.maxZ - zAdd - entityIn.posZ + z);
 
 		RenderGlobal.func_181563_a(axisalignedbb1, red, green, blue, 255);
 
-		Tessellator tessellator = Tessellator.getInstance();
-		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+//		Tessellator tessellator = Tessellator.getInstance();
+//		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		GlStateManager.enableTexture2D();
 		GlStateManager.enableLighting();
 		GlStateManager.enableCull();

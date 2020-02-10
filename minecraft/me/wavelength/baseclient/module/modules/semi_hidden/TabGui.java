@@ -2,7 +2,6 @@ package me.wavelength.baseclient.module.modules.semi_hidden;
 
 import org.lwjgl.input.Keyboard;
 
-import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
 

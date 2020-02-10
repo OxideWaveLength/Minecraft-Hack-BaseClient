@@ -36,7 +36,7 @@ public class WorldRenderer {
 	private double zOffset;
 	private VertexFormat vertexFormat;
 	private boolean isDrawing;
-	private static final String __OBFID = "CL_00000942";
+	
 	private EnumWorldBlockLayer blockLayer = null;
 	private boolean[] drawnIcons = new boolean[256];
 	private TextureAtlasSprite[] quadSprites = null;
@@ -708,7 +708,7 @@ public class WorldRenderer {
 
 	static final class WorldRenderer$2 {
 		static final int[] field_181661_a = new int[VertexFormatElement.EnumType.values().length];
-		private static final String __OBFID = "CL_00002569";
+		
 
 		static {
 			try {
@@ -758,7 +758,7 @@ public class WorldRenderer {
 	public class State {
 		private final int[] stateRawBuffer;
 		private final VertexFormat stateVertexFormat;
-		private static final String __OBFID = "CL_00002568";
+		
 		private TextureAtlasSprite[] stateQuadSprites;
 
 		public State(int[] p_i2_2_, VertexFormat p_i2_3_, TextureAtlasSprite[] p_i2_4_) {

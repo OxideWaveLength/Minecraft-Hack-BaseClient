@@ -24,13 +24,13 @@ public class BlockModelUtils {
 	}
 
 	public static IBakedModel makeModelCube(TextureAtlasSprite p_makeModelCube_0_, int p_makeModelCube_1_) {
-		List list = new ArrayList();
+		List<BakedQuad> list = new ArrayList<BakedQuad>();
 		EnumFacing[] aenumfacing = EnumFacing.values();
-		List list1 = new ArrayList(aenumfacing.length);
+		List<List<BakedQuad>> list1 = new ArrayList<List<BakedQuad>>(aenumfacing.length);
 
 		for (int i = 0; i < aenumfacing.length; ++i) {
 			EnumFacing enumfacing = aenumfacing[i];
-			List list2 = new ArrayList();
+			List<BakedQuad> list2 = new ArrayList<BakedQuad>();
 			list2.add(makeBakedQuad(enumfacing, p_makeModelCube_0_, p_makeModelCube_1_));
 			list1.add(list2);
 		}

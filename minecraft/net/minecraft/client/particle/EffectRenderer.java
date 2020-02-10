@@ -45,7 +45,7 @@ public class EffectRenderer {
 	/** RNG. */
 	private Random rand = new Random();
 	private Map particleTypes = Maps.newHashMap();
-	private static final String __OBFID = "CL_00000915";
+	
 
 	public EffectRenderer(World worldIn, TextureManager rendererIn) {
 		this.worldObj = worldIn;
@@ -195,14 +195,14 @@ public class EffectRenderer {
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being ticked");
 			final int i = p_178923_1_.getFXLayer();
 			crashreportcategory.addCrashSectionCallable("Particle", new Callable() {
-				private static final String __OBFID = "CL_00000916";
+				
 
 				public String call() throws Exception {
 					return p_178923_1_.toString();
 				}
 			});
 			crashreportcategory.addCrashSectionCallable("Particle Type", new Callable() {
-				private static final String __OBFID = "CL_00000917";
+				
 
 				public String call() throws Exception {
 					return i == 0 ? "MISC_TEXTURE" : (i == 1 ? "TERRAIN_TEXTURE" : (i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i));
@@ -266,14 +266,14 @@ public class EffectRenderer {
 							CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Particle");
 							CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being rendered");
 							crashreportcategory.addCrashSectionCallable("Particle", new Callable() {
-								private static final String __OBFID = "CL_00000918";
+								
 
 								public String call() throws Exception {
 									return entityfx.toString();
 								}
 							});
 							crashreportcategory.addCrashSectionCallable("Particle Type", new Callable() {
-								private static final String __OBFID = "CL_00000919";
+								
 
 								public String call() throws Exception {
 									return j == 0 ? "MISC_TEXTURE" : (j == 1 ? "TERRAIN_TEXTURE" : (j == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + j));

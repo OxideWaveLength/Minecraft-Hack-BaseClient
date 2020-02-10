@@ -38,7 +38,7 @@ public class MathHelper {
 	private static final double field_181163_d;
 	private static final double[] field_181164_e;
 	private static final double[] field_181165_f;
-	private static final String __OBFID = "CL_00001496";
+	
 
 	/**
 	 * sin looked up in a table

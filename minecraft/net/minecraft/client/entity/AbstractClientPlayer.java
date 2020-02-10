@@ -33,7 +33,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 
 	private NetworkPlayerInfo playerInfo;
 	private ResourceLocation ofLocationCape = null;
-	private static final String __OBFID = "CL_00000935";
+	
 
 	public AbstractClientPlayer(World worldIn, GameProfile playerProfile) {
 		super(worldIn, playerProfile);

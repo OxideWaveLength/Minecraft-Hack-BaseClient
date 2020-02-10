@@ -5,7 +5,6 @@ import java.util.List;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.command.Command;
-import me.wavelength.baseclient.irc.IRCClient;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.module.ModuleManager;
@@ -13,12 +12,8 @@ import me.wavelength.baseclient.utils.KeyUtils;
 
 public class BindCommand extends Command {
 
-	private IRCClient ircClient;
-
 	public BindCommand() {
 		super("bind", "bind <module> <key>", "Bind a module to a key");
-
-		this.ircClient = BaseClient.instance.getIRCClient();
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class RenderChunk {
 	private int frameIndex = -1;
 	private boolean needsUpdate = true;
 	private EnumMap field_181702_p;
-	private static final String __OBFID = "CL_00002452";
+	
 	private BlockPos[] positionOffsets16 = new BlockPos[EnumFacing.VALUES.length];
 	private static EnumWorldBlockLayer[] ENUM_WORLD_BLOCK_LAYERS = EnumWorldBlockLayer.values();
 	private EnumWorldBlockLayer[] blockLayersSingle = new EnumWorldBlockLayer[1];

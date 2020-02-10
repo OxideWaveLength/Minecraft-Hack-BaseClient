@@ -39,6 +39,8 @@ public class Fly extends Module {
 	public void onUpdate(UpdateEvent event) {
 		double speed = moduleSettings.getDouble("speed");
 
+		speed = speed * 2;
+
 		mc.thePlayer.capabilities.isFlying = true;
 	}
 

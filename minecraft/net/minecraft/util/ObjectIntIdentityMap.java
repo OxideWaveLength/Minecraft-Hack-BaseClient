@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 public class ObjectIntIdentityMap implements IObjectIntIterable {
 	private final IdentityHashMap identityMap = new IdentityHashMap(512);
 	private final List objectList = Lists.newArrayList();
-	private static final String __OBFID = "CL_00001203";
+	
 
 	public void put(Object key, int value) {
 		this.identityMap.put(key, Integer.valueOf(value));

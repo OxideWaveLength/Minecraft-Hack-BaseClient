@@ -47,7 +47,7 @@ public class ModelRenderer {
 	public float offsetX;
 	public float offsetY;
 	public float offsetZ;
-	private static final String __OBFID = "CL_00000874";
+	
 	public List spriteList;
 	public boolean mirrorV;
 

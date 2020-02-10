@@ -56,7 +56,7 @@ public class WorldClient extends World {
 	private final Set entitySpawnQueue = Sets.newHashSet();
 	private final Minecraft mc = Minecraft.getMinecraft();
 	private final Set previousActiveChunkSet = Sets.newHashSet();
-	private static final String __OBFID = "CL_00000882";
+	
 	private BlockPosM randomTickPosM = new BlockPosM(0, 0, 0, 3);
 
 	public WorldClient(NetHandlerPlayClient p_i45063_1_, WorldSettings p_i45063_2_, int p_i45063_3_, EnumDifficulty p_i45063_4_, Profiler p_i45063_5_) {
@@ -343,28 +343,28 @@ public class WorldClient extends World {
 	public CrashReportCategory addWorldInfoToCrashReport(CrashReport report) {
 		CrashReportCategory crashreportcategory = super.addWorldInfoToCrashReport(report);
 		crashreportcategory.addCrashSectionCallable("Forced entities", new Callable() {
-			private static final String __OBFID = "CL_00000883";
+			
 
 			public String call() {
 				return WorldClient.this.entityList.size() + " total; " + WorldClient.this.entityList.toString();
 			}
 		});
 		crashreportcategory.addCrashSectionCallable("Retry entities", new Callable() {
-			private static final String __OBFID = "CL_00000884";
+			
 
 			public String call() {
 				return WorldClient.this.entitySpawnQueue.size() + " total; " + WorldClient.this.entitySpawnQueue.toString();
 			}
 		});
 		crashreportcategory.addCrashSectionCallable("Server brand", new Callable() {
-			private static final String __OBFID = "CL_00000885";
+			
 
 			public String call() throws Exception {
 				return WorldClient.this.mc.thePlayer.getClientBrand();
 			}
 		});
 		crashreportcategory.addCrashSectionCallable("Server type", new Callable() {
-			private static final String __OBFID = "CL_00000886";
+			
 
 			public String call() throws Exception {
 				return WorldClient.this.mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server";

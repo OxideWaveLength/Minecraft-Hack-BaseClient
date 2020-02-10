@@ -21,14 +21,14 @@ public final class TheAltening {
 
 	public User getUser() throws IOException {
 		getClass();
-		URLConnection licenseEndpoint = (new URL(attach("http://api.thealtening.com/v1/" + "license"))).openConnection();
+		URLConnection licenseEndpoint = (new URL(attach(website + "license"))).openConnection();
 		String userInfo = new String(Utilities.getInstance().readAllBytes(licenseEndpoint.getInputStream()));
 		return (User) this.gson.fromJson(userInfo, User.class);
 	}
 
 	public AlteningAlt generateAccount(User user) throws IOException {
 		getClass();
-		URLConnection generateEndpoint = (new URL(attach("http://api.thealtening.com/v1/" + "generate"))).openConnection();
+		URLConnection generateEndpoint = (new URL(attach(website + "generate"))).openConnection();
 		String accountInfo = new String(Utilities.getInstance().readAllBytes(generateEndpoint.getInputStream()));
 		if (user.isPremium())
 			return (AlteningAlt) this.gson.fromJson(accountInfo, AlteningAlt.class);
@@ -37,14 +37,14 @@ public final class TheAltening {
 
 	public boolean favoriteAccount(AlteningAlt account) throws IOException {
 		getClass();
-		URLConnection favoriteAccount = (new URL(attachAccount("http://api.thealtening.com/v1/" + "favorite", account))).openConnection();
+		URLConnection favoriteAccount = (new URL(attachAccount(website + "favorite", account))).openConnection();
 		String info = new String(Utilities.getInstance().readAllBytes(favoriteAccount.getInputStream()));
 		return info.isEmpty();
 	}
 
 	public boolean privateAccount(AlteningAlt account) throws IOException {
 		getClass();
-		URLConnection privateAccount = (new URL(attachAccount("http://api.thealtening.com/v1/" + "private", account))).openConnection();
+		URLConnection privateAccount = (new URL(attachAccount(website + "private", account))).openConnection();
 		String info = new String(Utilities.getInstance().readAllBytes(privateAccount.getInputStream()));
 		return info.isEmpty();
 	}

@@ -30,7 +30,7 @@ public class TextureUtil {
 	public static final DynamicTexture missingTexture = new DynamicTexture(16, 16);
 	public static final int[] missingTextureData = missingTexture.getTextureData();
 	private static final int[] mipmapBuffer;
-	private static final String __OBFID = "CL_00001067";
+	
 
 	public static int glGenTextures() {
 		return GlStateManager.generateTexture();

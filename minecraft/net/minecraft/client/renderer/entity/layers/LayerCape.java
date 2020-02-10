@@ -10,7 +10,7 @@ import net.minecraft.util.MathHelper;
 public class LayerCape implements LayerRenderer<EntityLivingBase> {
 
 	private final RenderPlayer playerRenderer;
-	private static final String __OBFID = "CL_00002425";
+	
 
 	public LayerCape(RenderPlayer playerRendererIn) {
 		this.playerRenderer = playerRendererIn;

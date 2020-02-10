@@ -33,7 +33,7 @@ public class Profiler {
 
 	/** Profiling map */
 	private final Map profilingMap = Maps.newHashMap();
-	private static final String __OBFID = "CL_00001497";
+	
 	public boolean profilerGlobalEnabled = true;
 	private boolean profilerLocalEnabled;
 	private static final String SCHEDULED_EXECUTABLES = "scheduledExecutables";
@@ -208,7 +208,7 @@ public class Profiler {
 		public double field_76332_a;
 		public double field_76330_b;
 		public String field_76331_c;
-		private static final String __OBFID = "CL_00001498";
+		
 
 		public Result(String p_i1554_1_, double p_i1554_2_, double p_i1554_4_) {
 			this.field_76331_c = p_i1554_1_;

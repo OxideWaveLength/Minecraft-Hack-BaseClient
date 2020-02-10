@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL11;
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.account.Account;
 import me.wavelength.baseclient.gui.GuiAltManager;
+import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.FontRenderer;
@@ -52,7 +53,7 @@ public class GuiAccountList extends GuiSlot {
 		GL11.glTranslated(x, y, 0.0D);
 		drawFace(account.getName(), 0, 6, 24, 24);
 		fontRenderer.drawStringWithShadow(account.getName(), 30.0F, 6.0F, -1);
-		fontRenderer.drawStringWithShadow("§7" + account.getEmail(), 30.0F, (6 + fontRenderer.FONT_HEIGHT + 2), -1);
+		fontRenderer.drawStringWithShadow(Strings.simpleTranslateColors("&7" + account.getEmail()), 30.0F, (6 + fontRenderer.FONT_HEIGHT + 2), -1);
 		GL11.glTranslated(-x, -y, 0.0D);
 	}
 

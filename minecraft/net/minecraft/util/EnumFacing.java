@@ -33,7 +33,7 @@ public enum EnumFacing implements IStringSerializable {
 	private static final EnumFacing[] HORIZONTALS = new EnumFacing[4];
 	private static final Map NAME_LOOKUP = Maps.newHashMap();
 	private static final EnumFacing[] $VALUES = new EnumFacing[] { DOWN, UP, NORTH, SOUTH, WEST, EAST };
-	private static final String __OBFID = "CL_00001201";
+	
 
 	private EnumFacing(String p_i13_3_, int p_i13_4_, int p_i13_5_, int p_i13_6_, int p_i13_7_, String p_i13_8_, EnumFacing.AxisDirection p_i13_9_, EnumFacing.Axis p_i13_10_, Vec3i p_i13_11_) {
 		this.index = p_i13_5_;
@@ -321,7 +321,7 @@ public enum EnumFacing implements IStringSerializable {
 		static final int[] field_179515_a;
 		static final int[] field_179513_b;
 		static final int[] field_179514_c = new int[EnumFacing.Plane.values().length];
-		private static final String __OBFID = "CL_00002322";
+		
 
 		static {
 			try {
@@ -403,7 +403,7 @@ public enum EnumFacing implements IStringSerializable {
 		private final String name;
 		private final EnumFacing.Plane plane;
 		private static final EnumFacing.Axis[] $VALUES = new EnumFacing.Axis[] { X, Y, Z };
-		private static final String __OBFID = "CL_00002321";
+		
 
 		private Axis(String p_i10_3_, int p_i10_4_, String p_i10_5_, EnumFacing.Plane p_i10_6_) {
 			this.name = p_i10_5_;
@@ -459,7 +459,7 @@ public enum EnumFacing implements IStringSerializable {
 		private final int offset;
 		private final String description;
 		private static final EnumFacing.AxisDirection[] $VALUES = new EnumFacing.AxisDirection[] { POSITIVE, NEGATIVE };
-		private static final String __OBFID = "CL_00002320";
+		
 
 		private AxisDirection(String p_i11_3_, int p_i11_4_, int p_i11_5_, String p_i11_6_) {
 			this.offset = p_i11_5_;
@@ -479,7 +479,7 @@ public enum EnumFacing implements IStringSerializable {
 		HORIZONTAL("HORIZONTAL", 0), VERTICAL("VERTICAL", 1);
 
 		private static final EnumFacing.Plane[] $VALUES = new EnumFacing.Plane[] { HORIZONTAL, VERTICAL };
-		private static final String __OBFID = "CL_00002319";
+		
 
 		private Plane(String p_i12_3_, int p_i12_4_) {
 		}

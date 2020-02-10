@@ -82,7 +82,6 @@ public class GuiPasswordField extends Gui {
 		int var4 = (this.cursorPosition < this.selectionEnd) ? this.cursorPosition : this.selectionEnd;
 		int var5 = (this.cursorPosition < this.selectionEnd) ? this.selectionEnd : this.cursorPosition;
 		int var6 = this.maxStringLength - this.text.length() - var4 - this.selectionEnd;
-		boolean var7 = false;
 		if (this.text.length() > 0)
 			var2 = var2 + this.text.substring(0, var4);
 		if (var6 < var3.length()) {

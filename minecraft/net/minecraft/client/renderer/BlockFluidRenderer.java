@@ -16,7 +16,7 @@ import optfine.RenderEnv;
 public class BlockFluidRenderer {
 	private TextureAtlasSprite[] atlasSpritesLava = new TextureAtlasSprite[2];
 	private TextureAtlasSprite[] atlasSpritesWater = new TextureAtlasSprite[2];
-	private static final String __OBFID = "CL_00002519";
+	
 
 	public BlockFluidRenderer() {
 		this.initAtlasSprites();

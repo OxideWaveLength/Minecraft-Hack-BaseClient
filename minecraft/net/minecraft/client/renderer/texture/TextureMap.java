@@ -46,7 +46,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	private final IIconCreator iconCreator;
 	private int mipmapLevels;
 	private final TextureAtlasSprite missingImage;
-	private static final String __OBFID = "CL_00001058";
+	
 
 	public TextureMap(String p_i46099_1_) {
 		this(p_i46099_1_, (IIconCreator) null);
@@ -209,21 +209,21 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 				CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Applying mipmap");
 				CrashReportCategory crashreportcategory = crashreport.makeCategory("Sprite being mipmapped");
 				crashreportcategory.addCrashSectionCallable("Sprite name", new Callable() {
-					private static final String __OBFID = "CL_00001059";
+					
 
 					public String call() throws Exception {
 						return textureatlassprite2.getIconName();
 					}
 				});
 				crashreportcategory.addCrashSectionCallable("Sprite size", new Callable() {
-					private static final String __OBFID = "CL_00001060";
+					
 
 					public String call() throws Exception {
 						return textureatlassprite2.getIconWidth() + " x " + textureatlassprite2.getIconHeight();
 					}
 				});
 				crashreportcategory.addCrashSectionCallable("Sprite frames", new Callable() {
-					private static final String __OBFID = "CL_00001061";
+					
 
 					public String call() throws Exception {
 						return textureatlassprite2.getFrameCount() + " frames";

@@ -196,7 +196,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 	private double prevRenderSortY;
 	private double prevRenderSortZ;
 	public boolean displayListEntitiesDirty = true;
-	private static final String __OBFID = "CL_00000954";
+	
 	private CloudRenderer cloudRenderer;
 	public Entity renderedEntity;
 	public Set chunksToResortTransparency = new LinkedHashSet();
@@ -2154,7 +2154,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 			}
 
 			crashreportcategory.addCrashSectionCallable("Position", new Callable() {
-				private static final String __OBFID = "CL_00000955";
+				
 
 				public String call() throws Exception {
 					return CrashReportCategory.getCoordinateInfo(xCoord, yCoord, zCoord);
@@ -2557,7 +2557,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
 	static final class RenderGlobal$2 {
 		static final int[] field_178037_a = new int[VertexFormatElement.EnumUsage.values().length];
-		private static final String __OBFID = "CL_00002535";
+		
 
 		static {
 			try {
@@ -2585,7 +2585,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 		final EnumFacing facing;
 		final Set setFacing;
 		final int counter;
-		private static final String __OBFID = "CL_00002534";
+		
 
 		private ContainerLocalRenderInformation(RenderChunk renderChunkIn, EnumFacing facingIn, int counterIn) {
 			this.setFacing = EnumSet.noneOf(EnumFacing.class);

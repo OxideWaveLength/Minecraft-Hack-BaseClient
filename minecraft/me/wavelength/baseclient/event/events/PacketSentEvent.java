@@ -5,17 +5,17 @@ import net.minecraft.network.Packet;
 
 public class PacketSentEvent extends CancellableEvent {
 
-	private Packet packet;
+	private Packet<?> packet;
 
-	public PacketSentEvent(Packet packet) {
+	public PacketSentEvent(Packet<?> packet) {
 		this.packet = packet;
 	}
 
-	public Packet getPacket() {
+	public Packet<?> getPacket() {
 		return packet;
 	}
 
-	public void setPacket(Packet packet) {
+	public void setPacket(Packet<?> packet) {
 		this.packet = packet;
 	}
 

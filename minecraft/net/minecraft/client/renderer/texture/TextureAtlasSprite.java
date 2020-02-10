@@ -37,7 +37,7 @@ public class TextureAtlasSprite {
 	protected int tickCounter;
 	private static String locationNameClock = "builtin/clock";
 	private static String locationNameCompass = "builtin/compass";
-	private static final String __OBFID = "CL_00001062";
+	
 	private int indexInMap = -1;
 	public float baseU;
 	public float baseV;
@@ -355,7 +355,7 @@ public class TextureAtlasSprite {
 					CrashReportCategory crashreportcategory = crashreport.makeCategory("Frame being iterated");
 					crashreportcategory.addCrashSection("Frame index", Integer.valueOf(i));
 					crashreportcategory.addCrashSectionCallable("Frame sizes", new Callable() {
-						private static final String __OBFID = "CL_00001063";
+						
 
 						public String call() throws Exception {
 							StringBuilder stringbuilder = new StringBuilder();

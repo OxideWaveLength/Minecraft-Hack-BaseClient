@@ -27,21 +27,21 @@ import net.minecraft.util.StringUtils;
 
 public class NahrFont {
 
-	private static Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OG]");
-	private static Pattern patternUnsupported = Pattern.compile("(?i)\\u00A7[K-O]");
+	private Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OG]");
+	private Pattern patternUnsupported = Pattern.compile("(?i)\\u00A7[K-O]");
 	private Font font;
 	private boolean antiAlias = true;
-	private static Graphics2D theGraphics;
-	private static FontMetrics theMetrics;
+	private Graphics2D theGraphics;
+	private FontMetrics theMetrics;
 	private float size;
-	private static int startChar;
+	private int startChar;
 	private int endChar;
-	private static float[] xPos;
-	private static float[] yPos;
+	private float[] xPos;
+	private float[] yPos;
 	private BufferedImage bufferedImage;
-	private static float extraSpacing = 0.0f;
+	private float extraSpacing = 0.0f;
 	private DynamicTexture dynamicTexture;
-	private static ResourceLocation resourceLocation;
+	private ResourceLocation resourceLocation;
 
 	public NahrFont(Object font, float size) {
 		this(font, size, 0.0f);
@@ -121,7 +121,7 @@ public class NahrFont {
 		this.drawString(text, x, y, FontType.SHADOW_THIN, color, -16777216);
 	}
 
-	public static void drawString(String text, float x, float y, FontType fontType, int color, int color2) {
+	public void drawString(String text, float x, float y, FontType fontType, int color, int color2) {
 		text = Strings.translateColors(text);
 
 		GlStateManager.pushMatrix();
@@ -163,7 +163,7 @@ public class NahrFont {
 		GlStateManager.popMatrix();
 	}
 
-	private static void drawer(String text, float x, float y, int color) {
+	private void drawer(String text, float x, float y, int color) {
 		y -= 5.0f;
 		y *= 2.0f;
 		GlStateManager.pushMatrix();
@@ -212,7 +212,7 @@ public class NahrFont {
 		GlStateManager.popMatrix();
 	}
 
-	public static float getStringWidth(String text) {
+	public float getStringWidth(String text) {
 		try {
 			return (float) (getBounds(text).getWidth() + (double) extraSpacing) / 2.0f;
 		} catch (Exception e) {
@@ -228,22 +228,22 @@ public class NahrFont {
 		}
 	}
 
-	private static Rectangle2D getBounds(String text) {
+	private Rectangle2D getBounds(String text) {
 		return theMetrics.getStringBounds(StringUtils.stripControlCodes(text), theGraphics);
 	}
 
-	private static void drawChar(char character, float x, float y) throws ArrayIndexOutOfBoundsException {
+	private void drawChar(char character, float x, float y) throws ArrayIndexOutOfBoundsException {
 		GlStateManager.pushMatrix();
 		Rectangle2D bounds = theMetrics.getStringBounds(Character.toString(character), theGraphics);
 		drawTexturedModalRect(x, y, xPos[character - startChar], yPos[character - startChar], (float) bounds.getWidth(), (float) bounds.getHeight() + (float) theMetrics.getMaxDescent() + 1.0f);
 		GlStateManager.popMatrix();
 	}
 
-	public List listFormattedStringToWidth(String s, int width) {
+	public List<String> listFormattedStringToWidth(String s, int width) {
 		return Arrays.asList(this.wrapFormattedStringToWidth(s, width).split("\n"));
 	}
 
-	String wrapFormattedStringToWidth(String s, float width) {
+	public String wrapFormattedStringToWidth(String s, float width) {
 		int wrapWidth = this.sizeStringToWidth(s, width);
 		if (s.length() <= wrapWidth) {
 			return s;
@@ -341,8 +341,8 @@ public class NahrFont {
 		return par0 >= 'k' && par0 <= 'o' || par0 >= 'K' && par0 <= 'O' || par0 == 'r' || par0 == 'R';
 	}
 
-	public static void drawTexturedModalRect(final float x, final float y, final float textureX, final float textureY, final float width, final float height) {
-		final float scale = 0.0039063f;
+	public void drawTexturedModalRect(final float x, final float y, final float textureX, final float textureY, final float width, final float height) {
+//		final float scale = 0.0039063f;
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.getInstance();
@@ -355,11 +355,11 @@ public class NahrFont {
 		tessellator.draw();
 	}
 
-	public static String stripControlCodes(String s) {
+	public String stripControlCodes(String s) {
 		return patternControlCode.matcher(s).replaceAll("");
 	}
 
-	public static String stripUnsupported(String s) {
+	public String stripUnsupported(String s) {
 		return patternUnsupported.matcher(s).replaceAll("");
 	}
 
@@ -371,7 +371,7 @@ public class NahrFont {
 		return this.font;
 	}
 
-	public static enum FontType {
+	public enum FontType {
 		NORMAL, OUTLINE_THIN, SHADOW_THIN, SHADOW_THICK, EMBOSS_TOP, EMBOSS_BOTTOM;
 	}
 

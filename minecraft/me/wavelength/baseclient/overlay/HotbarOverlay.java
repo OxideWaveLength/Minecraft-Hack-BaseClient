@@ -8,6 +8,7 @@ import me.wavelength.baseclient.event.events.Render2DEvent;
 import me.wavelength.baseclient.font.NahrFont.FontType;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Time;
+import net.minecraft.client.Minecraft;
 
 public class HotbarOverlay extends EventListener {
 
@@ -28,7 +29,7 @@ public class HotbarOverlay extends EventListener {
 		if (mc.currentScreen != null)
 			return;
 
-		renderText(event, "&7[&dFPS&7]&5 " + mc.getDebugFPS(), 2);
+		renderText(event, "&7[&dFPS&7]&5 " + Minecraft.getDebugFPS(), 2);
 	}
 
 	private void renderText(Render2DEvent event, String text, int x) {

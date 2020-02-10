@@ -9,7 +9,7 @@ public class ImageBufferDownload implements IImageBuffer {
 	private int[] imageData;
 	private int imageWidth;
 	private int imageHeight;
-	private static final String __OBFID = "CL_00000956";
+	
 
 	public BufferedImage parseUserSkin(BufferedImage image) {
 		if (image == null) {

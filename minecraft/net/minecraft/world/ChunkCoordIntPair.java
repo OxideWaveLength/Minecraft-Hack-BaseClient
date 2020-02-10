@@ -8,7 +8,7 @@ public class ChunkCoordIntPair {
 
 	/** The Z position of this Chunk Coordinate Pair */
 	public final int chunkZPos;
-	private static final String __OBFID = "CL_00000133";
+	
 	private int cachedHashCode = 0;
 
 	public ChunkCoordIntPair(int x, int z) {

@@ -28,7 +28,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	private final List listTickables = Lists.newArrayList();
 	private final Map mapTextureCounters = Maps.newHashMap();
 	private IResourceManager theResourceManager;
-	private static final String __OBFID = "CL_00001064";
+	
 
 	public TextureManager(IResourceManager resourceManager) {
 		this.theResourceManager = resourceManager;
@@ -74,7 +74,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Resource location being registered");
 			crashreportcategory.addCrashSection("Resource location", textureLocation);
 			crashreportcategory.addCrashSectionCallable("Texture object class", new Callable() {
-				private static final String __OBFID = "CL_00001065";
+				
 
 				public String call() throws Exception {
 					return textureObj.getClass().getName();

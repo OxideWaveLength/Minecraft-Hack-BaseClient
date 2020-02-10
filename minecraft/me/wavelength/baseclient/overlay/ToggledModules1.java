@@ -32,15 +32,6 @@ public class ToggledModules1 extends EventListener {
 			if (module.getCategory().equals(Category.HIDDEN) || !(module.isShownInModuleArrayList()))
 				continue;
 
-			Module nextModule = null;
-			Module previousModule = null;
-
-			if (i < modules.size() - 2)
-				nextModule = modules.get(i + 1);
-
-			if ((i) > 0)
-				previousModule = modules.get(i - 1);
-
 			String s = Strings.capitalizeFirstLetter(Strings.translateColors(module.getNameWithAntiCheat()));
 			int mWidth = Strings.getStringWidthCFR(s);
 

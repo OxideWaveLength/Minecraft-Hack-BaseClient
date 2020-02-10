@@ -56,7 +56,7 @@ public class GuiIngame extends Gui {
 	private static final ResourceLocation pumpkinBlurTexPath = new ResourceLocation("textures/misc/pumpkinblur.png");
 	private final Random rand = new Random();
 	private final Minecraft mc;
-	public static RenderItem itemRenderer;
+	public RenderItem itemRenderer;
 
 	/** ChatGUI instance that retains all previous chat data */
 	private final GuiNewChat persistantChatGUI;
@@ -97,7 +97,6 @@ public class GuiIngame extends Gui {
 
 	/** Used with updateCounter to make the heart bar flash */
 	private long healthUpdateCounter = 0L;
-	private static final String __OBFID = "CL_00000661";
 
 	public GuiIngame(Minecraft mcIn) {
 		this.mc = mcIn;
@@ -420,7 +419,6 @@ public class GuiIngame extends Gui {
 			String s = "" + this.mc.thePlayer.experienceLevel;
 			int i1 = (p_175176_1_.getScaledWidth() - this.getFontRenderer().getStringWidth(s)) / 2;
 			int l = p_175176_1_.getScaledHeight() - 31 - 4;
-			boolean flag = false;
 			this.getFontRenderer().drawString(s, i1 + 1, l, 0);
 			this.getFontRenderer().drawString(s, i1 - 1, l, 0);
 			this.getFontRenderer().drawString(s, i1, l + 1, 0);
@@ -509,9 +507,8 @@ public class GuiIngame extends Gui {
 
 	private void renderScoreboard(ScoreObjective p_180475_1_, ScaledResolution p_180475_2_) {
 		Scoreboard scoreboard = p_180475_1_.getScoreboard();
-		Collection collection = scoreboard.getSortedScores(p_180475_1_);
-		ArrayList arraylist = Lists.newArrayList(Iterables.filter(collection, new Predicate() {
-			private static final String __OBFID = "CL_00001958";
+		Collection<Score> collection = scoreboard.getSortedScores(p_180475_1_);
+		ArrayList<Score> arraylist = Lists.newArrayList(Iterables.filter(collection, new Predicate<Object>() {
 
 			public boolean apply(Score p_apply_1_) {
 				return p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName().startsWith("#");
@@ -521,7 +518,7 @@ public class GuiIngame extends Gui {
 				return this.apply((Score) p_apply_1_);
 			}
 		}));
-		ArrayList arraylist1;
+		ArrayList<Score> arraylist1;
 
 		if (arraylist.size() > 15) {
 			arraylist1 = Lists.newArrayList(Iterables.skip(arraylist, collection.size() - 15));
@@ -806,7 +803,6 @@ public class GuiIngame extends Gui {
 	private void renderBossHealth() {
 		if (BossStatus.bossName != null && BossStatus.statusBarTime > 0) {
 			--BossStatus.statusBarTime;
-			FontRenderer fontrenderer = this.mc.fontRendererObj;
 			ScaledResolution scaledresolution = new ScaledResolution(this.mc);
 			int i = scaledresolution.getScaledWidth();
 			short short1 = 182;

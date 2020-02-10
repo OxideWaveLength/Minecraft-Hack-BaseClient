@@ -11,7 +11,7 @@ public class BakedQuad {
 	protected final int[] vertexData;
 	protected final int tintIndex;
 	protected final EnumFacing face;
-	private static final String __OBFID = "CL_00002512";
+	
 	private TextureAtlasSprite sprite = null;
 	private int[] vertexDataSingle = null;
 

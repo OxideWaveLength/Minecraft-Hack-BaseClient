@@ -15,6 +15,7 @@ import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.account.Account;
 
 public class AccountImport extends JPanel implements ActionListener {
+	private static final long serialVersionUID = 1L;
 
 	public JButton openButton;
 

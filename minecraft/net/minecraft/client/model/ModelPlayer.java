@@ -12,7 +12,7 @@ public class ModelPlayer extends ModelBiped {
 	private ModelRenderer bipedCape;
 	private ModelRenderer bipedDeadmau5Head;
 	private boolean smallArms;
-	private static final String __OBFID = "CL_00002626";
+	
 
 	public ModelPlayer(float p_i46304_1_, boolean p_i46304_2_) {
 		super(p_i46304_1_, 0.0F, 64, 64);

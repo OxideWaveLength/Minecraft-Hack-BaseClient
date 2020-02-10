@@ -91,7 +91,7 @@ public class OpenGlHelper {
 	private static boolean arbVbo;
 	public static int GL_ARRAY_BUFFER;
 	public static int GL_STATIC_DRAW;
-	private static final String __OBFID = "CL_00001179";
+	
 	public static float lastBrightnessX = 0.0F;
 	public static float lastBrightnessY = 0.0F;
 

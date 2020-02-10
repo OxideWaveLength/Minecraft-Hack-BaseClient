@@ -36,7 +36,7 @@ import optfine.Reflector;
 public class GuiOverlayDebug extends Gui {
 	private final Minecraft mc;
 	private final FontRenderer fontRenderer;
-	private static final String __OBFID = "CL_00001956";
+	
 
 	public GuiOverlayDebug(Minecraft mc) {
 		this.mc = mc;
@@ -256,7 +256,7 @@ public class GuiOverlayDebug extends Gui {
 
 	static final class GuiOverlayDebug$1 {
 		static final int[] field_178907_a = new int[EnumFacing.values().length];
-		private static final String __OBFID = "CL_00001955";
+		
 
 		static {
 			try {

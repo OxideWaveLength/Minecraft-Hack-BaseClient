@@ -7,4 +7,9 @@ public class UserSkin {
 	public UserSkin(AlteningAlt account) {
 		this.account = account;
 	}
+
+	public AlteningAlt getAccount() {
+		return account;
+	}
+
 }
