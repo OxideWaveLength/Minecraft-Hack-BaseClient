@@ -1,14 +1,3 @@
-# Important Note
-I *tried* to implement slick's fontmanager (edited by Russian412), but at this stage it contains different bugs; this version is broken and will be used as a base for the new one.
-
-This though SHOULD be the best way to add color codes to slick's fontmanager, so if anyone manages to get this working, a PR would be really appreciated!
-
-I will be using this as a base for the new version, which is going to use a different method (splitting strings and stuff) to get color codes working, but will NOT update this branch anymore.
-
-Here is a small screenshot of how the font renderer looks right now...
-![](https://image.prntscr.com/image/8wLK2rZ-R26askkoVUCtxA.png)
-
-
 # Minecraft Base Hacked Client 1.8.8 (with Optifine)
 
 ## Welcome!
@@ -59,7 +48,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 - [Module ArrayList](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Modules-ArrayList-(or-%22ToggledModules%22))
 - [Hotbar Overlay](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Hotbar-Overlay)
 - Alt Manager (By Russian412)
-- NahrFont (Font Manager) ported to 1.8.8 (By Russian412)
+- Slick's FontManager (Edited by Russian412 and me) - Updated in the commit #77 / a0bfdf7
 - IRC Client
 
 ------------
