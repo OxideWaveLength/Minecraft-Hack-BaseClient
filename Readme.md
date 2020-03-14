@@ -57,7 +57,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 
 - ~~Better hotbar overlay~~ (Added in commit #44 / 7634127)
 - ~~Better module arraylist~~ (Added in commit #29 / 070586b!)
-- ~~Better font manager~~ (Not needed as of now)
+- ~~Better font manager~~ (Added in commit #77 / a0bfdf7)
 - ~~Help command~~ (Done)
 - ~~Better FileManager / ConfigManager~~ (Not needed as of now)
 - Enhance some code
