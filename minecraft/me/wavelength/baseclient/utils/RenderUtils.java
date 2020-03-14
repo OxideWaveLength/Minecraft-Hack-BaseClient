@@ -1,9 +1,11 @@
 package me.wavelength.baseclient.utils;
 
+import java.awt.Color;
+
 import org.lwjgl.opengl.GL11;
 
 import me.wavelength.baseclient.BaseClient;
-import me.wavelength.baseclient.font.NahrFont.FontType;
+import me.wavelength.baseclient.font.FontManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiIngame;
@@ -20,6 +22,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 
 public class RenderUtils {
+
+	private static FontManager getFontRenderer() {
+		return BaseClient.instance.getFontRenderer();
+	}
 
 	public static void renderItem(int xPos, int yPos, ItemStack itemStack) {
 		GuiIngame guiInGame = Minecraft.getMinecraft().ingameGUI;
@@ -45,28 +51,73 @@ public class RenderUtils {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
 
-	public static void drawString(String text, int x, int y, FontType fontType, int color, int shadowColor) {
-		BaseClient.instance.getFontRenderer().drawString(text, x, y, fontType, color, shadowColor);
+	public static void drawString(String text, int x, int y, int color, int fontSize, boolean shadow) {
+		if (color == -1)
+			color = Color.WHITE.getRGB();
+
+		text = Strings.simpleTranslateColors(text);
+		if (shadow)
+			getFontRenderer().getFont(fontSize).drawStringWithShadow(text, x, y, color);
+		else
+			getFontRenderer().getFont(fontSize).drawString(text, x, y, color);
 	}
 
-	public static void drawString(String text, int x, int y, FontType fontType, int color) {
-		BaseClient.instance.getFontRenderer().drawString(text, x, y, fontType, color, -16777216);
+	public static void drawString(String text, int x, int y, int color, boolean shadow) {
+		drawString(text, x, y, color, getFontRenderer().getFontSize(), shadow);
 	}
 
-	public static void drawStringFromTopRight(String text, int x, int y, FontType fontType, int color, int shadowColor) {
-		drawString(text, getScaledResolution().getScaledWidth() - Strings.getStringWidthCFR(text) - x, y, fontType, color, shadowColor);
+	public static void drawString(String text, int x, int y, int color, int fontSize) {
+		drawString(text, x, y, color, fontSize, true);
 	}
 
-	public static void drawStringFromTopRight(String text, int x, int y, FontType fontType, int color) {
-		drawStringFromTopRight(text, x, y, fontType, color, -16777216);
+	public static void drawString(String text, int x, int y, int color) {
+		if (color == -1)
+			color = Color.WHITE.getRGB();
+		drawString(text, x, y, color, true);
 	}
 
-	public static void drawStringFromBottomRight(String text, int x, int y, FontType fontType, int color, int shadowColor) {
-		drawStringFromTopRight(text, x, getScaledResolution().getScaledHeight() - y * 2, fontType, color, shadowColor);
+	public static void drawStringFromTopRight(String text, int x, int y, int color, int fontSize, boolean shadow) {
+		drawString(text, getScaledResolution().getScaledWidth() - Strings.getStringWidthCFR(text) - x, y, color, shadow);
 	}
 
-	public static void drawStringFromBottomRight(String text, int x, int y, FontType fontType, int color) {
-		drawStringFromBottomRight(text, x, y, fontType, color, -16777216);
+	public static void drawStringFromTopRight(String text, int x, int y, int color, boolean shadow) {
+		drawStringFromTopRight(text, x, y, color, getFontRenderer().getFontSize(), shadow);
+	}
+
+	public static void drawStringFromTopRight(String text, int x, int y, int color, int fontSize) {
+		drawStringFromTopRight(text, x, y, color, fontSize, true);
+	}
+
+	public static void drawStringFromTopRight(String text, int x, int y, int color) {
+		drawStringFromTopRight(text, x, y, color, getFontRenderer().getFontSize(), true);
+	}
+
+	public static void drawStringFromBottomRight(String text, int x, int y, int color, int fontSize, boolean shadow) {
+		drawStringFromTopRight(text, x, getScaledResolution().getScaledHeight() - y * 2, color, fontSize, shadow);
+	}
+
+	public static void drawStringFromBottomRight(String text, int x, int y, int color, boolean shadow) {
+		drawStringFromBottomRight(text, x, y, color, getFontRenderer().getFontSize(), true);
+	}
+
+	public static void drawStringFromBottomRight(String text, int x, int y, int color, int fontSize) {
+		drawStringFromBottomRight(text, x, y, color, fontSize, true);
+	}
+
+	public static void drawStringFromBottomRight(String text, int x, int y, int color) {
+		drawStringFromBottomRight(text, x, y, color, getFontRenderer().getFontSize());
+	}
+
+	public static void drawStringFromBottomLeft(String text, int x, int y, int color) {
+		drawStringFromBottomLeft(text, x, y, color, getFontRenderer().getFontSize(), true);
+	}
+
+	public static void drawStringFromBottomLeft(String text, int x, int y, int color, int fontSize) {
+		drawStringFromBottomLeft(text, x, y, color, fontSize, true);
+	}
+
+	public static void drawStringFromBottomLeft(String text, int x, int y, int color, int fontSize, boolean shadow) {
+		drawString(text, x, getScaledResolution().getScaledHeight() - y * 2, color, fontSize, shadow);
 	}
 
 	public static void drawRect(int left, int top, int right, int bottom, int color) {
@@ -83,7 +134,6 @@ public class RenderUtils {
 
 	public static void drawModalRectFromTopRight(int xCord, int yCord, int width, int height, int color) {
 		Gui.drawRect(getScaledResolution().getScaledWidth() - xCord, yCord, getScaledResolution().getScaledWidth() - xCord + width, yCord + height, color);
-//		drawModalRectFromRight(xCord, getScaledResolution().getScaledHeight() + yCord, width, getScaledResolution().getScaledHeight() + yCord + height, color);
 	}
 
 	public static ScaledResolution getScaledResolution() {

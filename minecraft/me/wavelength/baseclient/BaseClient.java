@@ -1,14 +1,13 @@
 package me.wavelength.baseclient;
 
 import java.io.File;
-import java.io.InputStream;
 
 import org.lwjgl.opengl.Display;
 
 import me.wavelength.baseclient.account.AccountManager;
 import me.wavelength.baseclient.command.CommandManager;
 import me.wavelength.baseclient.event.EventManager;
-import me.wavelength.baseclient.font.NahrFont;
+import me.wavelength.baseclient.font.FontManager;
 import me.wavelength.baseclient.gui.GuiAltManager;
 import me.wavelength.baseclient.irc.IRCClient;
 import me.wavelength.baseclient.module.ModuleManager;
@@ -53,14 +52,14 @@ public class BaseClient {
 
 	private AltService altService;
 
-	private NahrFont fontRenderer;
+	private FontManager fontRenderer;
 
 	private String packageBase = "me.wavelength.baseclient";
 
 	private boolean defaultHotbar = false;
 
 	private Config genericConfig;
-	
+
 	public BaseClient() {
 		instance = this;
 	}
@@ -100,14 +99,16 @@ public class BaseClient {
 	public void afterMinecraft() {
 		Display.setTitle(String.format("%1$s - %2$s", clientName, clientVersion));
 
-		Object font = "Verdana";
+//		Object font = "Verdana";
 
-		InputStream stream = BaseClient.class.getResourceAsStream(("/" + packageBase.replace(".", "/") + "/font/fonts/" + "BwModelicaSS01-RegularCondensed.ttf"));
+//		InputStream stream = BaseClient.class.getResourceAsStream(("/" + packageBase.replace(".", "/") + "/font/fonts/" + "BwModelicaSS01-RegularCondensed.ttf"));
+//
+//		if (stream != null)
+//			font = stream;
 
-		if (stream != null)
-			font = stream;
+//		this.fontRenderer = new FontManager(font, (stream == null ? 20 : 25)); // If the font looks weird, change the font size
 
-		this.fontRenderer = new NahrFont(font, (stream == null ? 20 : 25)); // If the font looks weird, change the font size
+		this.fontRenderer = new FontManager(packageBase + ".font.fonts", "BwModelicaSS01-RegularCondensed", 35);
 
 		registerHuds();
 	}
@@ -115,7 +116,7 @@ public class BaseClient {
 	private void registerHuds() {
 		new HotbarOverlay();
 		new ToggledModules1();
-		 new TabGui1();
+		new TabGui1();
 	}
 
 	public String getClientName() {
@@ -158,7 +159,7 @@ public class BaseClient {
 		return altService;
 	}
 
-	public NahrFont getFontRenderer() {
+	public FontManager getFontRenderer() {
 		return fontRenderer;
 	}
 

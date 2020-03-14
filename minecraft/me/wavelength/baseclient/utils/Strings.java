@@ -119,18 +119,26 @@ public class Strings {
 		return Minecraft.getMinecraft().fontRendererObj.getStringWidth(stripColors(text));
 	}
 
+	public static int getStringWidthCFR(String text) {
+		return getStringWidthCFR(text, BaseClient.instance.getFontRenderer().getFontSize());
+	}
+
 	/**
 	 * @formatter:off
 	 * CFR stands for CustomFontRenderer
 	 * That means that it will get the String Width from the custom font renderer, and not Minecraft's one.
 	 * @formatter:on
 	 */
-	public static int getStringWidthCFR(String text) {
-		return (int) BaseClient.instance.getFontRenderer().getStringWidth(stripColors(text));
+	public static int getStringWidthCFR(String text, int fontSize) {
+		return (int) BaseClient.instance.getFontRenderer().getFont(fontSize).getStringWidth(stripColors(text));
 	}
 
 	public static int getStringHeightCFR(String text) {
-		return (int) BaseClient.instance.getFontRenderer().getStringHeight(stripColors(text));
+		return getStringHeightCFR(text, BaseClient.instance.getFontRenderer().getFontSize());
+	}
+
+	public static int getStringHeightCFR(String text, int fontSize) {
+		return (int) BaseClient.instance.getFontRenderer().getFont(fontSize).getStringHeight(stripColors(text));
 	}
 
 	public static int getMaxWidth(String[] lines) {
