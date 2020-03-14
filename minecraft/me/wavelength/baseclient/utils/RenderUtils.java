@@ -52,10 +52,14 @@ public class RenderUtils {
 	}
 
 	public static void drawString(String text, int x, int y, int color, int fontSize, boolean shadow) {
+		if (color == -1)
+			color = Color.WHITE.getRGB();
+
+		text = Strings.simpleTranslateColors(text);
 		if (shadow)
-			getFontRenderer().getFont().drawStringWithShadow(text, x, y, color);
+			getFontRenderer().getFont(fontSize).drawStringWithShadow(text, x, y, color);
 		else
-			getFontRenderer().getFont().drawString(text, x, y, color);
+			getFontRenderer().getFont(fontSize).drawString(text, x, y, color);
 	}
 
 	public static void drawString(String text, int x, int y, int color, boolean shadow) {
@@ -67,7 +71,7 @@ public class RenderUtils {
 	}
 
 	public static void drawString(String text, int x, int y, int color) {
-		if(color == -1)
+		if (color == -1)
 			color = Color.WHITE.getRGB();
 		drawString(text, x, y, color, true);
 	}
@@ -89,7 +93,7 @@ public class RenderUtils {
 	}
 
 	public static void drawStringFromBottomRight(String text, int x, int y, int color, int fontSize, boolean shadow) {
-		drawStringFromTopRight(text, x, getScaledResolution().getScaledHeight() - y * 2, fontSize, color, shadow);
+		drawStringFromTopRight(text, x, getScaledResolution().getScaledHeight() - y * 2, color, fontSize, shadow);
 	}
 
 	public static void drawStringFromBottomRight(String text, int x, int y, int color, boolean shadow) {
@@ -102,6 +106,18 @@ public class RenderUtils {
 
 	public static void drawStringFromBottomRight(String text, int x, int y, int color) {
 		drawStringFromBottomRight(text, x, y, color, getFontRenderer().getFontSize());
+	}
+
+	public static void drawStringFromBottomLeft(String text, int x, int y, int color) {
+		drawStringFromBottomLeft(text, x, y, color, getFontRenderer().getFontSize(), true);
+	}
+
+	public static void drawStringFromBottomLeft(String text, int x, int y, int color, int fontSize) {
+		drawStringFromBottomLeft(text, x, y, color, fontSize, true);
+	}
+
+	public static void drawStringFromBottomLeft(String text, int x, int y, int color, int fontSize, boolean shadow) {
+		drawString(text, x, getScaledResolution().getScaledHeight() - y * 2, color, fontSize, shadow);
 	}
 
 	public static void drawRect(int left, int top, int right, int bottom, int color) {

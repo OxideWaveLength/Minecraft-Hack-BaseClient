@@ -23,7 +23,7 @@ public class HotbarOverlay extends EventListener {
 
 		RenderUtils.drawModalRectFromRight(5, 0, 5, 21, Color.RED.getRGB());
 
-		RenderUtils.drawStringFromBottomRight(Time.getTime(System.currentTimeMillis(), "HH:mm:ss"), 9, 7, Color.YELLOW.getRGB());
+		RenderUtils.drawStringFromBottomRight(Time.getTime(System.currentTimeMillis(), "HH:mm:ss"), 9, 10, Color.YELLOW.getRGB());
 
 		if (mc.currentScreen != null)
 			return;
@@ -33,7 +33,7 @@ public class HotbarOverlay extends EventListener {
 
 	private void renderText(Render2DEvent event, String text, int x) {
 		String fpsText = text;
-		RenderUtils.drawString(fpsText, x, event.getHeight() - 15, -1);
+		RenderUtils.drawStringFromBottomLeft(fpsText, x, 10, -1);
 	}
 
 }

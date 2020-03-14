@@ -49,6 +49,10 @@ public class UnicodeFontRenderer extends FontRenderer {
 	}
 
 	public int drawString(String string, int x, int y, int color) {
+		return drawString(string, x, y, color, false);
+	}
+
+	public int drawString(String string, int x, int y, int color, boolean hasShadow) {
 		if (string == null)
 			return -1;
 		GL11.glPushMatrix();
@@ -65,7 +69,8 @@ public class UnicodeFontRenderer extends FontRenderer {
 		GL11.glBlendFunc(770, 771);
 		x *= 2;
 		y *= 2;
-		this.font.drawString(x, y, string, new Color(color));
+
+		this.font.drawString((float) x, (float) y, string, new Color(color), hasShadow);
 		if (texture)
 			GL11.glEnable(3553);
 		if (lighting)
@@ -78,7 +83,7 @@ public class UnicodeFontRenderer extends FontRenderer {
 
 	public void drawStringWithShadow(String string, int x, int y, int color) {
 		drawString(StringUtils.stripControlCodes(string), x + 1, y + 1, -16777216);
-		drawString(string, x, y, color);
+		drawString(string, x, y, color, true);
 	}
 
 	public int getStringWidth(String string) {

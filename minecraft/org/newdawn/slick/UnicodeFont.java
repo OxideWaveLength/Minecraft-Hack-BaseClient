@@ -28,7 +28,7 @@ import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.opengl.renderer.SGL;
 import org.newdawn.slick.util.ResourceLoader;
 
-import me.wavelength.baseclient.utils.ColorUtils;
+import me.wavelength.baseclient.utils.Colors;
 import me.wavelength.baseclient.utils.Strings;
 
 /**
@@ -515,20 +515,6 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 
 			int codePoint = text.codePointAt(charIndex);
 
-			char c = (char) codePoint;
-
-//			System.out.println("\u00A7");
-
-			if (c == '\u00A7' && chars.length > charIndex + 1) {
-				char nextChar = (char) chars[charIndex + 1];
-				Color currentColor = ColorUtils.getSlickColor(nextChar);
-				if (currentColor != null)
-					currentColor.bind();
-				continue;
-			} else if (charIndex > 0 && text.codePointAt(charIndex - 1) == '\u00A7') {
-				continue;
-			}
-
 			Rectangle bounds = getGlyphBounds(vector, glyphIndex, codePoint);
 			Glyph glyph = getGlyph(vector.getGlyphCode(glyphIndex), codePoint, bounds, vector, glyphIndex);
 
@@ -587,15 +573,40 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 	}
 
 	public void drawString(float x, float y, String text, Color color, int startIndex, int endIndex) {
-		drawDisplayList(x, y, text, color, startIndex, endIndex);
+		drawString(x, y, text, color, startIndex, endIndex, false);
+	}
+
+	public void drawString(float x, float y, String text, Color color, int startIndex, int endIndex, boolean hasShadow) {
+		String[] pieces = text.split("\u00A7");
+		Color previousColor = color;
+
+		for (int i = 0; i < pieces.length; i++) {
+			String piece = pieces[i];
+			Color pieceColor = previousColor;
+			if (((i == 0 && text.startsWith("\u00A7")) || i > 0) && piece.length() > 1) {
+				pieceColor = Colors.getSlickColor(piece.charAt(0));
+				previousColor = pieceColor;
+				piece = piece.substring(1, piece.length());
+			}
+			drawDisplayList(x, y, piece, pieceColor, 0, piece.length());
+			x += getWidth(piece) + (hasShadow ? 1 : 0);
+		}
 	}
 
 	public void drawString(float x, float y, String text) {
 		drawString(x, y, text, Color.white);
 	}
 
-	public void drawString(float x, float y, String text, Color col) {
-		drawString(x, y, text, col, 0, text.length());
+	public void drawString(float x, float y, String text, boolean hasShadow) {
+		drawString(x, y, text, Color.white, hasShadow);
+	}
+
+	public void drawString(float x, float y, String text, Color color) {
+		drawString(x, y, text, color, 0, text.length());
+	}
+
+	public void drawString(float x, float y, String text, Color color, boolean hasShadow) {
+		drawString(x, y, text, color, 0, text.length(), hasShadow);
 	}
 
 	/**

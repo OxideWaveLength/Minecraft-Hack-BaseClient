@@ -34,9 +34,8 @@ public class ToggledModules1 extends EventListener {
 			if (module.getCategory().equals(Category.HIDDEN) || !(module.isShownInModuleArrayList()))
 				continue;
 
-			String s = Strings.capitalizeFirstLetter(Strings.translateColors(module.getNameWithAntiCheat()));
+			String s = Strings.capitalizeFirstLetter(module.getNameWithAntiCheat());
 			int mWidth = Strings.getStringWidthCFR(s);
-//			int mHeight = Strings.getStringHeightCFR(s);
 
 			/** Draw the black background */
 			RenderUtils.drawRect(event.getWidth() - mWidth - relativeYOffset * 2, y - 1, event.getWidth(), y + offset, new Color(0, 0, 0, 100).getRGB());
