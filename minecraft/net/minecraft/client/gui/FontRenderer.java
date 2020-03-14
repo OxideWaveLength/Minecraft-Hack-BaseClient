@@ -106,7 +106,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Set if the "m" style (strikethrough) is active in currently rendering string
 	 */
 	private boolean strikethroughStyle;
-	
+
 	public GameSettings gameSettings;
 	public ResourceLocation locationFontTextureBase;
 	public boolean enabled = true;
