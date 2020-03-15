@@ -16,12 +16,15 @@ public class NamesCommand extends Command {
 
 	@Override
 	public String executeCommand(String line, String[] args) {
+		if (args.length < 1)
+			return String.format("&c%1$s", getSyntax());
+		
 		switch (args[0].toLowerCase()) {
 		case "add": {
 			String name = args[1];
 
 			if (name == null)
-				return getSyntax();
+				return String.format("&c%1$s", getSyntax());
 
 			if (exceptions.contains(name))
 				return String.format("&e%1$s&c is already in the exceptions.", name);
@@ -33,7 +36,7 @@ public class NamesCommand extends Command {
 			String name = args[1];
 
 			if (name == null)
-				return getSyntax();
+				return String.format("&c%1$s", getSyntax());
 
 			if (!(exceptions.contains(name)))
 				return String.format("&e%1$s&c is NOT in the exceptions.", name);
@@ -55,7 +58,7 @@ public class NamesCommand extends Command {
 			return "&aThe exceptions have been cleared.";
 		}
 		default: {
-			return getSyntax();
+			return String.format("&c%1$s", getSyntax());
 		}
 		}
 	}

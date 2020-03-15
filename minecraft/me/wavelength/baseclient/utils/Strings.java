@@ -1,14 +1,19 @@
 package me.wavelength.baseclient.utils;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import me.wavelength.baseclient.BaseClient;
 import net.minecraft.client.Minecraft;
 
 public class Strings {
+
+	public static final Pattern COLOR_CODE_PATTERN = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
 
 	public static Color getColor(String name) {
 		try {
@@ -20,14 +25,14 @@ public class Strings {
 	}
 
 	/**
-	 * This is the advanced translateColors, it will keep the last color used and
-	 * apply it to the next word. This fixes the issue #3
+	 * This is the advanced translateColors, it will keep the last color used and apply it to the next word. This fixes the issue #3
 	 */
 	public static String translateColors(String string) {
 		String[] raw = string.split(" ");
 
 		String result = "";
 
+		List<String> styles = new ArrayList<String>();
 		String lastColor = "";
 		for (int wordIndex = 0; wordIndex < raw.length; wordIndex++) {
 			String word = raw[wordIndex];
@@ -45,18 +50,28 @@ public class Strings {
 				if (!(isColor(color)))
 					continue;
 
-				lastColor = color;
+				if ((nextChar == 'l' || nextChar == 'o' || nextChar == 'm' || nextChar == 'n')) {
+					if (!(styles.contains(String.valueOf(nextChar))))
+						styles.add(String.valueOf(nextChar));
+				} else {
+					lastColor = color;
+					styles.clear();
+				}
 			}
-			result += (wordIndex == 0 ? "" : " ") + (startsWithColor(word) ? "" : lastColor) + word;
+
+			String styleCodes = "";
+
+			for (int i = 0; i < styles.size(); i++)
+				styleCodes += "&" + styles.get(i);
+
+			result += (wordIndex == 0 ? "" : " ") + word + styleCodes + lastColor;
 		}
 
 		return simpleTranslateColors(result);
 	}
 
 	/**
-	 * This is the simple translate colors, this will NOT keep track of the last
-	 * color used, the Issue #3 will still be present if used Although it should
-	 * have less impact on performances
+	 * This is the simple translate colors, this will NOT keep track of the last color used, the Issue #3 will still be present if used Although it should have less impact on performances
 	 */
 	public static String simpleTranslateColors(String string) {
 		return string.replace("&", "\u00A7");
@@ -66,7 +81,7 @@ public class Strings {
 	 * This removes colors from a string
 	 */
 	public static String stripColors(String string) {
-		return simpleTranslateColors(string).replaceAll("\u00A7[a-z-A-z-0-9]", "");
+		return COLOR_CODE_PATTERN.matcher(string).replaceAll("");
 	}
 
 	/**
@@ -78,7 +93,7 @@ public class Strings {
 		if (string.length() < 2)
 			return false;
 
-		return string.substring(0, 1).equals("\u00A7[a-z-A-z-0-9]");
+		return COLOR_CODE_PATTERN.matcher(string.substring(0, 2)).matches();
 	}
 
 	/**
@@ -92,7 +107,7 @@ public class Strings {
 	 * @return if @param text IS a color (&f for example)
 	 */
 	public static boolean isColor(String text) {
-		return text.matches("\u00A7[a-z-A-z-0-9]");
+		return COLOR_CODE_PATTERN.matcher(text).matches();
 	}
 
 	/**
@@ -240,8 +255,7 @@ public class Strings {
 
 	/**
 	 * 
-	 * @param args - The first parameter is the String, after that the parameters,
-	 *             and with a line break (<br>
+	 * @param args - The first parameter is the String, after that the parameters, and with a line break (<br>
 	 *             ) you define the values.
 	 * @return
 	 */

@@ -108,7 +108,7 @@ public class BaseClient {
 
 //		this.fontRenderer = new FontManager(font, (stream == null ? 20 : 25)); // If the font looks weird, change the font size
 
-		this.fontRenderer = new FontManager(packageBase + ".font.fonts", "BwModelicaSS01-RegularCondensed", 35);
+		this.fontRenderer = new FontManager(packageBase + ".font.fonts", "BwModelicaSS01-RegularCondensed", 25);
 
 		registerHuds();
 	}
