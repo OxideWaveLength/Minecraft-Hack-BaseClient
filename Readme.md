@@ -1,9 +1,9 @@
 # Minecraft Base Hacked Client 1.8.8 (with Optifine)
 
 ## Welcome!
-We have a _new_ FAQ (Q&A) section! If you are interested you can click [here](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/FAQ-(Q&A))
+We have a FAQ (Q&A) section! If you are interested you can click [here](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/FAQ-(Q&A))
 
-We also have a new Discord server! Click [here](https://discord.gg/pDweRGz) to join
+We also have a Discord server! Click [here](https://discord.gg/pDweRGz) to join
 
 If you don't have Discord, but have Twitter and need help or want to stay updated, you can follow me [here](https://twitter.com/OxideWaveLength)
 
@@ -39,9 +39,9 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 
 ### Features
 
-- CommandManager (with four commands, "irc", "set", "help" and bind (added in the commit #41, 0be34e4))
-- ModuleManager (with module settings, one example module (the fly/flight module) and the "AdvancedTabGui" module)
-- [EventManager](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/EventManager) (not all of the event handlers are working or cancellable, some marked as cancellable are not _yet_)
+- CommandManager (with four commands, "irc", "set", "help", "bind" (added in the commit #41 / 0be34e4), "friend" and "names" (both added in the commit #78 / aa78114)
+- ModuleManager (with module settings, four example module (Fly, TestModule, Friends and NameProtect) and the "AdvancedTabGUI" module)
+- [EventManager](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/EventManager)
 - FileManager
 - ConfigManager
 - [TabGUI](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/Tab-GUI)
