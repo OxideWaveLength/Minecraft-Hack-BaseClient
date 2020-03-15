@@ -46,17 +46,15 @@ public class WorldClient extends World {
 	private ChunkProviderClient clientChunkProvider;
 
 	/** Contains all entities for this client, both spawned and non-spawned. */
-	private final Set entityList = Sets.newHashSet();
+	public final Set entityList = Sets.newHashSet();
 
 	/**
-	 * Contains all entities for this client that were not spawned due to a
-	 * non-present chunk. The game will attempt to spawn up to 10 pending entities
-	 * with each subsequent tick until the spawn queue is empty.
+	 * Contains all entities for this client that were not spawned due to a non-present chunk. The game will attempt to spawn up to 10 pending entities with each subsequent tick until the spawn queue is empty.
 	 */
 	private final Set entitySpawnQueue = Sets.newHashSet();
 	private final Minecraft mc = Minecraft.getMinecraft();
 	private final Set previousActiveChunkSet = Sets.newHashSet();
-	
+
 	private BlockPosM randomTickPosM = new BlockPosM(0, 0, 0, 3);
 
 	public WorldClient(NetHandlerPlayClient p_i45063_1_, WorldSettings p_i45063_2_, int p_i45063_3_, EnumDifficulty p_i45063_4_, Profiler p_i45063_5_) {
@@ -101,16 +99,13 @@ public class WorldClient extends World {
 	}
 
 	/**
-	 * Invalidates an AABB region of blocks from the receive queue, in the event
-	 * that the block has been modified client-side in the intervening 80 receive
-	 * ticks.
+	 * Invalidates an AABB region of blocks from the receive queue, in the event that the block has been modified client-side in the intervening 80 receive ticks.
 	 */
 	public void invalidateBlockReceiveRegion(int p_73031_1_, int p_73031_2_, int p_73031_3_, int p_73031_4_, int p_73031_5_, int p_73031_6_) {
 	}
 
 	/**
-	 * Creates the chunk provider for this world. Called in the constructor.
-	 * Retrieves provider from worldProvider?
+	 * Creates the chunk provider for this world. Called in the constructor. Retrieves provider from worldProvider?
 	 */
 	protected IChunkProvider createChunkProvider() {
 		this.clientChunkProvider = new ChunkProviderClient(this);
@@ -174,8 +169,7 @@ public class WorldClient extends World {
 	}
 
 	/**
-	 * Schedule the entity for removal during the next tick. Marks the entity dead
-	 * in anticipation.
+	 * Schedule the entity for removal during the next tick. Marks the entity dead in anticipation.
 	 */
 	public void removeEntity(Entity entityIn) {
 		super.removeEntity(entityIn);
@@ -225,8 +219,7 @@ public class WorldClient extends World {
 	}
 
 	/**
-	 * Returns the Entity with the given ID, or null if it doesn't exist in this
-	 * World.
+	 * Returns the Entity with the given ID, or null if it doesn't exist in this World.
 	 */
 	public Entity getEntityByID(int id) {
 		return (Entity) (id == this.mc.thePlayer.getEntityId() ? this.mc.thePlayer : super.getEntityByID(id));
@@ -343,28 +336,24 @@ public class WorldClient extends World {
 	public CrashReportCategory addWorldInfoToCrashReport(CrashReport report) {
 		CrashReportCategory crashreportcategory = super.addWorldInfoToCrashReport(report);
 		crashreportcategory.addCrashSectionCallable("Forced entities", new Callable() {
-			
 
 			public String call() {
 				return WorldClient.this.entityList.size() + " total; " + WorldClient.this.entityList.toString();
 			}
 		});
 		crashreportcategory.addCrashSectionCallable("Retry entities", new Callable() {
-			
 
 			public String call() {
 				return WorldClient.this.entitySpawnQueue.size() + " total; " + WorldClient.this.entitySpawnQueue.toString();
 			}
 		});
 		crashreportcategory.addCrashSectionCallable("Server brand", new Callable() {
-			
 
 			public String call() throws Exception {
 				return WorldClient.this.mc.thePlayer.getClientBrand();
 			}
 		});
 		crashreportcategory.addCrashSectionCallable("Server type", new Callable() {
-			
 
 			public String call() throws Exception {
 				return WorldClient.this.mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server";

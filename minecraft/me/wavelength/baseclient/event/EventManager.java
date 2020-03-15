@@ -3,6 +3,9 @@ package me.wavelength.baseclient.event;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.wavelength.baseclient.event.events.BlockBrightnessRequestEvent;
+import me.wavelength.baseclient.event.events.BlockSideRenderEvent;
+import me.wavelength.baseclient.event.events.CollideEvent;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MessageReceivedEvent;
 import me.wavelength.baseclient.event.events.MessageSentEvent;
@@ -10,10 +13,12 @@ import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.event.events.MouseScrollEvent;
 import me.wavelength.baseclient.event.events.PacketReceivedEvent;
 import me.wavelength.baseclient.event.events.PacketSentEvent;
+import me.wavelength.baseclient.event.events.PlayerSpawnEvent;
 import me.wavelength.baseclient.event.events.PostMotionEvent;
 import me.wavelength.baseclient.event.events.PreMotionEvent;
 import me.wavelength.baseclient.event.events.Render2DEvent;
 import me.wavelength.baseclient.event.events.Render3DEvent;
+import me.wavelength.baseclient.event.events.RenderLivingLabelEvent;
 import me.wavelength.baseclient.event.events.ServerConnectingEvent;
 import me.wavelength.baseclient.event.events.ServerJoinEvent;
 import me.wavelength.baseclient.event.events.ServerLeaveEvent;
@@ -28,8 +33,7 @@ public class EventManager {
 	}
 
 	/**
-	 * @deprecated this method will be removed soon. Use the new
-	 *             {@link #registerListener(EventListener)}
+	 * @deprecated this method will be removed soon. Use the new {@link #registerListener(EventListener)}
 	 */
 	@Deprecated
 	public void registerEvent(EventListener eventListener) {
@@ -37,8 +41,7 @@ public class EventManager {
 	}
 
 	/**
-	 * @deprecated this method will be removed soon. Use the new
-	 *             {@link #unregisterListener(EventListener)}
+	 * @deprecated this method will be removed soon. Use the new {@link #unregisterListener(EventListener)}
 	 */
 	@Deprecated
 	public void unregisterEvent(EventListener eventListener) {
@@ -52,10 +55,7 @@ public class EventManager {
 	/**
 	 * This way you can unregister an event listener from the INSTANCE.
 	 * 
-	 * NOTE: there is only one small drawback, you need to have the class's
-	 * instance. Or if you are unregistering the listener from within the listener's
-	 * class, you can just do {@link #unregisterEventListener()} with "this" as
-	 * parameter
+	 * NOTE: there is only one small drawback, you need to have the class's instance. Or if you are unregistering the listener from within the listener's class, you can just do {@link #unregisterEventListener()} with "this" as parameter
 	 * 
 	 * @param clasz the listener's class
 	 */
@@ -65,8 +65,7 @@ public class EventManager {
 	}
 
 	/**
-	 * This way you can unregister an event listener from the class (NOTE: doing
-	 * this will unregister ALL of the instances of a class)
+	 * This way you can unregister an event listener from the class (NOTE: doing this will unregister ALL of the instances of a class)
 	 * 
 	 * @param clasz the listener's class
 	 */
@@ -125,6 +124,21 @@ public class EventManager {
 			}
 			if (event instanceof ServerLeaveEvent) {
 				eventListeners.get(i).onServerLeave((ServerLeaveEvent) event); // Class GuiDisconnect - constructor
+			}
+			if (event instanceof CollideEvent) {
+				eventListeners.get(i).onCollide((CollideEvent) event);
+			}
+			if (event instanceof BlockSideRenderEvent) {
+				eventListeners.get(i).onBlockSideRender((BlockSideRenderEvent) event);
+			}
+			if (event instanceof BlockBrightnessRequestEvent) {
+				eventListeners.get(i).onBlockBrightnessRequest((BlockBrightnessRequestEvent) event);
+			}
+			if (event instanceof RenderLivingLabelEvent) {
+				eventListeners.get(i).onRenderLivingLabel((RenderLivingLabelEvent) event);
+			}
+			if (event instanceof PlayerSpawnEvent) {
+				eventListeners.get(i).onPlayerSpawn((PlayerSpawnEvent) event);
 			}
 		}
 

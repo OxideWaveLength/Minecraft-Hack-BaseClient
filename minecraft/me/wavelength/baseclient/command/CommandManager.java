@@ -10,8 +10,10 @@ import org.lwjgl.input.Keyboard;
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.command.commands.BindCommand;
 import me.wavelength.baseclient.command.commands.ColorCommand;
+import me.wavelength.baseclient.command.commands.FriendsCommand;
 import me.wavelength.baseclient.command.commands.HelpCommand;
 import me.wavelength.baseclient.command.commands.IRCCommand;
+import me.wavelength.baseclient.command.commands.NamesCommand;
 import me.wavelength.baseclient.command.commands.SetCommand;
 import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
@@ -54,6 +56,8 @@ public class CommandManager extends EventListener {
 		registerCommand(new SetCommand());
 		registerCommand(new BindCommand());
 		registerCommand(new ColorCommand());
+		registerCommand(new FriendsCommand());
+		registerCommand(new NamesCommand());
 	}
 
 	public List<Command> getCommands() {
@@ -71,10 +75,22 @@ public class CommandManager extends EventListener {
 	public Command getCommand(String name) {
 		for (int i = 0; i < commands.size(); i++) {
 			Command command = commands.get(i);
-			if (!(command.getName().equalsIgnoreCase(name)) && !(Arrays.stream(command.getAliases()).anyMatch(name::equalsIgnoreCase)))
-				continue;
+			if (command.getName().equalsIgnoreCase(name) || Arrays.stream(command.getAliases()).anyMatch(name::equalsIgnoreCase))
+				return command;
+		}
 
-			return command;
+		return null;
+	}
+
+	/**
+	 * @param clasz the command's class
+	 * @return a command which class is @param clasz
+	 */
+	public Command getCommand(Class<? extends Command> clasz) {
+		for (int i = 0; i < commands.size(); i++) {
+			Command command = commands.get(i);
+			if (command.getClass().equals(clasz))
+				return command;
 		}
 
 		return null;

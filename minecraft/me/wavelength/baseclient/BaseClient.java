@@ -26,7 +26,7 @@ public class BaseClient {
 	 * @formatter:off
 	 * Credits
 	 * 
-	 * Fonts: Russian412's ported version of the NahrFont to 1.8.8
+	 * Fonts: Slick's font manager edited by Russian412 and color system by me
 	 * Alt Manager: Russian412's Alt Manager with some small bug-fixes by me
 	 * The Altening Implementation: Russian412
 	 * 

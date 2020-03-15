@@ -2,9 +2,12 @@ package me.wavelength.baseclient.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 
 public class Config {
 
@@ -31,6 +34,7 @@ public class Config {
 		this.defaultSettings = new LinkedHashMap<String, Object>();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void check() throws IOException {
 		for (Iterator<String> settings = defaultSettings.keySet().iterator(); settings.hasNext();) {
 			String setting = settings.next();
@@ -44,8 +48,16 @@ public class Config {
 				if (line != null && getObject(setting) != null && getString(setting).equals(line[1]))
 					hasLine = true;
 			}
-			if (!(hasLine))
-				set(setting, value);
+			if (!(hasLine)) {
+				if (value instanceof List) {
+					try {
+						set(setting, (List<String>) value); // Using reflection or creating a custom class extending ArrayList isn't probably worth it, so for now I will do an unchecked cast and try/catch it and change it later on
+					} catch (ClassCastException e) {
+						System.out.println("Only String lists are allowed. Path: " + setting);
+					}
+				} else
+					set(setting, value);
+			}
 		}
 	}
 
@@ -117,18 +129,28 @@ public class Config {
 		Files.removeLine(file, line);
 	}
 
-	public Object getObject(String path) {
+	public int getObjectLine(String path) {
 		try {
 			List<String> lines = readLines();
 			for (int i = 0; i < lines.size(); i++) {
 				String line = lines.get(i);
 				if (!(line.substring(0, line.indexOf(":")).equals(path)))
 					continue;
-				return line.substring(line.indexOf(":") + 2);
+				return i;
 			}
 		} catch (Exception e) {
 		}
-		return null;
+
+		return -1;
+	}
+
+	public Object getObject(String path) {
+		List<String> lines = readLines();
+		int lineIndex = getObjectLine(path);
+
+		String line = null;
+
+		return (lineIndex == -1 ? null : (line = lines.get(lineIndex)).substring(line.indexOf(":") + 2));
 	}
 
 	public String getString(String path) {
@@ -186,6 +208,26 @@ public class Config {
 		return 0f;
 	}
 
+	public List<String> getStringList(String path, Function<String, String> actions) {
+		List<String> list = new ArrayList<String>();
+
+		String line = getString(path);
+
+		String regex = "(?<!\\\\)" + Pattern.quote(", "); // SOURCE: https://stackoverflow.com/a/18677785. This should make it possible to escape commas
+
+		String[] items = line.split(regex);
+		for (int i = 0; i < items.length; i++) {
+			String item = items[i];
+
+			if (actions != null)
+				item = actions.apply(item);
+
+			list.add(item);
+		}
+
+		return list.isEmpty() ? null : list;
+	}
+
 	public void set(String path, Object value) {
 		try {
 			List<String> lines = readLines();
@@ -228,8 +270,14 @@ public class Config {
 		set(path, (Object) value);
 	}
 
-	public void set(String path, List<?> value) {
-		set(path, (Object) value);
+	public void set(String path, List<String> value) {
+		String list = "";
+
+		for (int i = 0; i < value.size(); i++) {
+			list += (i == 0 ? "" : ", ") + value.get(i).replace(",", "\\,");
+		}
+
+		set(path, list);
 	}
 
 	public LinkedHashMap<String, Object> getDefaultSettings() {
@@ -266,7 +314,7 @@ public class Config {
 		generateConfigs();
 	}
 
-	public void addDefault(String path, List<?> value) {
+	public void addDefault(String path, List<String> value) {
 		defaultSettings.put(path, value);
 		generateConfigs();
 	}

@@ -1,5 +1,8 @@
 package me.wavelength.baseclient.event;
 
+import me.wavelength.baseclient.event.events.BlockBrightnessRequestEvent;
+import me.wavelength.baseclient.event.events.BlockSideRenderEvent;
+import me.wavelength.baseclient.event.events.CollideEvent;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MessageReceivedEvent;
 import me.wavelength.baseclient.event.events.MessageSentEvent;
@@ -7,10 +10,12 @@ import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.event.events.MouseScrollEvent;
 import me.wavelength.baseclient.event.events.PacketReceivedEvent;
 import me.wavelength.baseclient.event.events.PacketSentEvent;
+import me.wavelength.baseclient.event.events.PlayerSpawnEvent;
 import me.wavelength.baseclient.event.events.PostMotionEvent;
 import me.wavelength.baseclient.event.events.PreMotionEvent;
 import me.wavelength.baseclient.event.events.Render2DEvent;
 import me.wavelength.baseclient.event.events.Render3DEvent;
+import me.wavelength.baseclient.event.events.RenderLivingLabelEvent;
 import me.wavelength.baseclient.event.events.ServerConnectingEvent;
 import me.wavelength.baseclient.event.events.ServerJoinEvent;
 import me.wavelength.baseclient.event.events.ServerLeaveEvent;
@@ -68,6 +73,21 @@ public class EventListener {
 	}
 
 	public void onServerLeave(ServerLeaveEvent event) {
+	}
+
+	public void onCollide(CollideEvent event) {
+	}
+
+	public void onBlockSideRender(BlockSideRenderEvent event) {
+	}
+
+	public void onBlockBrightnessRequest(BlockBrightnessRequestEvent event) {
+	}
+
+	public void onRenderLivingLabel(RenderLivingLabelEvent event) {
+	}
+
+	public void onPlayerSpawn(PlayerSpawnEvent event) {
 	}
 
 }

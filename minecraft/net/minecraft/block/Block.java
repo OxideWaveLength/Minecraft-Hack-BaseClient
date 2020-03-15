@@ -3,6 +3,10 @@ package net.minecraft.block;
 import java.util.List;
 import java.util.Random;
 
+import me.wavelength.baseclient.BaseClient;
+import me.wavelength.baseclient.event.events.BlockBrightnessRequestEvent;
+import me.wavelength.baseclient.event.events.BlockSideRenderEvent;
+import me.wavelength.baseclient.event.events.CollideEvent;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -37,7 +41,7 @@ import net.minecraft.world.World;
 public class Block {
 	/** ResourceLocation for the Air block */
 	private static final ResourceLocation AIR_ID = new ResourceLocation("air");
-	public static final RegistryNamespacedDefaultedByKey<ResourceLocation, Block> blockRegistry = new RegistryNamespacedDefaultedByKey(AIR_ID);
+	public static final RegistryNamespacedDefaultedByKey<ResourceLocation, Block> blockRegistry = new RegistryNamespacedDefaultedByKey<ResourceLocation, Block>(AIR_ID);
 	public static final ObjectIntIdentityMap BLOCK_STATE_IDS = new ObjectIntIdentityMap();
 	private CreativeTabs displayOnCreativeTab;
 	public static final Block.SoundType soundTypeStone = new Block.SoundType("stone", 1.0F, 1.0F);
@@ -111,9 +115,7 @@ public class Block {
 	protected boolean enableStats;
 
 	/**
-	 * Flags whether or not this block is of a type that needs random ticking.
-	 * Ref-counted by ExtendedBlockStorage in order to broadly cull a chunk from the
-	 * random chunk update list for efficiency's sake.
+	 * Flags whether or not this block is of a type that needs random ticking. Ref-counted by ExtendedBlockStorage in order to broadly cull a chunk from the random chunk update list for efficiency's sake.
 	 */
 	protected boolean needsRandomTick;
 
@@ -145,8 +147,7 @@ public class Block {
 	}
 
 	/**
-	 * Get a unique ID for the given BlockState, containing both BlockID and
-	 * metadata
+	 * Get a unique ID for the given BlockState, containing both BlockID and metadata
 	 */
 	public static int getStateId(IBlockState state) {
 		Block block = state.getBlock();
@@ -243,8 +244,7 @@ public class Block {
 	}
 
 	/**
-	 * Get the actual Block state of this Block at the given position. This applies
-	 * properties not visible in the metadata, such as fence connections.
+	 * Get the actual Block state of this Block at the given position. This applies properties not visible in the metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		return state;
@@ -270,8 +270,7 @@ public class Block {
 	}
 
 	/**
-	 * Sets the footstep sound for the block. Returns the object for convenience in
-	 * constructing.
+	 * Sets the footstep sound for the block. Returns the object for convenience in constructing.
 	 */
 	protected Block setStepSound(Block.SoundType sound) {
 		this.stepSound = sound;
@@ -279,8 +278,7 @@ public class Block {
 	}
 
 	/**
-	 * Sets how much light is blocked going through this block. Returns the object
-	 * for convenience in constructing.
+	 * Sets how much light is blocked going through this block. Returns the object for convenience in constructing.
 	 */
 	public Block setLightOpacity(int opacity) {
 		this.lightOpacity = opacity;
@@ -288,8 +286,7 @@ public class Block {
 	}
 
 	/**
-	 * Sets the light value that the block emits. Returns resulting block instance
-	 * for constructing convenience. Args: level
+	 * Sets the light value that the block emits. Returns resulting block instance for constructing convenience. Args: level
 	 */
 	protected Block setLightLevel(float value) {
 		this.lightValue = (int) (15.0F * value);
@@ -297,8 +294,7 @@ public class Block {
 	}
 
 	/**
-	 * Sets the the blocks resistance to explosions. Returns the object for
-	 * convenience in constructing.
+	 * Sets the the blocks resistance to explosions. Returns the object for convenience in constructing.
 	 */
 	protected Block setResistance(float resistance) {
 		this.blockResistance = resistance * 3.0F;
@@ -313,8 +309,7 @@ public class Block {
 	}
 
 	/**
-	 * Used for nearly all game logic (non-rendering) purposes. Use Forge-provided
-	 * isNormalCube(IBlockAccess, BlockPos) instead.
+	 * Used for nearly all game logic (non-rendering) purposes. Use Forge-provided isNormalCube(IBlockAccess, BlockPos) instead.
 	 */
 	public boolean isNormalCube() {
 		return this.blockMaterial.isOpaque() && this.isFullCube() && !this.canProvidePower();
@@ -333,16 +328,14 @@ public class Block {
 	}
 
 	/**
-	 * The type of render function called. 3 for standard block models, 2 for
-	 * TESR's, 1 for liquids, -1 is no render
+	 * The type of render function called. 3 for standard block models, 2 for TESR's, 1 for liquids, -1 is no render
 	 */
 	public int getRenderType() {
 		return 3;
 	}
 
 	/**
-	 * Whether this Block can be replaced directly by other blocks (true for e.g.
-	 * tall grass)
+	 * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
 	 */
 	public boolean isReplaceable(World worldIn, BlockPos pos) {
 		return false;
@@ -379,9 +372,7 @@ public class Block {
 	}
 
 	/**
-	 * Returns whether or not this block is of a type that needs random ticking.
-	 * Called for ref-counting purposes by ExtendedBlockStorage in order to broadly
-	 * cull a chunk from the random chunk update list for efficiency's sake.
+	 * Returns whether or not this block is of a type that needs random ticking. Called for ref-counting purposes by ExtendedBlockStorage in order to broadly cull a chunk from the random chunk update list for efficiency's sake.
 	 */
 	public boolean getTickRandomly() {
 		return this.needsRandomTick;
@@ -400,7 +391,13 @@ public class Block {
 		this.maxZ = (double) maxZ;
 	}
 
+	/** Here the BlockBrightnessRequestEvent gets fired */
 	public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos) {
+		BlockBrightnessRequestEvent event = (BlockBrightnessRequestEvent) BaseClient.instance.getEventManager().call(new BlockBrightnessRequestEvent(this));
+		int blockBrightness = event.getBlockBrightness();
+		if (blockBrightness != -1) /** This -1 check is done so it's possible to cancel the event (for whatever reason) and keep the minecraft brightness for that block anyway */
+			return (blockBrightness > 15 ? blockBrightness : worldIn.getCombinedLight(pos, blockBrightness));
+
 		Block block = worldIn.getBlockState(pos).getBlock();
 		int i = worldIn.getCombinedLight(pos, block.getLightValue());
 
@@ -413,7 +410,14 @@ public class Block {
 		}
 	}
 
+	/** Here the SideRenderEvent gets fired */
+	// FIXME: Leaves, stairs, grass and other semi-blocks are still rendered when the event is cancelled (those blocks override this method)
 	public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+		BlockSideRenderEvent event = (BlockSideRenderEvent) BaseClient.instance.getEventManager().call(new BlockSideRenderEvent(this));
+
+		if (event.isCancelled())
+			return event.shouldRender();
+
 		return side == EnumFacing.DOWN && this.minY > 0.0D ? true : (side == EnumFacing.UP && this.maxY < 1.0D ? true : (side == EnumFacing.NORTH && this.minZ > 0.0D ? true : (side == EnumFacing.SOUTH && this.maxZ < 1.0D ? true : (side == EnumFacing.WEST && this.minX > 0.0D ? true : (side == EnumFacing.EAST && this.maxX < 1.0D ? true : !worldIn.getBlockState(pos).getBlock().isOpaqueCube())))));
 	}
 
@@ -429,11 +433,17 @@ public class Block {
 	}
 
 	/**
-	 * Add all collision boxes of this Block to the list that intersect with the
-	 * given mask.
+	 * Add all collision boxes of this Block to the list that intersect with the given mask.
+	 * 
+	 * Here the CollideEvent gets fired
 	 */
 	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
 		AxisAlignedBB axisalignedbb = this.getCollisionBoundingBox(worldIn, pos, state);
+
+		CollideEvent event = (CollideEvent) BaseClient.instance.getEventManager().call(new CollideEvent(collidingEntity, axisalignedbb, this));
+
+		if (event.isCancelled())
+			return;
 
 		if (axisalignedbb != null && mask.intersectsWith(axisalignedbb)) {
 			list.add(axisalignedbb);
@@ -445,8 +455,7 @@ public class Block {
 	}
 
 	/**
-	 * Used to determine ambient occlusion and culling when rebuilding chunks for
-	 * render
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube() {
 		return true;
@@ -464,8 +473,7 @@ public class Block {
 	}
 
 	/**
-	 * Called randomly when setTickRandomly is set to true (used by e.g. crops to
-	 * grow, etc.)
+	 * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
 	 */
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
 		this.updateTick(worldIn, pos, state, random);
@@ -551,8 +559,7 @@ public class Block {
 	}
 
 	/**
-	 * Spawns the given ItemStack as an EntityItem into the World at the given
-	 * position
+	 * Spawns the given ItemStack as an EntityItem into the World at the given position
 	 */
 	public static void spawnAsEntity(World worldIn, BlockPos pos, ItemStack stack) {
 		if (!worldIn.isRemote && worldIn.getGameRules().getBoolean("doTileDrops")) {
@@ -580,9 +587,7 @@ public class Block {
 	}
 
 	/**
-	 * Gets the metadata of the item this Block can drop. This method is called when
-	 * the block gets destroyed. It returns the metadata of the dropped item based
-	 * on the old metadata of the block.
+	 * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
 		return 0;
@@ -596,8 +601,7 @@ public class Block {
 	}
 
 	/**
-	 * Ray traces through the blocks collision from start vector to end vector
-	 * returning a ray trace hit.
+	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
 	 */
 	public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {
 		this.setBlockBoundsBasedOnState(worldIn, pos);
@@ -750,8 +754,7 @@ public class Block {
 	}
 
 	/**
-	 * Called by ItemBlocks just before a block is actually set in the world, to
-	 * allow for adjustments to the IBlockstate
+	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the IBlockstate
 	 */
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 		return this.getStateFromMeta(meta);
@@ -830,8 +833,7 @@ public class Block {
 	}
 
 	/**
-	 * Can this block provide power. Only wire currently seems to have this change
-	 * based on its state.
+	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower() {
 		return false;
@@ -892,8 +894,7 @@ public class Block {
 	}
 
 	/**
-	 * Called by ItemBlocks after a block is set in the world, to allow post-place
-	 * logic
+	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
 	}
@@ -929,8 +930,7 @@ public class Block {
 	}
 
 	/**
-	 * Return the state of blocks statistics flags - if the block is counted for
-	 * mined and placed.
+	 * Return the state of blocks statistics flags - if the block is counted for mined and placed.
 	 */
 	public boolean getEnableStats() {
 		return this.enableStats;
@@ -960,8 +960,7 @@ public class Block {
 	}
 
 	/**
-	 * Called when an Entity lands on this Block. This method *must* update motionY
-	 * because the entity will not do that on its own
+	 * Called when an Entity lands on this Block. This method *must* update motionY because the entity will not do that on its own
 	 */
 	public void onLanded(World worldIn, Entity entityIn) {
 		entityIn.motionY = 0.0D;
@@ -976,8 +975,7 @@ public class Block {
 	}
 
 	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood
-	 * returns 4 blocks)
+	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(itemIn, 1, 0));
@@ -1039,8 +1037,7 @@ public class Block {
 	}
 
 	/**
-	 * Possibly modify the given BlockState before rendering it on an Entity
-	 * (Minecarts, Endermen, ...)
+	 * Possibly modify the given BlockState before rendering it on an Entity (Minecarts, Endermen, ...)
 	 */
 	public IBlockState getStateForEntityRender(IBlockState state) {
 		return state;
@@ -1063,8 +1060,7 @@ public class Block {
 	}
 
 	/**
-	 * Get the OffsetType for this Block. Determines if the model is rendered
-	 * slightly offset.
+	 * Get the OffsetType for this Block. Determines if the model is rendered slightly offset.
 	 */
 	public Block.EnumOffsetType getOffsetType() {
 		return Block.EnumOffsetType.NONE;

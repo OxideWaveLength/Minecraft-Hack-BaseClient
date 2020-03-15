@@ -6,7 +6,7 @@ public class MessageReceivedEvent extends CancellableEvent {
 
 	private String message;
 
-	public MessageReceivedEvent(String message) {
+	public MessageReceivedEvent(String message, boolean fromMinecraft) {
 		this.message = message;
 	}
 

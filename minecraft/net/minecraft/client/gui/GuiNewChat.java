@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.events.MessageReceivedEvent;
+import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -123,9 +124,7 @@ public class GuiNewChat extends Gui {
 	}
 
 	/**
-	 * @param fromMinecraft If set to true then the MessageReceivedEvent is going to
-	 *                      be fired, that means that if we send a message to the
-	 *                      player this MUST be set to false
+	 * @param fromMinecraft If set to true then the MessageReceivedEvent is going to be fired, that means that if we send a message to the player this MUST be set to false
 	 */
 	public void printChatMessage(IChatComponent p_146227_1_, boolean fromMinecraft) {
 		this.printChatMessageWithOptionalDeletion(p_146227_1_, 0, fromMinecraft);
@@ -140,10 +139,17 @@ public class GuiNewChat extends Gui {
 	 */
 	public void printChatMessageWithOptionalDeletion(IChatComponent chatComponent, int id, boolean fromMinecraft) {
 		/** Handles the MessageReceivedEvent */
-		if (fromMinecraft && ((MessageReceivedEvent) BaseClient.instance.getEventManager().call(new MessageReceivedEvent((chatComponent == null ? null : chatComponent.getUnformattedText())))).isCancelled())
-			return;
+		String message = (chatComponent == null ? "" : chatComponent.getFormattedText());
+		if (fromMinecraft) {
+			MessageReceivedEvent event = (MessageReceivedEvent) BaseClient.instance.getEventManager().call(new MessageReceivedEvent(message, fromMinecraft));
 
-		this.setChatLine(chatComponent, id, this.mc.ingameGUI.getUpdateCounter(), false);
+			if (event.isCancelled())
+				return;
+
+			message = event.getMessage();
+		}
+
+		this.setChatLine(new ChatComponentText(Strings.translateColors(message)), id, this.mc.ingameGUI.getUpdateCounter(), false);
 		logger.info("[CHAT] " + chatComponent.getUnformattedText());
 	}
 
@@ -193,8 +199,7 @@ public class GuiNewChat extends Gui {
 	}
 
 	/**
-	 * Adds this string to the list of sent messages, for recall using the up/down
-	 * arrow keys
+	 * Adds this string to the list of sent messages, for recall using the up/down arrow keys
 	 */
 	public void addToSentMessages(String p_146239_1_) {
 		if (this.sentMessages.isEmpty() || !((String) this.sentMessages.get(this.sentMessages.size() - 1)).equals(p_146239_1_)) {

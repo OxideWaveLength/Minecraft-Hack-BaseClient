@@ -1,6 +1,8 @@
 package me.wavelength.baseclient.module;
 
 import java.io.File;
+import java.util.List;
+import java.util.function.Function;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.utils.Config;
@@ -65,6 +67,10 @@ public class ModuleSettings {
 	public void addDefault(String key, float value) {
 		config.addDefault(key.toLowerCase(), value);
 	}
+	
+	public void addDefault(String key, List<String> value) {
+		config.addDefault(key.toLowerCase(), value);
+	}
 
 	public void set(String key, Object value) {
 		config.set(key.toLowerCase(), value);
@@ -94,6 +100,10 @@ public class ModuleSettings {
 		config.set(key.toLowerCase(), value);
 	}
 
+	public void set(String key, List<String> value) {
+		set(key, value);
+	}
+
 	public String getString(String key) {
 		return config.getString(key.toLowerCase());
 	}
@@ -116,6 +126,14 @@ public class ModuleSettings {
 
 	public int getInt(String key) {
 		return config.getInt(key.toLowerCase());
+	}
+
+	public List<String> getStringList(String key) {
+		return getStringList(key, null);
+	}
+	
+	public List<String> getStringList(String key, Function<String, String> actions) {
+		return config.getStringList(key, actions);
 	}
 
 }
