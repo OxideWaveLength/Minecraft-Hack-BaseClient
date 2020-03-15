@@ -81,7 +81,7 @@ public class Strings {
 	 * This removes colors from a string
 	 */
 	public static String stripColors(String string) {
-		return COLOR_CODE_PATTERN.matcher(string).replaceAll("");
+		return COLOR_CODE_PATTERN.matcher(simpleTranslateColors(string)).replaceAll("");
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class Strings {
 	 * @return if @param text IS a color (&f for example)
 	 */
 	public static boolean isColor(String text) {
-		return COLOR_CODE_PATTERN.matcher(text).matches();
+		return COLOR_CODE_PATTERN.matcher(simpleTranslateColors(text)).matches();
 	}
 
 	/**
