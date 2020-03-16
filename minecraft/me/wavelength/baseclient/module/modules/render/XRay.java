@@ -7,7 +7,8 @@ import java.util.function.Function;
 import org.lwjgl.input.Keyboard;
 
 import me.wavelength.baseclient.event.events.BlockBrightnessRequestEvent;
-import me.wavelength.baseclient.event.events.BlockSideRenderEvent;
+import me.wavelength.baseclient.event.events.BlockRenderEvent;
+import me.wavelength.baseclient.event.events.FluidRenderEvent;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
 import net.minecraft.block.Block;
@@ -46,12 +47,15 @@ public class XRay extends Module {
 	}
 
 	@Override
-	public void onBlockSideRender(BlockSideRenderEvent event) {
-		event.setCancelled(true);
+	public void onBlockRender(BlockRenderEvent event) {
+		if (!(isInExceptions(event.getBlock())))
+			event.setCancelled(true);
+	}
 
-		if (!(isInExceptions(event.getBlock()))) {
-			event.setRender(false);
-		}
+	@Override
+	public void onFluidRender(FluidRenderEvent event) {
+		if (!(isInExceptions(event.getBlock())))
+			event.setCancelled(true);
 	}
 
 	private boolean isInExceptions(Block block) {
@@ -59,6 +63,18 @@ public class XRay extends Module {
 			return false;
 
 		return exceptions.contains(block.getLocalizedName().replace(" ", "_").toUpperCase()) || exceptions.contains(Integer.toString(Block.getIdFromBlock(block)));
+	}
+
+	public List<String> getExceptions() {
+		return exceptions;
+	}
+
+	public void setExceptions(List<String> exceptions) {
+		this.exceptions = exceptions;
+		moduleSettings.set("blocks", exceptions);
+
+		if (isToggled())
+			mc.renderGlobal.loadRenderers();
 	}
 
 }
