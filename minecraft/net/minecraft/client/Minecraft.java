@@ -648,24 +648,41 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 	}
 
 	private void setWindowIcon() {
+		InputStream inputStream16x16 = null;
+		InputStream inputStream32x32 = null;
+		try {
+			inputStream16x16 = mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
+			inputStream32x32 = mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
+
+			setWindowIcon(inputStream16x16, inputStream32x32);
+		} catch (IOException ioexception) {
+			logger.error((String) "Couldn\'t set icon", (Throwable) ioexception);
+		}
+	}
+
+	/**
+	 * @param icon16x16 base64 encoded 16x16 icon
+	 * @param icon32x32 base64 encoded 32x32 icon
+	 * You can encode an image to base64 on this website: https://www.browserling.com/tools/image-to-base64
+	 */
+	public void setWindowIcon(String icon16x16, String icon32x32) {
+		Decoder decoder = Base64.getDecoder();
+		setWindowIcon(new ByteArrayInputStream(decoder.decode(icon16x16)), new ByteArrayInputStream(decoder.decode(icon32x32)));
+	}
+
+	public void setWindowIcon(InputStream inputStream16x16, InputStream inputStream32x32) {
 		Util.EnumOS util$enumos = Util.getOSType();
 
 		if (util$enumos != Util.EnumOS.OSX) {
-			InputStream inputstream = null;
-			InputStream inputstream1 = null;
-
 			try {
-				inputstream = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
-				inputstream1 = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
-
-				if (inputstream != null && inputstream1 != null) {
-					Display.setIcon(new ByteBuffer[] { this.readImageToBuffer(inputstream), this.readImageToBuffer(inputstream1) });
+				if (inputStream16x16 != null && inputStream32x32 != null) {
+					Display.setIcon(new ByteBuffer[] { this.readImageToBuffer(inputStream16x16), this.readImageToBuffer(inputStream32x32) });
 				}
 			} catch (IOException ioexception) {
 				logger.error((String) "Couldn\'t set icon", (Throwable) ioexception);
 			} finally {
-				IOUtils.closeQuietly(inputstream);
-				IOUtils.closeQuietly(inputstream1);
+				IOUtils.closeQuietly(inputStream16x16);
+				IOUtils.closeQuietly(inputStream32x32);
 			}
 		}
 	}
