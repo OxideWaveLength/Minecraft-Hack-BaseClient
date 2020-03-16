@@ -101,7 +101,7 @@ public class ModuleSettings {
 	}
 
 	public void set(String key, List<String> value) {
-		set(key, value);
+		config.set(key, value);
 	}
 
 	public String getString(String key) {
