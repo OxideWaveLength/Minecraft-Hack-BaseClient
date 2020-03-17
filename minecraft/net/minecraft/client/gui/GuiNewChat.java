@@ -139,7 +139,7 @@ public class GuiNewChat extends Gui {
 	 */
 	public void printChatMessageWithOptionalDeletion(IChatComponent chatComponent, int id, boolean fromMinecraft) {
 		/** Handles the MessageReceivedEvent */
-		String message = (chatComponent == null ? "" : chatComponent.getFormattedText());
+		String message = (chatComponent == null ? "" : chatComponent.getUnformattedText());
 		if (fromMinecraft) {
 			MessageReceivedEvent event = (MessageReceivedEvent) BaseClient.instance.getEventManager().call(new MessageReceivedEvent(message, fromMinecraft));
 
@@ -149,7 +149,7 @@ public class GuiNewChat extends Gui {
 			message = event.getMessage();
 		}
 
-		this.setChatLine(new ChatComponentText(Strings.translateColors(message)), id, this.mc.ingameGUI.getUpdateCounter(), false);
+		this.setChatLine((message.equals(chatComponent.getUnformattedText()) ? chatComponent : new ChatComponentText(Strings.translateColors(message))), id, this.mc.ingameGUI.getUpdateCounter(), false);
 		logger.info("[CHAT] " + chatComponent.getUnformattedText());
 	}
 

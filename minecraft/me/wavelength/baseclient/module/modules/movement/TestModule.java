@@ -5,7 +5,6 @@ import me.wavelength.baseclient.event.events.UpdateEvent;
 import me.wavelength.baseclient.module.AntiCheat;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
-import net.minecraft.network.play.server.S0CPacketSpawnPlayer;
 
 public class TestModule extends Module {
 
@@ -31,12 +30,6 @@ public class TestModule extends Module {
 
 	@Override
 	public void onPacketReceived(PacketReceivedEvent event) {
-		if(!(event.getPacket() instanceof S0CPacketSpawnPlayer))
-			return;
-		
-		S0CPacketSpawnPlayer packet = (S0CPacketSpawnPlayer) event.getPacket();
-		
-		System.out.println(mc.theWorld.getEntityByID(packet.getEntityID()) == null);
 	}
 
 }

@@ -17,14 +17,14 @@ public class FriendsCommand extends Command {
 	@Override
 	public String executeCommand(String line, String[] args) {
 		if (args.length < 1)
-			return String.format("&c%1$s", getSyntax());
-		
+			return getSyntax("&c");
+
 		switch (args[0].toLowerCase()) {
 		case "add": {
 			String name = args[1];
 
 			if (name == null)
-				return String.format("&c%1$s", getSyntax());
+				return getSyntax("&c");
 
 			if (friends.contains(name))
 				return String.format("&e%1$s&c is already in your friends list.", name);
@@ -36,7 +36,7 @@ public class FriendsCommand extends Command {
 			String name = args[1];
 
 			if (name == null)
-				return String.format("&c%1$s", getSyntax());
+				return getSyntax("&c");
 
 			if (!(friends.contains(name)))
 				return String.format("&e%1$s&c is NOT in your friends list.", name);
@@ -58,7 +58,7 @@ public class FriendsCommand extends Command {
 			return "&aYour friends list has been cleared.";
 		}
 		default: {
-			return String.format("&c%1$s", getSyntax());
+			return getSyntax("&c");
 		}
 		}
 	}

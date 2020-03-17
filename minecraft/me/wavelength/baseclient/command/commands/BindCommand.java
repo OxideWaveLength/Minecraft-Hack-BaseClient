@@ -18,9 +18,8 @@ public class BindCommand extends Command {
 
 	@Override
 	public String executeCommand(String line, String[] args) {
-		if (args.length < 2) {
-			return String.format("&c%1$s", getSyntax());
-		}
+		if (args.length < 2)
+			return getSyntax("&c");
 
 		ModuleManager moduleManager = BaseClient.instance.getModuleManager();
 		Module module = moduleManager.getModule(args[0]);

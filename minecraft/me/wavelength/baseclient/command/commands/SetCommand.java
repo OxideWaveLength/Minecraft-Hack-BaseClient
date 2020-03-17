@@ -18,9 +18,8 @@ public class SetCommand extends Command {
 
 	@Override
 	public String executeCommand(String line, String[] args) {
-		if (args.length < 1) {
-			return getSyntax();
-		}
+		if (args.length < 1)
+			return getSyntax("&c");
 
 		Module module = BaseClient.instance.getModuleManager().getModule(args[0]);
 		if (module == null)
@@ -74,7 +73,7 @@ public class SetCommand extends Command {
 			return String.format("&aSet &e%1$s&a to &e%2$s&a for the module &e" + module.getName(), args[1], args[2]);
 		}
 
-		return null;
+		return getSyntax("&c");
 	}
 
 }

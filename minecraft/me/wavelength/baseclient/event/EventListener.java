@@ -1,8 +1,9 @@
 package me.wavelength.baseclient.event;
 
 import me.wavelength.baseclient.event.events.BlockBrightnessRequestEvent;
-import me.wavelength.baseclient.event.events.BlockSideRenderEvent;
+import me.wavelength.baseclient.event.events.BlockRenderEvent;
 import me.wavelength.baseclient.event.events.CollideEvent;
+import me.wavelength.baseclient.event.events.FluidRenderEvent;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MessageReceivedEvent;
 import me.wavelength.baseclient.event.events.MessageSentEvent;
@@ -78,7 +79,7 @@ public class EventListener {
 	public void onCollide(CollideEvent event) {
 	}
 
-	public void onBlockSideRender(BlockSideRenderEvent event) {
+	public void onBlockRender(BlockRenderEvent event) {
 	}
 
 	public void onBlockBrightnessRequest(BlockBrightnessRequestEvent event) {
@@ -88,6 +89,9 @@ public class EventListener {
 	}
 
 	public void onPlayerSpawn(PlayerSpawnEvent event) {
+	}
+
+	public void onFluidRender(FluidRenderEvent event) {
 	}
 
 }

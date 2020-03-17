@@ -15,10 +15,9 @@ public class HelpCommand extends Command {
 	@Override
 	public String executeCommand(String line, String[] args) {
 		if (args.length < 1) {
-
 			List<Command> commands = new ArrayList<Command>(commandManager.getCommands());
 
-			String help = ""; // TODO: Find a better name for this variable
+			String help = "";
 			for (int i = 0; i < commands.size(); i++) {
 				Command command = commands.get(i);
 				help += String.format("%1$s&d%2$s &7-&e %3$s", (i == 0 ? "" : "\n"), command.getName(), command.getUsage());
@@ -26,8 +25,7 @@ public class HelpCommand extends Command {
 
 			int maxWidth = Strings.getMaxChars(help.split("\n"));
 
-			String spaces = String.format("&7%1$s&f", Strings.multiplyString(" ", maxWidth / 4)); // TODO: Make this work with a line that will be too long (example:
-																									// https://prnt.sc/qw9w3s)
+			String spaces = String.format("&7%1$s&f", Strings.multiplyString(" ", maxWidth / 4));
 			String dashes = String.format("&f&7&m%1$s&f", Strings.multiplyString("-", maxWidth / 6));
 			help = (spaces + dashes + " &5Help " + dashes) + "\n" + help;
 

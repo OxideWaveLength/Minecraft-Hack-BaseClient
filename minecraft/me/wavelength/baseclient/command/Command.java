@@ -30,11 +30,19 @@ public abstract class Command extends EventListener {
 	}
 
 	public String getSyntax() {
-		return getSyntax(true);
+		return getSyntax("");
 	}
 
 	public String getSyntax(boolean trigger) {
-		return (trigger ? String.format("%1$s%2$s", BaseClient.instance.getCommandManager().getTrigger(), syntax) : String.format("%1$s", syntax));
+		return getSyntax("", trigger);
+	}
+
+	public String getSyntax(String colored) {
+		return getSyntax(colored, true);
+	}
+
+	public String getSyntax(String color, boolean trigger) {
+		return color + (trigger ? commandManager.getTrigger() : "") + getSyntax();
 	}
 
 	public String getUsage() {

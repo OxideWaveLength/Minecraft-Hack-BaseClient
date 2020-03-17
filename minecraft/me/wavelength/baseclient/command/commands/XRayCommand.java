@@ -22,7 +22,7 @@ public class XRayCommand extends Command {
 
 		if (args.length < 2) {
 			if (args.length < 1)
-				return String.format("&c%s", getSyntax());
+				return getSyntax("&c");
 
 			switch (args[0].toLowerCase()) {
 			case "list": {
@@ -35,7 +35,7 @@ public class XRayCommand extends Command {
 				return "&aThe exceptions list has been cleared";
 			}
 			default: {
-				return String.format("&c%s", getSyntax());
+				return getSyntax("&c");
 			}
 			}
 		}
@@ -60,7 +60,7 @@ public class XRayCommand extends Command {
 			return String.format("&aThe block &e%s&a has been removed from the list", block);
 		}
 		default: {
-			return String.format("&c%s", getSyntax());
+			return getSyntax("&c");
 		}
 		}
 	}

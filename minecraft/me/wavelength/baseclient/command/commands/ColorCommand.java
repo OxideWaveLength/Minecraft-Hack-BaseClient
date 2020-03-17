@@ -19,7 +19,7 @@ public class ColorCommand extends Command {
 	@Override
 	public String executeCommand(String line, String[] args) {
 		if (args.length < 1)
-			return String.format("&c%1$s", getSyntax());
+			return getSyntax("&c");
 
 		Config genericConfig = BaseClient.instance.getGenericConfig();
 

@@ -20,4 +20,5 @@ public class BlockRenderEvent extends CancellableEvent {
 	public Block getBlock() {
 		return block;
 	}
+	
 }

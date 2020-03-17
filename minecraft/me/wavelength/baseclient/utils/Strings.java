@@ -64,7 +64,7 @@ public class Strings {
 			for (int i = 0; i < styles.size(); i++)
 				styleCodes += "&" + styles.get(i);
 
-			result += (wordIndex == 0 ? "" : " ") + word + styleCodes + lastColor;
+			result += (wordIndex == 0 ? "" : " ") + word + lastColor + styleCodes;
 		}
 
 		return simpleTranslateColors(result);

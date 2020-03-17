@@ -94,7 +94,7 @@ public class BaseClient {
 
 		this.genericConfig = new Config(new File(clientFolder + Strings.getSplitter() + "config.cfg"));
 		genericConfig.addDefault("tabguicolor", "5556190");
-		
+
 		/** Setting a custom icon */
 
 		/** Both 16x16 and 32x32 version encoded in Base64 */
@@ -107,15 +107,6 @@ public class BaseClient {
 
 	public void afterMinecraft() {
 		Display.setTitle(String.format("%1$s - %2$s", clientName, clientVersion));
-
-//		Object font = "Verdana";
-
-//		InputStream stream = BaseClient.class.getResourceAsStream(("/" + packageBase.replace(".", "/") + "/font/fonts/" + "BwModelicaSS01-RegularCondensed.ttf"));
-//
-//		if (stream != null)
-//			font = stream;
-
-//		this.fontRenderer = new FontManager(font, (stream == null ? 20 : 25)); // If the font looks weird, change the font size
 
 		this.fontRenderer = new FontManager(packageBase + ".font.fonts", "BwModelicaSS01-RegularCondensed", 25);
 

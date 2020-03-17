@@ -55,7 +55,6 @@ public class NameProtect extends Module {
 	@Override
 	public void onPlayerSpawn(PlayerSpawnEvent event) {
 		getNewName(event.getEntity().getName());
-		event.setCancelled(true);
 	}
 
 	public String getNewName(String name) {

@@ -13,7 +13,7 @@ public class FontCommand extends Command {
 	@Override
 	public String executeCommand(String line, String[] args) {
 		if (args.length == 0 || !(Integers.isInteger(args[0])))
-			return String.format("&c%1$s", getSyntax());
+			return getSyntax("&c");
 
 		int size = Integers.getInteger(args[0]);
 		if (size < 13 || size > 45)

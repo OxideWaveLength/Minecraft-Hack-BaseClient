@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.wavelength.baseclient.event.events.BlockBrightnessRequestEvent;
-import me.wavelength.baseclient.event.events.BlockSideRenderEvent;
+import me.wavelength.baseclient.event.events.BlockRenderEvent;
 import me.wavelength.baseclient.event.events.CollideEvent;
+import me.wavelength.baseclient.event.events.FluidRenderEvent;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MessageReceivedEvent;
 import me.wavelength.baseclient.event.events.MessageSentEvent;
@@ -128,8 +129,11 @@ public class EventManager {
 			if (event instanceof CollideEvent) {
 				eventListeners.get(i).onCollide((CollideEvent) event);
 			}
-			if (event instanceof BlockSideRenderEvent) {
-				eventListeners.get(i).onBlockSideRender((BlockSideRenderEvent) event);
+			if (event instanceof BlockRenderEvent) {
+				eventListeners.get(i).onBlockRender((BlockRenderEvent) event);
+			}
+			if (event instanceof FluidRenderEvent) {
+				eventListeners.get(i).onFluidRender((FluidRenderEvent) event);
 			}
 			if (event instanceof BlockBrightnessRequestEvent) {
 				eventListeners.get(i).onBlockBrightnessRequest((BlockBrightnessRequestEvent) event);

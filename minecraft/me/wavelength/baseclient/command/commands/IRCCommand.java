@@ -18,9 +18,8 @@ public class IRCCommand extends Command {
 
 	@Override
 	public String executeCommand(String line, String[] args) {
-		if (args.length < 1) {
-			return String.format("&c%1$s", getSyntax());
-		}
+		if (args.length < 1)
+			return getSyntax("&c");
 
 		switch (args[0].toLowerCase()) {
 		case "connect": {
@@ -50,9 +49,10 @@ public class IRCCommand extends Command {
 		case "status": {
 			return String.format("%1$s&e&oYou are %2$sconnected&e&o.", ircClient.getPrefix(), (ircClient.isActive() ? "&a&o" : "&c&onot "));
 		}
+		default: {
+			return getSyntax("&c");
 		}
-
-		return null;
+		}
 	}
 
 }
