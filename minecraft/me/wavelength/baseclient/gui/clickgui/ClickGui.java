@@ -30,18 +30,13 @@ public class ClickGui extends GuiScreen {
 		for (Category category : Category.values()) {
 			int x = 5 + (previousDropdown == null ? 0 : 10 + previousDropdown.getX() + previousDropdown.getWidth());
 			int y = (previousDropdown == null ? 5 : previousDropdown.getY());
-			Dropdown dropdown = new Dropdown(category, x, y);
+			Dropdown dropdown = new Dropdown(this, category, x, y);
 			if (x + dropdown.getWidth() > RenderUtils.getScaledResolution().getScaledWidth() && previousDropdown != null) {
 				dropdown.setX(5);
 				dropdown.setY(previousDropdown.getY() + previousDropdown.getHeight() + 30);
 			}
 			dropdowns.add(dropdown);
 			previousDropdown = dropdown;
-		}
-
-		for (Dropdown dropdown : dropdowns) {
-			if (dropdown.isExtended())
-				dropdown.getModuleButtons().forEach(button -> buttonList.add(button));
 		}
 	}
 
@@ -70,15 +65,15 @@ public class ClickGui extends GuiScreen {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-//		dropdowns.forEach(dropdown -> {
-//			if (dropdown.mouseClicked(mouseX, mouseY, mouseButton))
-//				return;
-//		});
+		List<Dropdown> dropdowns = new ArrayList<Dropdown>(this.dropdowns);
+		for (int i = dropdowns.size() - 1; i >= 0; i--) {
+			if (dropdowns.get(i).mouseClicked(mouseX, mouseY, mouseButton))
+				return;
+		}
 
 		if (mouseButton == 0) {
 			for (int i = 0; i < this.buttonList.size(); ++i) {
 				GuiButton guibutton = (GuiButton) this.buttonList.get(i);
-
 				if (guibutton.mousePressed(this.mc, mouseX, mouseY)) {
 					selectedButton = guibutton;
 					this.actionPerformed(guibutton);
@@ -100,6 +95,14 @@ public class ClickGui extends GuiScreen {
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
 
+	}
+
+	public List<GuiButton> getButtonList() {
+		return buttonList;
+	}
+
+	public void setButtonList(List<GuiButton> buttonList) {
+		this.buttonList = buttonList;
 	}
 
 }

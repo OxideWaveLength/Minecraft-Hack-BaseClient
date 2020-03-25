@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.wavelength.baseclient.BaseClient;
+import me.wavelength.baseclient.gui.clickgui.ClickGui;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.utils.Strings;
+import net.minecraft.client.gui.GuiButton;
 
 public class Dropdown {
+
+	private ClickGui clickGui;
 
 	private Category category;
 
@@ -29,7 +33,9 @@ public class Dropdown {
 	private List<ModuleButton> moduleButtons;
 
 	/** TODO: Replace this to feed directly the title and the content as string and string list, this way this class can be used for the module settings as well */
-	public Dropdown(Category category, int x, int y) {
+	public Dropdown(ClickGui clickGui, Category category, int x, int y) {
+		this.clickGui = clickGui;
+
 		this.category = category;
 
 		this.x = x;
@@ -57,7 +63,7 @@ public class Dropdown {
 
 		this.headerHeight = y + fontSize + 5;
 
-		toggleExtend();
+		updateHeight();
 	}
 
 	public Category getCategory() {
@@ -114,10 +120,23 @@ public class Dropdown {
 
 	public void setExtended(boolean extended) {
 		this.extended = extended;
+		updateHeight();
 	}
 
 	public void toggleExtend() {
 		this.extended = !(extended);
+		updateHeight();
+
+		List<GuiButton> buttonList = new ArrayList<GuiButton>(clickGui.getButtonList());
+		if (!(extended)) {
+			buttonList.removeAll(moduleButtons);
+		} else {
+			buttonList.addAll(moduleButtons);
+		}
+		clickGui.setButtonList(buttonList);
+	}
+
+	private void updateHeight() {
 		this.height = fontSize * (extended ? (modules.size() + 2) : 1);
 	}
 
@@ -140,12 +159,13 @@ public class Dropdown {
 		} else if (mouseButton == 1 && isHovered(mouseX, mouseY)) {
 			toggleExtend();
 			return true;
-		} else if (mouseButton == 1 && extended) {
-			for (ModuleButton moduleButton : moduleButtons) {
-				if (moduleButton.mouseClicked(mouseX, mouseY, mouseButton))
-					return true;
-			}
 		}
+//		else if (mouseButton == 1 && extended) {
+//			for (ModuleButton moduleButton : moduleButtons) {
+//				if (moduleButton.mouseClicked(mouseX, mouseY, mouseButton))
+//					return true;
+//			}
+//		}
 
 		return false;
 	}
