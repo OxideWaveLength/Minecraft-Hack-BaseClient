@@ -12,6 +12,7 @@ import me.wavelength.baseclient.module.modules.movement.Fly;
 import me.wavelength.baseclient.module.modules.movement.TestModule;
 import me.wavelength.baseclient.module.modules.render.XRay;
 import me.wavelength.baseclient.module.modules.semi_hidden.AdvancedTabGui;
+import me.wavelength.baseclient.module.modules.semi_hidden.ClickGui;
 import me.wavelength.baseclient.module.modules.semi_hidden.TabGui;
 import me.wavelength.baseclient.module.modules.world.NameProtect;
 
@@ -40,6 +41,7 @@ public class ModuleManager extends EventListener {
 		registerModule(new NameProtect());
 		registerModule(new AdvancedTabGui());
 		registerModule(new TabGui());
+		registerModule(new ClickGui());
 	}
 
 	public Module getModule(Class<? extends Module> clasz) {
@@ -65,6 +67,17 @@ public class ModuleManager extends EventListener {
 		for (int i = 0; i < this.modules.size(); i++) {
 			if (this.modules.get(i).getKey() == key)
 				modules.add(this.modules.get(i));
+		}
+
+		return modules;
+	}
+	
+	public List<Module> getModules(Category category) {
+		List<Module> modules = new ArrayList<Module>();
+		for (int i = 0; i < this.modules.size(); i++) {
+			Module module = this.modules.get(i);
+			if (module.getCategory().equals(category))
+				modules.add(module);
 		}
 
 		return modules;
@@ -116,17 +129,6 @@ public class ModuleManager extends EventListener {
 		for (int i = 0; i < modules.size(); i++) {
 			modules.get(i).toggle();
 		}
-	}
-
-	public List<Module> getModules(Category category) {
-		List<Module> modules = new ArrayList<Module>();
-		for (int i = 0; i < this.modules.size(); i++) {
-			Module module = this.modules.get(i);
-			if (module.getCategory().equals(category))
-				modules.add(module);
-		}
-
-		return modules;
 	}
 
 }

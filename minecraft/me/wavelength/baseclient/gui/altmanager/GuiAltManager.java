@@ -1,4 +1,4 @@
-package me.wavelength.baseclient.gui;
+package me.wavelength.baseclient.gui.altmanager;
 
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -13,11 +13,11 @@ import javax.swing.JFrame;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.account.Account;
-import me.wavelength.baseclient.gui.components.GuiAccountList;
-import me.wavelength.baseclient.gui.impl.GuiAddAlt;
-import me.wavelength.baseclient.gui.impl.GuiAltLogin;
-import me.wavelength.baseclient.gui.impl.GuiAlteningLogin;
-import me.wavelength.baseclient.gui.thread.AccountLoginThread;
+import me.wavelength.baseclient.gui.altmanager.components.GuiAccountList;
+import me.wavelength.baseclient.gui.altmanager.impl.GuiAddAlt;
+import me.wavelength.baseclient.gui.altmanager.impl.GuiAltLogin;
+import me.wavelength.baseclient.gui.altmanager.impl.GuiAlteningLogin;
+import me.wavelength.baseclient.gui.altmanager.thread.AccountLoginThread;
 import me.wavelength.baseclient.thealtening.AltService;
 import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.gui.GuiButton;

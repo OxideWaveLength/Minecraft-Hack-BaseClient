@@ -19,7 +19,7 @@ import org.lwjgl.util.glu.Project;
 
 import com.google.common.collect.Lists;
 
-import me.wavelength.baseclient.gui.GuiAltManager;
+import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;

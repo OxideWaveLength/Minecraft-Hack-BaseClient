@@ -1,4 +1,4 @@
-package me.wavelength.baseclient.gui.thread;
+package me.wavelength.baseclient.gui.altmanager.thread;
 
 import java.net.Proxy;
 import java.util.UUID;
@@ -10,8 +10,8 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.account.Account;
-import me.wavelength.baseclient.gui.GuiAltManager;
-import me.wavelength.baseclient.gui.impl.GuiAlteningLogin;
+import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
+import me.wavelength.baseclient.gui.altmanager.impl.GuiAlteningLogin;
 import me.wavelength.baseclient.thealtening.AltService;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDisconnected;

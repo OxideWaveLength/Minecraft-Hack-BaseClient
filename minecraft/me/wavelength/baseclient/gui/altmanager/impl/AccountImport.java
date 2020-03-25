@@ -1,4 +1,4 @@
-package me.wavelength.baseclient.gui.impl;
+package me.wavelength.baseclient.gui.altmanager.impl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

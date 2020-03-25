@@ -14,6 +14,7 @@ import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.event.events.MouseScrollEvent;
 import me.wavelength.baseclient.event.events.Render2DEvent;
+import me.wavelength.baseclient.gui.clickgui.ClickGui;
 import me.wavelength.baseclient.module.AntiCheat;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
@@ -114,6 +115,9 @@ public class TabGui1 extends EventListener {
 		if (!(BaseClient.instance.getModuleManager().getModule(TabGui.class)).isToggled())
 			return;
 
+		if(mc.currentScreen != null && mc.currentScreen instanceof ClickGui)
+			return;
+		
 		// TODO: Render ICON
 
 		switch (indentation) {

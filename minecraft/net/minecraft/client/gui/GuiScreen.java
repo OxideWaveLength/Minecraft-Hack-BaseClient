@@ -56,8 +56,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	protected Minecraft mc;
 
 	/**
-	 * Holds a instance of RenderItem, used to draw the achievement icons on screen
-	 * (is based on ItemStack)
+	 * Holds a instance of RenderItem, used to draw the achievement icons on screen (is based on ItemStack)
 	 */
 	protected RenderItem itemRender;
 
@@ -74,20 +73,18 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	protected FontRenderer fontRendererObj;
 
 	/** The button that was just pressed. */
-	private GuiButton selectedButton;
+	protected GuiButton selectedButton;
 	private int eventButton;
 	private long lastMouseEvent;
 
 	/**
-	 * Incremented when the game is in touchscreen mode and the screen is tapped,
-	 * decremented if the screen isn't tapped. Does not appear to be used.
+	 * Incremented when the game is in touchscreen mode and the screen is tapped, decremented if the screen isn't tapped. Does not appear to be used.
 	 */
 	private int touchValue;
 	private URI clickedLinkURI;
 
 	/**
-	 * Draws the screen and all the components in it. Args : mouseX, mouseY,
-	 * renderPartialTicks
+	 * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		for (int i = 0; i < this.buttonList.size(); ++i) {
@@ -100,9 +97,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Fired when a key is typed (except F11 which toggles full screen). This is the
-	 * equivalent of KeyListener.keyTyped(KeyEvent e). Args : character (character
-	 * on the key), keyCode (lwjgl Keyboard key code)
+	 * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 		if (keyCode == 1) {
@@ -160,17 +155,14 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Draws the text when mouse is over creative inventory tab. Params: current
-	 * creative tab to be checked, current mouse x position, current mouse y
-	 * position.
+	 * Draws the text when mouse is over creative inventory tab. Params: current creative tab to be checked, current mouse x position, current mouse y position.
 	 */
 	protected void drawCreativeTabHoveringText(String tabName, int mouseX, int mouseY) {
 		this.drawHoveringText(Arrays.<String>asList(new String[] { tabName }), mouseX, mouseY);
 	}
 
 	/**
-	 * Draws a List of strings as a tooltip. Every entry is drawn on a seperate
-	 * line.
+	 * Draws a List of strings as a tooltip. Every entry is drawn on a seperate line.
 	 */
 	protected void drawHoveringText(List<String> textLines, int x, int y) {
 		if (!textLines.isEmpty()) {
@@ -426,22 +418,19 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Called when a mouse button is pressed and the mouse is moved around.
-	 * Parameters are : mouseX, mouseY, lastButtonClicked & timeSinceMouseClick.
+	 * Called when a mouse button is pressed and the mouse is moved around. Parameters are : mouseX, mouseY, lastButtonClicked & timeSinceMouseClick.
 	 */
 	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
 	}
 
 	/**
-	 * Called by the controls from the buttonList when activated. (Mouse pressed for
-	 * buttons)
+	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void actionPerformed(GuiButton button) throws IOException {
 	}
 
 	/**
-	 * Causes the screen to lay out its subcomponents again. This is the equivalent
-	 * of the Java call Container.validate()
+	 * Causes the screen to lay out its subcomponents again. This is the equivalent of the Java call Container.validate()
 	 */
 	public void setWorldAndResolution(Minecraft mc, int width, int height) {
 		this.mc = mc;
@@ -454,9 +443,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Adds the buttons (and other controls) to the screen in question. Called when
-	 * the GUI is displayed and when the window resizes, the buttonList is cleared
-	 * beforehand.
+	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
 	}
@@ -531,8 +518,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Draws either a gradient over the background screen (when it exists) or a flat
-	 * gradient over background.png
+	 * Draws either a gradient over the background screen (when it exists) or a flat gradient over background.png
 	 */
 	public void drawDefaultBackground() {
 		this.drawWorldBackground(0);
@@ -566,8 +552,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Returns true if this GUI should pause the game when it is displayed in
-	 * single-player
+	 * Returns true if this GUI should pause the game when it is displayed in single-player
 	 */
 	public boolean doesGuiPauseGame() {
 		return true;
@@ -595,8 +580,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Returns true if either windows ctrl key is down or if either mac meta key is
-	 * down
+	 * Returns true if either windows ctrl key is down or if either mac meta key is down
 	 */
 	public static boolean isCtrlKeyDown() {
 		return Minecraft.isRunningOnMac ? Keyboard.isKeyDown(219) || Keyboard.isKeyDown(220) : Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157);
@@ -633,8 +617,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Called when the GUI is resized in order to update the world and the
-	 * resolution
+	 * Called when the GUI is resized in order to update the world and the resolution
 	 */
 	public void onResize(Minecraft mcIn, int p_175273_2_, int p_175273_3_) {
 		this.setWorldAndResolution(mcIn, p_175273_2_, p_175273_3_);

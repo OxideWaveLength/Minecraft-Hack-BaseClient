@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.command.commands.BindCommand;
 import me.wavelength.baseclient.command.commands.ColorCommand;
+import me.wavelength.baseclient.command.commands.FontCommand;
 import me.wavelength.baseclient.command.commands.FriendsCommand;
 import me.wavelength.baseclient.command.commands.HelpCommand;
 import me.wavelength.baseclient.command.commands.IRCCommand;
@@ -58,6 +59,7 @@ public class CommandManager extends EventListener {
 		registerCommand(new ColorCommand());
 		registerCommand(new FriendsCommand());
 		registerCommand(new NamesCommand());
+		registerCommand(new FontCommand());
 	}
 
 	public List<Command> getCommands() {
