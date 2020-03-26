@@ -50,14 +50,7 @@ public class Dropdown {
 
 		this.width = Strings.getStringWidthCFR(category.name()) + 5;
 
-		for (int i = 0; i < modules.size(); i++) {
-			Module module = modules.get(i);
-			int moduleWidth = Strings.getStringWidthCFR(module.getName());
-			if (moduleWidth > this.width)
-				this.width = moduleWidth;
-
-			this.moduleButtons.add(new ModuleButton(i, x + 3, y + ((i + 1) * fontSize) + (6 + i), moduleWidth + 6, fontSize, module));
-		}
+		updateButtons(true);
 
 		this.width = width + 12;
 
@@ -127,17 +120,35 @@ public class Dropdown {
 		this.extended = !(extended);
 		updateHeight();
 
-		List<GuiButton> buttonList = new ArrayList<GuiButton>(clickGui.getButtonList());
-		if (!(extended)) {
-			buttonList.removeAll(moduleButtons);
-		} else {
-			buttonList.addAll(moduleButtons);
-		}
-		clickGui.setButtonList(buttonList);
+		updateButtons();
 	}
 
 	private void updateHeight() {
 		this.height = fontSize * (extended ? (modules.size() + 2) : 1);
+	}
+
+	private void updateButtons() {
+		updateButtons(false);
+	}
+
+	private void updateButtons(boolean clear) {
+		if (clear) {
+			moduleButtons.clear();
+			for (int i = 0; i < modules.size(); i++) {
+				Module module = modules.get(i);
+				int moduleWidth = Strings.getStringWidthCFR(module.getName());
+				if (moduleWidth > this.width)
+					this.width = moduleWidth;
+
+				this.moduleButtons.add(new ModuleButton(i, x + 3, y + ((i + 1) * fontSize) + (6 + i), moduleWidth + 6, fontSize, module));
+			}
+		}
+
+		List<GuiButton> buttonList = new ArrayList<GuiButton>(clickGui.getButtonList());
+		buttonList.removeAll(moduleButtons);
+		if (extended)
+			buttonList.addAll(moduleButtons);
+		clickGui.setButtonList(buttonList);
 	}
 
 	public List<Module> getModules() {
@@ -166,6 +177,24 @@ public class Dropdown {
 //					return true;
 //			}
 //		}
+
+		return false;
+	}
+
+	public boolean mouseReleased(int mouseX, int mouseY, int state) {
+		if (dragging)
+			return !(this.dragging = false);
+
+		return false;
+	}
+
+	public boolean mouseClickMove(int mouseX, int mouseY, int mouseButton, long timeSinceLastClick) {
+		if (mouseButton == 0 && dragging) {
+			this.x = mouseX - width / 2;
+			this.y = mouseY - headerHeight / 2;
+			updateButtons(true);
+			return true;
+		}
 
 		return false;
 	}

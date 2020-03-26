@@ -83,11 +83,21 @@ public class ClickGui extends GuiScreen {
 	}
 
 	@Override
+	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+		List<Dropdown> dropdowns = new ArrayList<Dropdown>(this.dropdowns);
+		for (int i = dropdowns.size() - 1; i >= 0; i--) {
+			if (dropdowns.get(i).mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick))
+				return;
+		}
+	}
+
+	@Override
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-//		dropdowns.forEach(dropdown -> {
-//			if (dropdown.mouseReleased(mouseX, mouseY, state))
-//				return;
-//		});
+		List<Dropdown> dropdowns = new ArrayList<Dropdown>(this.dropdowns);
+		for (int i = dropdowns.size() - 1; i >= 0; i--) {
+			if (dropdowns.get(i).mouseReleased(mouseX, mouseY, state))
+				return;
+		}
 
 		super.mouseReleased(mouseX, mouseY, state);
 	}
