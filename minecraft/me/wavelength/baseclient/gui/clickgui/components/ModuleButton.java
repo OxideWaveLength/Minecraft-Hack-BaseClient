@@ -19,7 +19,7 @@ public class ModuleButton extends GuiButton {
 		int[] position = new int[2];
 
 		position[0] = dropdown.getX() + 3;
-		position[1] = dropdown.getY() + ((buttonIndex + 1) * BaseClient.instance.getFontRenderer().getFontSize() / 2) + (7 + (buttonIndex + 2 * buttonIndex));
+		position[1] = dropdown.getY() + dropdown.getHeaderHeight() + ((buttonIndex) * (BaseClient.instance.getFontRenderer().getFontSize() / 2)) + (1 * (buttonIndex));
 
 		return position;
 	}

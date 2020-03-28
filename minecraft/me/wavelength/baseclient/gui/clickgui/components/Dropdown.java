@@ -53,11 +53,11 @@ public class Dropdown {
 
 		this.width = Strings.getStringWidthCFR(category.name()) + 5;
 
-		updateButtons(UpdateAction.REPOPULATE);
+		updateHeight();
 
 		this.width = width + 12;
 
-		updateHeight();
+		updateButtons(UpdateAction.REPOPULATE);
 	}
 
 	public Category getCategory() {
@@ -129,9 +129,9 @@ public class Dropdown {
 	}
 
 	private void updateHeight() {
-		this.height = fontSize * (extended ? (modules.size() + 1) : 0);
+		this.height = fontSize * (extended ? (modules.size()) : 0) + 6;
 
-		this.headerHeight = fontSize + 4;
+		this.headerHeight = fontSize + 6;
 	}
 
 	private void updateButtons() {
@@ -147,13 +147,16 @@ public class Dropdown {
 			moduleButtons.clear();
 			for (int i = 0; i < modules.size(); i++) {
 				Module module = modules.get(i);
-				int moduleWidth = Strings.getStringWidthCFR(module.getName());
+				int moduleWidth = Strings.getStringWidthCFR(Strings.capitalizeFirstLetter(module.getName()));
+
+				moduleWidth += 6 + 3; // 3 is the y offset, should be parametized
+
 				if (moduleWidth > this.width)
 					this.width = moduleWidth;
 
 				int[] position = ModuleButton.getPosition(this, i);
 
-				this.moduleButtons.add(new ModuleButton(i, position[0], position[1], moduleWidth + 6, fontSize, module));
+				this.moduleButtons.add(new ModuleButton(i, position[0], position[1], moduleWidth, fontSize, module));
 			}
 		} else if (action.equals(UpdateAction.UPDATE_POSITION)) {
 			for (int i = 0; i < moduleButtons.size(); i++) {
