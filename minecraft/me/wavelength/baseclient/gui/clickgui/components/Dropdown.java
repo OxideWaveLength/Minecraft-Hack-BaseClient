@@ -5,6 +5,7 @@ import java.util.List;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.gui.clickgui.ClickGui;
+import me.wavelength.baseclient.gui.clickgui.components.ModuleButton.UpdateAction;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.utils.Strings;
@@ -33,13 +34,15 @@ public class Dropdown {
 	private List<ModuleButton> moduleButtons;
 
 	/** TODO: Replace this to feed directly the title and the content as string and string list, this way this class can be used for the module settings as well */
-	public Dropdown(ClickGui clickGui, Category category, int x, int y) {
+	public Dropdown(ClickGui clickGui, Category category, int x, int y, boolean extended) {
 		this.clickGui = clickGui;
 
 		this.category = category;
 
 		this.x = x;
 		this.y = y;
+
+		this.extended = extended;
 
 		this.modules = BaseClient.instance.getModuleManager().getModules(category);
 		this.moduleButtons = new ArrayList<ModuleButton>();
@@ -50,11 +53,9 @@ public class Dropdown {
 
 		this.width = Strings.getStringWidthCFR(category.name()) + 5;
 
-		updateButtons(true);
+		updateButtons(UpdateAction.REPOPULATE);
 
 		this.width = width + 12;
-
-		this.headerHeight = y + fontSize + 5;
 
 		updateHeight();
 	}
@@ -73,6 +74,8 @@ public class Dropdown {
 
 	public void setX(int x) {
 		this.x = x;
+		updateHeight();
+		updateButtons(UpdateAction.UPDATE_POSITION);
 	}
 
 	public int getY() {
@@ -81,6 +84,8 @@ public class Dropdown {
 
 	public void setY(int y) {
 		this.y = y;
+		updateHeight();
+		updateButtons(UpdateAction.UPDATE_POSITION);
 	}
 
 	public int getWidth() {
@@ -124,15 +129,21 @@ public class Dropdown {
 	}
 
 	private void updateHeight() {
-		this.height = fontSize * (extended ? (modules.size() + 2) : 1);
+		this.height = fontSize * (extended ? (modules.size() + 1) : 0);
+
+		this.headerHeight = fontSize + 4;
 	}
 
 	private void updateButtons() {
-		updateButtons(false);
+		updateButtons(UpdateAction.NONE);
 	}
 
-	private void updateButtons(boolean clear) {
-		if (clear) {
+	/**
+	 * 
+	 * @param action
+	 */
+	private void updateButtons(UpdateAction action) {
+		if (action.equals(UpdateAction.REPOPULATE)) {
 			moduleButtons.clear();
 			for (int i = 0; i < modules.size(); i++) {
 				Module module = modules.get(i);
@@ -140,7 +151,17 @@ public class Dropdown {
 				if (moduleWidth > this.width)
 					this.width = moduleWidth;
 
-				this.moduleButtons.add(new ModuleButton(i, x + 3, y + ((i + 1) * fontSize) + (6 + i), moduleWidth + 6, fontSize, module));
+				int[] position = ModuleButton.getPosition(this, i);
+
+				this.moduleButtons.add(new ModuleButton(i, position[0], position[1], moduleWidth + 6, fontSize, module));
+			}
+		} else if (action.equals(UpdateAction.UPDATE_POSITION)) {
+			for (int i = 0; i < moduleButtons.size(); i++) {
+				ModuleButton button = moduleButtons.get(i);
+
+				int[] position = ModuleButton.getPosition(this, i);
+				button.xPosition = position[0];
+				button.yPosition = position[1];
 			}
 		}
 
@@ -168,15 +189,10 @@ public class Dropdown {
 			this.dragging = true;
 			return true;
 		} else if (mouseButton == 1 && isHovered(mouseX, mouseY)) {
-			toggleExtend();
+			if (modules.size() > 0)
+				toggleExtend();
 			return true;
 		}
-//		else if (mouseButton == 1 && extended) {
-//			for (ModuleButton moduleButton : moduleButtons) {
-//				if (moduleButton.mouseClicked(mouseX, mouseY, mouseButton))
-//					return true;
-//			}
-//		}
 
 		return false;
 	}
@@ -190,9 +206,13 @@ public class Dropdown {
 
 	public boolean mouseClickMove(int mouseX, int mouseY, int mouseButton, long timeSinceLastClick) {
 		if (mouseButton == 0 && dragging) {
+
+//			this.x = (x - (x - mouseX));
+//			this.x = (x - width + (x - mouseX));
+
 			this.x = mouseX - width / 2;
 			this.y = mouseY - headerHeight / 2;
-			updateButtons(true);
+			updateButtons(UpdateAction.UPDATE_POSITION);
 			return true;
 		}
 

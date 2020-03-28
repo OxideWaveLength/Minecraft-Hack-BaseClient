@@ -2,6 +2,7 @@ package me.wavelength.baseclient.gui.clickgui.components;
 
 import java.awt.Color;
 
+import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Strings;
@@ -9,6 +10,19 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 
 public class ModuleButton extends GuiButton {
+
+	public enum UpdateAction {
+		NONE, UPDATE_POSITION, REPOPULATE;
+	}
+
+	public static int[] getPosition(Dropdown dropdown, int buttonIndex) {
+		int[] position = new int[2];
+
+		position[0] = dropdown.getX() + 3;
+		position[1] = dropdown.getY() + ((buttonIndex + 1) * BaseClient.instance.getFontRenderer().getFontSize() / 2) + (7 + (buttonIndex + 2 * buttonIndex));
+
+		return position;
+	}
 
 	private Module module;
 

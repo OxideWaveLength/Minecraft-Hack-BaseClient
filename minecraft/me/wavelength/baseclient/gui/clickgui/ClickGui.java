@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.gui.clickgui.components.Dropdown;
 import me.wavelength.baseclient.gui.clickgui.components.ModuleButton;
 import me.wavelength.baseclient.module.Category;
@@ -28,9 +27,12 @@ public class ClickGui extends GuiScreen {
 
 		Dropdown previousDropdown = null;
 		for (Category category : Category.values()) {
+			if (category.equals(Category.SEMI_HIDDEN) || category.equals(Category.HIDDEN))
+				continue;
+
 			int x = 5 + (previousDropdown == null ? 0 : 10 + previousDropdown.getX() + previousDropdown.getWidth());
 			int y = (previousDropdown == null ? 5 : previousDropdown.getY());
-			Dropdown dropdown = new Dropdown(this, category, x, y);
+			Dropdown dropdown = new Dropdown(this, category, x, y, false);
 			if (x + dropdown.getWidth() > RenderUtils.getScaledResolution().getScaledWidth() && previousDropdown != null) {
 				dropdown.setX(5);
 				dropdown.setY(previousDropdown.getY() + previousDropdown.getHeight() + 30);
@@ -42,7 +44,10 @@ public class ClickGui extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		final int fontSize = BaseClient.instance.getFontRenderer().getFontSize() / 2;
+		int contentColor = new Color(0, 0, 0, 200).getRGB();
+		int headerColor = new Color(30, 150, 10, 200).getRGB();
+		int textColor = Color.WHITE.getRGB();
+
 		for (int i = 0; i < dropdowns.size(); i++) {
 			Dropdown dropdown = dropdowns.get(i);
 
@@ -53,13 +58,14 @@ public class ClickGui extends GuiScreen {
 			int height = dropdown.getHeight();
 			List<ModuleButton> moduleButtons = dropdown.getModuleButtons();
 
-			RenderUtils.drawModalRectFromTopLeft(x, y, width, height, new Color(0, 0, 0, 100).getRGB());
+			/** Rendering this of height 0 instead of not rendering because else there would be problems with the colors.. Will be looked into */
+			RenderUtils.drawModalRectFromTopLeft(x, y + dropdown.getHeaderHeight(), width, dropdown.isExtended() ? height : 0, contentColor);
 
 			if (dropdown.isExtended())
 				moduleButtons.forEach(button -> button.drawButton(Minecraft.getMinecraft(), mouseX, mouseY));
 
-			RenderUtils.drawModalRectFromTopLeft(x, y, width, fontSize + 4, new Color(255, 15, 50, 110).getRGB());
-			RenderUtils.drawString(Strings.capitalizeOnlyFirstLetter(category.name()), x + 3, y + 1, Color.WHITE.getRGB());
+			RenderUtils.drawModalRectFromTopLeft(x, y, width, dropdown.getHeaderHeight(), headerColor);
+			RenderUtils.drawString(Strings.capitalizeOnlyFirstLetter(category.name()), x + 3, y + 1, textColor);
 		}
 	}
 
@@ -67,8 +73,12 @@ public class ClickGui extends GuiScreen {
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		List<Dropdown> dropdowns = new ArrayList<Dropdown>(this.dropdowns);
 		for (int i = dropdowns.size() - 1; i >= 0; i--) {
-			if (dropdowns.get(i).mouseClicked(mouseX, mouseY, mouseButton))
+			Dropdown dropdown = dropdowns.get(i);
+			if (dropdown.mouseClicked(mouseX, mouseY, mouseButton)) {
+				this.dropdowns.remove(dropdown);
+				this.dropdowns.add(dropdown);
 				return;
+			}
 		}
 
 		if (mouseButton == 0) {
