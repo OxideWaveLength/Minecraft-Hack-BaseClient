@@ -40,6 +40,21 @@ public class ClickGui extends GuiScreen {
 			dropdowns.add(dropdown);
 			previousDropdown = dropdown;
 		}
+		
+		if(OpenGlHelper.shadersSupported && this.mc.getRenderViewEntity() instanceof EntityPlayer) {
+			if(this.mc.entityRenderer.theShaderGroup != null) {
+				this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
+			}
+			this.mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+		}
+	}
+	
+	@Override
+	public void onGuiClosed() {
+		if(this.mc.entityRenderer.theShaderGroup != null) {
+		   this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
+		   this.mc.entityRenderer.theShaderGroup = null;
+		}
 	}
 
 	@Override
