@@ -3,6 +3,8 @@ package me.wavelength.baseclient.gui.clickgui.components;
 import java.awt.Color;
 
 import me.wavelength.baseclient.BaseClient;
+import me.wavelength.baseclient.gui.clickgui.ClickGui;
+import me.wavelength.baseclient.gui.clickgui.GuiBind;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Strings;
@@ -26,9 +28,12 @@ public class ModuleButton extends GuiButton {
 
 	private Module module;
 
-	public ModuleButton(int buttonId, int x, int y, int widthIn, int heightIn, Module module) {
+	private ClickGui clickGui;
+
+	public ModuleButton(int buttonId, int x, int y, int widthIn, int heightIn, Module module, ClickGui clickGui) {
 		super(buttonId, x, y, widthIn, heightIn, Strings.capitalizeFirstLetter(module.getName()));
 		this.module = module;
+		this.clickGui = clickGui;
 	}
 
 	@Override
@@ -57,9 +62,17 @@ public class ModuleButton extends GuiButton {
 		return false;
 	}
 
-	@Override
-	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-		return super.mousePressed(mc, mouseX, mouseY);
+	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY, int mouseButton) {
+		boolean isPressed = super.mousePressed(mc, mouseX, mouseY);
+
+		if (!(isPressed))
+			return false;
+
+		if (mouseButton == 2) {
+			mc.displayGuiScreen(new GuiBind(module, clickGui));
+		}
+
+		return true;
 	}
 
 	@Override

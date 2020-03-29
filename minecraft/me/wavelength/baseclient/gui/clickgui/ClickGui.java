@@ -20,10 +20,11 @@ import net.minecraft.util.ResourceLocation;
 public class ClickGui extends GuiScreen {
 
 	private List<Dropdown> dropdowns;
-	
+
 	public ClickGui() {
 	}
 
+	/** Credits for the Blur: MrTheShy */
 	@Override
 	public void initGui() {
 		this.dropdowns = new ArrayList<Dropdown>();
@@ -43,20 +44,20 @@ public class ClickGui extends GuiScreen {
 			dropdowns.add(dropdown);
 			previousDropdown = dropdown;
 		}
-		
-		if(!(mc.gameSettings.ofFastRender) && OpenGlHelper.shadersSupported && this.mc.getRenderViewEntity() instanceof EntityPlayer) {
-			if(this.mc.entityRenderer.theShaderGroup != null) {
+
+		if (!(mc.gameSettings.ofFastRender) && OpenGlHelper.shadersSupported && this.mc.getRenderViewEntity() instanceof EntityPlayer) {
+			if (this.mc.entityRenderer.theShaderGroup != null)
 				this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
-			}
+			
 			this.mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
 		}
 	}
-	
+
 	@Override
 	public void onGuiClosed() {
-		if(!(mc.gameSettings.ofFastRender) && this.mc.entityRenderer.theShaderGroup != null) {
-		   this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
-		   this.mc.entityRenderer.theShaderGroup = null;
+		if (!(mc.gameSettings.ofFastRender) && this.mc.entityRenderer.theShaderGroup != null) {
+			this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
+			this.mc.entityRenderer.theShaderGroup = null;
 		}
 	}
 
@@ -99,13 +100,11 @@ public class ClickGui extends GuiScreen {
 			}
 		}
 
-		if (mouseButton == 0) {
-			for (int i = 0; i < this.buttonList.size(); ++i) {
-				GuiButton guibutton = (GuiButton) this.buttonList.get(i);
-				if (guibutton.mousePressed(this.mc, mouseX, mouseY)) {
-					selectedButton = guibutton;
-					this.actionPerformed(guibutton);
-				}
+		for (int i = 0; i < this.buttonList.size(); ++i) {
+			ModuleButton guiButton = (ModuleButton) this.buttonList.get(i);
+			if (guiButton.mousePressed(this.mc, mouseX, mouseY, mouseButton)) {
+				selectedButton = guiButton;
+				this.actionPerformed(guiButton);
 			}
 		}
 	}

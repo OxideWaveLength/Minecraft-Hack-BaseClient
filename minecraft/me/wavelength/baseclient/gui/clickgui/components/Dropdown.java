@@ -156,7 +156,7 @@ public class Dropdown {
 
 				int[] position = ModuleButton.getPosition(this, i);
 
-				this.moduleButtons.add(new ModuleButton(i, position[0], position[1], moduleWidth, fontSize, module));
+				this.moduleButtons.add(new ModuleButton(i, position[0], position[1], moduleWidth, fontSize, module, clickGui));
 			}
 		} else if (action.equals(UpdateAction.UPDATE_POSITION)) {
 			for (int i = 0; i < moduleButtons.size(); i++) {
@@ -215,6 +215,7 @@ public class Dropdown {
 
 			this.x = mouseX - width / 2;
 			this.y = mouseY - headerHeight / 2;
+
 			updateButtons(UpdateAction.UPDATE_POSITION);
 			return true;
 		}
