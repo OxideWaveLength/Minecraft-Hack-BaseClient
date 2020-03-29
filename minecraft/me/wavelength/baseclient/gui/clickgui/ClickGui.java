@@ -13,11 +13,14 @@ import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 
 public class ClickGui extends GuiScreen {
 
 	private List<Dropdown> dropdowns;
-
+	
 	public ClickGui() {
 	}
 
@@ -39,6 +42,21 @@ public class ClickGui extends GuiScreen {
 			}
 			dropdowns.add(dropdown);
 			previousDropdown = dropdown;
+		}
+		
+		if(!(mc.gameSettings.ofFastRender) && OpenGlHelper.shadersSupported && this.mc.getRenderViewEntity() instanceof EntityPlayer) {
+			if(this.mc.entityRenderer.theShaderGroup != null) {
+				this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
+			}
+			this.mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+		}
+	}
+	
+	@Override
+	public void onGuiClosed() {
+		if(!(mc.gameSettings.ofFastRender) && this.mc.entityRenderer.theShaderGroup != null) {
+		   this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
+		   this.mc.entityRenderer.theShaderGroup = null;
 		}
 	}
 
