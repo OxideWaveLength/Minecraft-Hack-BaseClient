@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.font.FontManager;
+import me.wavelength.baseclient.font.UnicodeFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiIngame;
@@ -51,15 +52,19 @@ public class RenderUtils {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
 
-	public static void drawString(String text, int x, int y, int color, int fontSize, boolean shadow) {
+	public static void drawString(String text, int x, int y, int color, boolean shadow, UnicodeFontRenderer font) {
 		if (color == -1)
 			color = Color.WHITE.getRGB();
 
 		text = Strings.simpleTranslateColors(text);
 		if (shadow)
-			getFontRenderer().getFont(fontSize).drawStringWithShadow(text, x, y, color);
+			font.drawStringWithShadow(text, x, y, color);
 		else
-			getFontRenderer().getFont(fontSize).drawString(text, x, y, color);
+			font.drawString(text, x, y, color);
+	}
+
+	public static void drawString(String text, int x, int y, int color, int fontSize, boolean shadow) {
+		drawString(text, x, y, color, shadow, getFontRenderer().getFont(fontSize));
 	}
 
 	public static void drawString(String text, int x, int y, int color, boolean shadow) {
