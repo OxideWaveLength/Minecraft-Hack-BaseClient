@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.settings.GameSettings.Options;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
@@ -21,12 +22,17 @@ public class ClickGui extends GuiScreen {
 
 	private List<Dropdown> dropdowns;
 
+	private boolean fastRender;
+
 	public ClickGui() {
 	}
 
 	/** Credits for the Blur: MrTheShy */
 	@Override
 	public void initGui() {
+		if (fastRender = mc.gameSettings.ofFastRender)
+			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
+
 		this.dropdowns = new ArrayList<Dropdown>();
 
 		Dropdown previousDropdown = null;
@@ -48,7 +54,7 @@ public class ClickGui extends GuiScreen {
 		if (!(mc.gameSettings.ofFastRender) && OpenGlHelper.shadersSupported && this.mc.getRenderViewEntity() instanceof EntityPlayer) {
 			if (this.mc.entityRenderer.theShaderGroup != null)
 				this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
-			
+
 			this.mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
 		}
 	}
@@ -59,6 +65,9 @@ public class ClickGui extends GuiScreen {
 			this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
 			this.mc.entityRenderer.theShaderGroup = null;
 		}
+
+		if (fastRender)
+			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.settings.GameSettings.Options;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
@@ -20,6 +21,8 @@ public class GuiBind extends GuiScreen {
 
 	private Module module;
 	private ClickGui clickGui;
+	
+	private boolean fastRender;
 
 	public GuiBind(Module module, ClickGui clickGui) {
 		this.module = module;
@@ -29,12 +32,18 @@ public class GuiBind extends GuiScreen {
 	/** Credits for the Blur: MrTheShy */
 	@Override
 	public void initGui() {
+		if (fastRender = mc.gameSettings.ofFastRender)
+			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
+		
 		if (!(mc.gameSettings.ofFastRender) && OpenGlHelper.shadersSupported && this.mc.getRenderViewEntity() instanceof EntityPlayer) {
 			if (this.mc.entityRenderer.theShaderGroup != null)
 				this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
 
 			this.mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
 		}
+		
+		if (fastRender)
+			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
 	}
 
 	@Override
