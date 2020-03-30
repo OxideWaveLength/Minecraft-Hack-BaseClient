@@ -42,7 +42,7 @@ public abstract class Command extends EventListener {
 	}
 
 	public String getSyntax(String color, boolean trigger) {
-		return color + (trigger ? commandManager.getTrigger() : "") + getSyntax();
+		return color + (trigger ? commandManager.getTrigger() : "") + syntax;
 	}
 
 	public String getUsage() {
