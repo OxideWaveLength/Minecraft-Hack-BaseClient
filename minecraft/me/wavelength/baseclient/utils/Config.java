@@ -215,14 +215,16 @@ public class Config {
 
 		String regex = "(?<!\\\\)" + Pattern.quote(", "); // SOURCE: https://stackoverflow.com/a/18677785. This should make it possible to escape commas
 
-		String[] items = line.split(regex);
-		for (int i = 0; i < items.length; i++) {
-			String item = items[i];
+		if (line != null) {
+			String[] items = line.split(regex);
+			for (int i = 0; i < items.length; i++) {
+				String item = items[i];
 
-			if (actions != null)
-				item = actions.apply(item);
+				if (actions != null)
+					item = actions.apply(item);
 
-			list.add(item);
+				list.add(item);
+			}
 		}
 
 		return list.isEmpty() ? null : list;
