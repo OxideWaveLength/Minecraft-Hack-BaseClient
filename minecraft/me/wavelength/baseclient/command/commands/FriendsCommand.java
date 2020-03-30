@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.wavelength.baseclient.command.Command;
+import me.wavelength.baseclient.friends.FriendsManager;
 
 public class FriendsCommand extends Command {
 
-	private List<String> friends;
+	private FriendsManager friendsManager;
 
-	public FriendsCommand() {
+	public FriendsCommand(FriendsManager friendsManager) {
 		super("friends", "friends <add|remove|list> [name]", "Manage friends", "f", "friend");
-		friends = new ArrayList<String>();
+
+		this.friendsManager = friendsManager;
 	}
 
 	@Override
@@ -21,32 +23,35 @@ public class FriendsCommand extends Command {
 
 		switch (args[0].toLowerCase()) {
 		case "add": {
-			String name = args[1];
+			String name = getName(args);
 
 			if (name == null)
 				return getSyntax("&c");
 
-			if (friends.contains(name))
+			if (friendsManager.isFriend(name))
 				return String.format("&e%1$s&c is already in your friends list.", name);
 
-			friends.add(name);
+			friendsManager.addFriend(name);
 			return String.format("&e%1$s &ahas been added to your friends list.", name);
 		}
 		case "remove": {
-			String name = args[1];
+			String name = getName(args);
 
 			if (name == null)
 				return getSyntax("&c");
 
-			if (!(friends.contains(name)))
+			if (!(friendsManager.isFriend(name)))
 				return String.format("&e%1$s&c is NOT in your friends list.", name);
 
-			friends.remove(name);
+			friendsManager.removeFriend(name);
 			return String.format("&e%1$s &ahas been removed from your friends list.", name);
 		}
 		case "list": {
+			List<String> friends = new ArrayList<String>(friendsManager.getFriends());
+
 			if (friends.size() == 0)
 				return "&eYou don't have any friend :(";
+
 			String friendList = "";
 			for (int i = 0; i < friends.size(); i++) {
 				friendList += (i == 0 ? "" : "&f, ") + "&e" + friends.get(i);
@@ -54,7 +59,7 @@ public class FriendsCommand extends Command {
 			return String.format("&aThese are your friends: %s", friendList);
 		}
 		case "clear": {
-			friends.clear();
+			friendsManager.clear();
 			return "&aYour friends list has been cleared.";
 		}
 		default: {
@@ -68,14 +73,6 @@ public class FriendsCommand extends Command {
 			return null;
 
 		return args[1];
-	}
-
-	public List<String> getFriends() {
-		return friends;
-	}
-
-	public boolean isFriend(String name) {
-		return friends.contains(name);
 	}
 
 }
