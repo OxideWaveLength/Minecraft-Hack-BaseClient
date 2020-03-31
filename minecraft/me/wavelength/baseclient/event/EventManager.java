@@ -80,88 +80,92 @@ public class EventManager {
 		if (event instanceof CancellableEvent)
 			if (((CancellableEvent) event).isCancelled())
 				return event;
+		
+		List<EventListener> eventListeners = new ArrayList<EventListener>(this.eventListeners);
+		
 		for (int i = 0; i < eventListeners.size(); i++) {
+			EventListener eventListener = eventListeners.get(i);
 			if (event instanceof KeyPressedEvent) {
-				eventListeners.get(i).onKeyPressed((KeyPressedEvent) event);
+				eventListener.onKeyPressed((KeyPressedEvent) event);
 				continue;
 			}
 			if (event instanceof MessageReceivedEvent) {
-				eventListeners.get(i).onMessageReceived((MessageReceivedEvent) event); // Class: GuiNewChat#printChatMessageWithOptionalDeletion()
+				eventListener.onMessageReceived((MessageReceivedEvent) event); // Class: GuiNewChat#printChatMessageWithOptionalDeletion()
 				continue;
 			}
 			if (event instanceof MessageSentEvent) {
-				eventListeners.get(i).onMessageSent((MessageSentEvent) event);
+				eventListener.onMessageSent((MessageSentEvent) event);
 				continue;
 			}
 			if (event instanceof PacketReceivedEvent) {
-				eventListeners.get(i).onPacketReceived((PacketReceivedEvent) event); // Class: NetworkManager#channelRead0()
+				eventListener.onPacketReceived((PacketReceivedEvent) event); // Class: NetworkManager#channelRead0()
 				continue;
 			}
 			if (event instanceof PacketSentEvent) {
-				eventListeners.get(i).onPacketSent((PacketSentEvent) event); // Class: NetworkManager#sendPacket()
+				eventListener.onPacketSent((PacketSentEvent) event); // Class: NetworkManager#sendPacket()
 				continue;
 			}
 			if (event instanceof UpdateEvent) {
-				eventListeners.get(i).onUpdate((UpdateEvent) event);
+				eventListener.onUpdate((UpdateEvent) event);
 				continue;
 			}
 			if (event instanceof MouseScrollEvent) {
-				eventListeners.get(i).onMouseScroll((MouseScrollEvent) event);
+				eventListener.onMouseScroll((MouseScrollEvent) event);
 				continue;
 			}
 			if (event instanceof MouseClickEvent) {
-				eventListeners.get(i).onMouseClick((MouseClickEvent) event);
+				eventListener.onMouseClick((MouseClickEvent) event);
 				continue;
 			}
 			if (event instanceof PreMotionEvent) {
-				eventListeners.get(i).onPreMotion((PreMotionEvent) event);
+				eventListener.onPreMotion((PreMotionEvent) event);
 				continue;
 			}
 			if (event instanceof PostMotionEvent) {
-				eventListeners.get(i).onPostMotion((PostMotionEvent) event);
+				eventListener.onPostMotion((PostMotionEvent) event);
 				continue;
 			}
 			if (event instanceof Render2DEvent) {
-				eventListeners.get(i).onRender2D((Render2DEvent) event);
+				eventListener.onRender2D((Render2DEvent) event);
 			}
 			if (event instanceof Render3DEvent) {
-				eventListeners.get(i).onRender3D((Render3DEvent) event);
+				eventListener.onRender3D((Render3DEvent) event);
 				continue;
 			}
 			if (event instanceof ServerConnectingEvent) {
-				eventListeners.get(i).onServerConnecting((ServerConnectingEvent) event); // Class GuiConnecting#connect()
+				eventListener.onServerConnecting((ServerConnectingEvent) event); // Class GuiConnecting#connect()
 				continue;
 			}
 			if (event instanceof ServerJoinEvent) {
-				eventListeners.get(i).onServerJoin((ServerJoinEvent) event); // Class GuiConnecting#connect() - New Thread
+				eventListener.onServerJoin((ServerJoinEvent) event); // Class GuiConnecting#connect() - New Thread
 				continue;
 			}
 			if (event instanceof ServerLeaveEvent) {
-				eventListeners.get(i).onServerLeave((ServerLeaveEvent) event); // Class GuiDisconnect - constructor
+				eventListener.onServerLeave((ServerLeaveEvent) event); // Class GuiDisconnect - constructor
 				continue;
 			}
 			if (event instanceof CollideEvent) {
-				eventListeners.get(i).onCollide((CollideEvent) event);
+				eventListener.onCollide((CollideEvent) event);
 				continue;
 			}
 			if (event instanceof BlockRenderEvent) {
-				eventListeners.get(i).onBlockRender((BlockRenderEvent) event);
+				eventListener.onBlockRender((BlockRenderEvent) event);
 				continue;
 			}
 			if (event instanceof FluidRenderEvent) {
-				eventListeners.get(i).onFluidRender((FluidRenderEvent) event);
+				eventListener.onFluidRender((FluidRenderEvent) event);
 				continue;
 			}
 			if (event instanceof BlockBrightnessRequestEvent) {
-				eventListeners.get(i).onBlockBrightnessRequest((BlockBrightnessRequestEvent) event);
+				eventListener.onBlockBrightnessRequest((BlockBrightnessRequestEvent) event);
 				continue;
 			}
 			if (event instanceof RenderLivingLabelEvent) {
-				eventListeners.get(i).onRenderLivingLabel((RenderLivingLabelEvent) event);
+				eventListener.onRenderLivingLabel((RenderLivingLabelEvent) event);
 				continue;
 			}
 			if (event instanceof PlayerSpawnEvent) {
-				eventListeners.get(i).onPlayerSpawn((PlayerSpawnEvent) event);
+				eventListener.onPlayerSpawn((PlayerSpawnEvent) event);
 				continue;
 			}
 		}
