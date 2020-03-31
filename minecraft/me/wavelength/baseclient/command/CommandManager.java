@@ -58,7 +58,7 @@ public class CommandManager extends EventListener {
 		registerCommand(new SetCommand());
 		registerCommand(new BindCommand());
 		registerCommand(new ColorCommand());
-		registerCommand(new FriendsCommand());
+		registerCommand(new FriendsCommand(BaseClient.instance.getFriendsManager()));
 		registerCommand(new NamesCommand());
 		registerCommand(new XRayCommand());
 		registerCommand(new FontCommand());
@@ -102,10 +102,11 @@ public class CommandManager extends EventListener {
 
 	@Override
 	public void onMessageSent(MessageSentEvent event) {
-		String[] args = event.getMessage().split(" ");
-
 		if (event.isCancelled())
 			return;
+
+		String[] args = event.getMessage().split(" (?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
+		args = Arrays.stream(args).map(s -> s.replace("\"", "")).toArray(size -> new String[size]);
 
 		String line = Lists.stringArrayToString(" ", args);
 		String commandLine = Lists.stringArrayToString(" ", args);

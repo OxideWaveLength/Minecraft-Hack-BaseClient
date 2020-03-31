@@ -19,6 +19,9 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
+**Stack Trace**
+Add the error stack trace, if any.
+
 **Versions:**
  - OS: [e.g. Windows 10]
  - Java: [e.g. JDK1_8, JRE1_8]

@@ -50,6 +50,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 - Alt Manager (By Russian412)
 - Slick's FontManager (Edited by Russian412 and me) - Updated in the commit #77 / a0bfdf7
 - IRC Client
+- FriendsManager - manages friends and enemies. Added in the commit #95 / d5e1270 by [@evrec](https://github.com/evrec)
 
 ------------
 

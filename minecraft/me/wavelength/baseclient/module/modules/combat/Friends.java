@@ -37,7 +37,7 @@ public class Friends extends Module {
 		if (!(entity instanceof EntityOtherPlayerMP || entity instanceof EntityPlayerMP))
 			return;
 
-		if (((FriendsCommand) BaseClient.instance.getCommandManager().getCommand(FriendsCommand.class)).isFriend(entity.getName()))
+		if (BaseClient.instance.getFriendsManager().isFriend(entity.getName()))
 			event.setCancelled(true);
 	}
 
