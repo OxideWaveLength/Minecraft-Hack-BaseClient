@@ -8,6 +8,7 @@ import me.wavelength.baseclient.account.AccountManager;
 import me.wavelength.baseclient.command.CommandManager;
 import me.wavelength.baseclient.event.EventManager;
 import me.wavelength.baseclient.font.FontManager;
+import me.wavelength.baseclient.friends.FriendsManager;
 import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
 import me.wavelength.baseclient.gui.clickgui.ClickGui;
 import me.wavelength.baseclient.irc.IRCClient;
@@ -44,6 +45,9 @@ public class BaseClient {
 	private String defaultUsername = "WaveLength";
 
 	private EventManager eventManager;
+
+	private FriendsManager friendsManager;
+
 	private CommandManager commandManager;
 	private ModuleManager moduleManager;
 
@@ -77,6 +81,9 @@ public class BaseClient {
 		this.clickGui = new ClickGui();
 
 		this.eventManager = new EventManager();
+
+		this.friendsManager = new FriendsManager();
+
 		this.moduleManager = new ModuleManager();
 		this.commandManager = new CommandManager(".");
 
@@ -142,6 +149,10 @@ public class BaseClient {
 
 	public EventManager getEventManager() {
 		return eventManager;
+	}
+
+	public FriendsManager getFriendsManager() {
+		return friendsManager;
 	}
 
 	public CommandManager getCommandManager() {
