@@ -41,7 +41,7 @@ public class Module extends EventListener {
 	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList, AntiCheat... allowedAntiCheats) {
 		initializeModule(name, description, key, category, showInModuleArrayList, false, allowedAntiCheats);
 	}
-	
+
 	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList, boolean enabled, AntiCheat... allowedAntiCheats) {
 		initializeModule(name, description, key, category, showInModuleArrayList, enabled, allowedAntiCheats);
 	}
@@ -55,7 +55,7 @@ public class Module extends EventListener {
 
 		this.allowedAntiCheats = allowedAntiCheats;
 		this.antiCheat = allowedAntiCheats[0];
-		
+
 		this.showInModuleArraylist = showInModuleArrayList;
 
 		this.moduleSettings = new ModuleSettings(this);
@@ -63,7 +63,7 @@ public class Module extends EventListener {
 		this.timer = new Timer(true);
 		this.singleExecutorService = Executors.newFixedThreadPool(1);
 		this.executorService = Executors.newCachedThreadPool();
-		
+
 		loadFromSettings();
 		setup();
 		randomColor();
@@ -108,7 +108,7 @@ public class Module extends EventListener {
 	public AntiCheat[] getAllowedAntiCheats() {
 		return allowedAntiCheats;
 	}
-	
+
 	public boolean isShownInModuleArrayList() {
 		return showInModuleArraylist;
 	}
@@ -128,7 +128,7 @@ public class Module extends EventListener {
 	public String getNameWithAntiCheat() {
 		return name + (antiCheat.equals(AntiCheat.VANILLA) ? "" : " &7-&f " + (antiCheat.isCapital() ? antiCheat.name() : Strings.capitalizeOnlyFirstLetter(antiCheat.name())));
 	}
-	
+
 	public void setup() {
 
 	}

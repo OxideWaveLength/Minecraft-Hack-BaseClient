@@ -19,7 +19,7 @@ import org.lwjgl.util.glu.Project;
 
 import com.google.common.collect.Lists;
 
-import me.wavelength.baseclient.gui.GuiAltManager;
+import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -53,15 +53,13 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	private int panoramaTimer;
 
 	/**
-	 * Texture allocated for the current viewport of the main menu's panorama
-	 * background.
+	 * Texture allocated for the current viewport of the main menu's panorama background.
 	 */
 	private DynamicTexture viewportTexture;
 	private boolean field_175375_v = true;
 
 	/**
-	 * The Object object utilized as a thread lock when performing non thread-safe
-	 * operations
+	 * The Object object utilized as a thread lock when performing non thread-safe operations
 	 */
 	private final Object threadLock = new Object();
 
@@ -147,25 +145,20 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Returns true if this GUI should pause the game when it is displayed in
-	 * single-player
+	 * Returns true if this GUI should pause the game when it is displayed in single-player
 	 */
 	public boolean doesGuiPauseGame() {
 		return false;
 	}
 
 	/**
-	 * Fired when a key is typed (except F11 which toggles full screen). This is the
-	 * equivalent of KeyListener.keyTyped(KeyEvent e). Args : character (character
-	 * on the key), keyCode (lwjgl Keyboard key code)
+	 * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 	}
 
 	/**
-	 * Adds the buttons (and other controls) to the screen in question. Called when
-	 * the GUI is displayed and when the window resizes, the buttonList is cleared
-	 * beforehand.
+	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
 		this.viewportTexture = new DynamicTexture(256, 256);
@@ -208,8 +201,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Adds Singleplayer and Multiplayer buttons on Main Menu for players who have
-	 * bought the game.
+	 * Adds Singleplayer and Multiplayer buttons on Main Menu for players who have bought the game.
 	 */
 	private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_) {
 		this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer", new Object[0])));
@@ -233,8 +225,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Called by the controls from the buttonList when activated. (Mouse pressed for
-	 * buttons)
+	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void actionPerformed(GuiButton button) throws IOException {
 		if (button.id == 0) {
@@ -453,8 +444,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Draws the screen and all the components in it. Args : mouseX, mouseY,
-	 * renderPartialTicks
+	 * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		GlStateManager.disableAlpha();

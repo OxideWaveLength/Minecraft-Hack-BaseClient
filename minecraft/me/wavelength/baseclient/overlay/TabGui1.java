@@ -14,6 +14,8 @@ import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.event.events.MouseScrollEvent;
 import me.wavelength.baseclient.event.events.Render2DEvent;
+import me.wavelength.baseclient.gui.clickgui.ClickGui;
+import me.wavelength.baseclient.gui.clickgui.GuiBind;
 import me.wavelength.baseclient.module.AntiCheat;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
@@ -25,6 +27,7 @@ import me.wavelength.baseclient.utils.Config;
 import me.wavelength.baseclient.utils.Integers;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Strings;
+import net.minecraft.client.gui.GuiScreen;
 
 public class TabGui1 extends EventListener {
 
@@ -57,8 +60,7 @@ public class TabGui1 extends EventListener {
 	}
 
 	/**
-	 * @return The current mode, 0 = default mode (ARROW KEYS), 1 = "Advanced" mode
-	 *         (MOUSE WHEEL (CAN BE BOUND) AND MOUSE CLICKS)
+	 * @return The current mode, 0 = default mode (ARROW KEYS), 1 = "Advanced" mode (MOUSE WHEEL (CAN BE BOUND) AND MOUSE CLICKS)
 	 */
 	private int getMode() {
 		return (BaseClient.instance.getModuleManager().getModule(AdvancedTabGui.class).isToggled() ? 1 : 0);
@@ -112,6 +114,11 @@ public class TabGui1 extends EventListener {
 	@Override
 	public void onRender2D(Render2DEvent event) {
 		if (!(BaseClient.instance.getModuleManager().getModule(TabGui.class)).isToggled())
+			return;
+
+		GuiScreen currentScreen = mc.currentScreen;
+
+		if (currentScreen != null && (currentScreen instanceof ClickGui || currentScreen instanceof GuiBind))
 			return;
 
 		// TODO: Render ICON

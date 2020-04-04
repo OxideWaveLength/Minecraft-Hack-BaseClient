@@ -140,6 +140,10 @@ public class RenderUtils {
 	public static void drawModalRectFromTopRight(int xCord, int yCord, int width, int height, int color) {
 		Gui.drawRect(getScaledResolution().getScaledWidth() - xCord, yCord, getScaledResolution().getScaledWidth() - xCord + width, yCord + height, color);
 	}
+	
+	public static void drawModalRectFromTopLeft(int xCord, int yCord, int width, int height, int color) {
+		Gui.drawRect(xCord, yCord, xCord + width, yCord + height, color);
+	}
 
 	public static ScaledResolution getScaledResolution() {
 		return new ScaledResolution(Minecraft.getMinecraft());

@@ -1,4 +1,4 @@
-package me.wavelength.baseclient.gui.components;
+package me.wavelength.baseclient.gui.altmanager.components;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

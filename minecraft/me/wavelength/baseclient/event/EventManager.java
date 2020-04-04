@@ -80,7 +80,7 @@ public class EventManager {
 		if (event instanceof CancellableEvent)
 			if (((CancellableEvent) event).isCancelled())
 				return event;
-		
+
 		List<EventListener> eventListeners = new ArrayList<EventListener>(this.eventListeners);
 		
 		for (int i = 0; i < eventListeners.size(); i++) {

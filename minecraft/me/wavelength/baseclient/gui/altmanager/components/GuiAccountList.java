@@ -1,10 +1,10 @@
-package me.wavelength.baseclient.gui.components;
+package me.wavelength.baseclient.gui.altmanager.components;
 
 import org.lwjgl.opengl.GL11;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.account.Account;
-import me.wavelength.baseclient.gui.GuiAltManager;
+import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
 import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;

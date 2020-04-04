@@ -1,4 +1,4 @@
-package me.wavelength.baseclient.gui.impl;
+package me.wavelength.baseclient.gui.altmanager.impl;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -6,7 +6,7 @@ import java.util.Objects;
 import org.lwjgl.input.Keyboard;
 
 import me.wavelength.baseclient.BaseClient;
-import me.wavelength.baseclient.gui.thread.AccountLoginThread;
+import me.wavelength.baseclient.gui.altmanager.thread.AccountLoginThread;
 import me.wavelength.baseclient.thealtening.AlteningAlt;
 import me.wavelength.baseclient.thealtening.TheAltening;
 import net.minecraft.client.gui.GuiButton;

@@ -9,7 +9,8 @@ import me.wavelength.baseclient.command.CommandManager;
 import me.wavelength.baseclient.event.EventManager;
 import me.wavelength.baseclient.font.FontManager;
 import me.wavelength.baseclient.friends.FriendsManager;
-import me.wavelength.baseclient.gui.GuiAltManager;
+import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
+import me.wavelength.baseclient.gui.clickgui.ClickGui;
 import me.wavelength.baseclient.irc.IRCClient;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.overlay.HotbarOverlay;
@@ -64,6 +65,8 @@ public class BaseClient {
 
 	private Config genericConfig;
 
+	private ClickGui clickGui;
+
 	public BaseClient() {
 		instance = this;
 	}
@@ -74,6 +77,8 @@ public class BaseClient {
 		ircClient = new IRCClient("chat.freenode.net", 6667, Minecraft.getMinecraft().getSession().getUsername(), "#WaveLengthBaseClient");
 
 		new GuiAltManager(); // We create the instance.
+
+		this.clickGui = new ClickGui();
 
 		this.eventManager = new EventManager();
 
@@ -184,6 +189,10 @@ public class BaseClient {
 
 	public Config getGenericConfig() {
 		return genericConfig;
+	}
+
+	public ClickGui getClickGui() {
+		return clickGui;
 	}
 
 	public void switchToMojang() {
