@@ -23,6 +23,7 @@ public class ClickGui extends GuiScreen {
 	private List<Dropdown> dropdowns;
 
 	private boolean fastRender;
+	private boolean showDebugInfo;
 
 	public ClickGui() {
 	}
@@ -33,6 +34,9 @@ public class ClickGui extends GuiScreen {
 		if (fastRender = mc.gameSettings.ofFastRender)
 			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
 
+		this.showDebugInfo = mc.gameSettings.showDebugInfo;
+		mc.gameSettings.showDebugInfo = false;
+		
 		this.dropdowns = new ArrayList<Dropdown>();
 
 		Dropdown previousDropdown = null;
@@ -68,6 +72,8 @@ public class ClickGui extends GuiScreen {
 
 		if (fastRender)
 			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
+		
+		mc.gameSettings.showDebugInfo = showDebugInfo;
 	}
 
 	@Override
