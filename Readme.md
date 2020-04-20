@@ -19,7 +19,7 @@ If you don't have Discord, but have Twitter and need help or want to stay update
 - An IDE (The setup is for Eclipse, but MCP can also be setup on [IntelliJ Idea](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+IntelliJ+Idea))
 
 #### Video!
-Now a [video](https://www.youtube.com/watch?v=MIMqi82yzbQ) is available, showing how to set up the client
+Now a [video](https://www.youtube.com/watch?v=MIMqi82yzbQ) is available, showing how to set up the client. - The video is not up to date and a step is missing. Until that is updated you can watch that video and then come back and do the last step (adding javaws to your build path)
 
 #### Let's get started
 _Note: the instructions in italics apply ONLY to Eclipse, if you have a different IDE, [search how to set the project up on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
@@ -34,6 +34,7 @@ _Note: the instructions in italics apply ONLY to Eclipse, if you have a differen
 - Optionally delete the Server project (it is safe to do so)
 - _Optionally enable the @formatting tags (Window -> Preferences -> Java -> Code Style -> Formatter -> Edit -> Expand "Off/On tags" -> Tick the "Enable Off/On tags" -> Change the Profile Name (or you will not be able to save) -> OK -> Apply and Close)_
 - Change the JRE version from JRE1\_6 to JRE1\_8 _(Right click on "Client" -> Build Path -> Libraries -> Scroll to the bottom -> Double click "JRE System" -> Choose a JRE1\_8 -> Finish -> Apply and Close)_
+- Add the javaws.jar to your project buildpath (the file is located here: "JAVA_PATH\jre1.8.0_VERSION\javaws.jar", where "JAVA_PATH" is where your java is installed ("C:\Java\" is the default on Windows) and "VERSION" is the java version you have installed.
 
 ------------
 
