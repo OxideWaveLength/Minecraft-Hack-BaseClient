@@ -34,7 +34,6 @@ public class Config {
 		this.defaultSettings = new LinkedHashMap<String, Object>();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void check() throws IOException {
 		for (Iterator<String> settings = defaultSettings.keySet().iterator(); settings.hasNext();) {
 			String setting = settings.next();

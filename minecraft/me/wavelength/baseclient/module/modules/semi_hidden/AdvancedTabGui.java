@@ -1,5 +1,6 @@
 package me.wavelength.baseclient.module.modules.semi_hidden;
 
+import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.events.UpdateEvent;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
@@ -15,6 +16,8 @@ public class AdvancedTabGui extends Module {
 
 	@Override
 	public void onUpdate(UpdateEvent event) {
+		if (!(BaseClient.instance.getModuleManager().getModule(TabGui.class).isToggled()))
+			toggle();
 	}
 
 }

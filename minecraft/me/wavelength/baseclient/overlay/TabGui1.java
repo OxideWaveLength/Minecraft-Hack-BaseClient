@@ -97,7 +97,6 @@ public class TabGui1 extends EventListener {
 		return settings;
 	}
 
-	@SuppressWarnings("unused")
 	private String getCurrentSettings() {
 		return getCurrentSettingsList().get(currentSetting);
 	}
@@ -106,7 +105,6 @@ public class TabGui1 extends EventListener {
 		return getFilteredSettingsList().get(currentSetting);
 	}
 
-	@SuppressWarnings("unused")
 	private ModuleSettings getCurrentModuleSettings() {
 		return getCurrentModule().getModuleSettings();
 	}
@@ -151,6 +149,9 @@ public class TabGui1 extends EventListener {
 	 * @formatter:on
 	 */
 	private void menuScroll(int direction) {
+		if (!(BaseClient.instance.getModuleManager().getModule(TabGui.class).isToggled()))
+			return;
+
 		if (indentation == 3) {
 			String[] currentSetting = getCurrentSettingsFiltered().split(": ");
 
@@ -222,6 +223,9 @@ public class TabGui1 extends EventListener {
 	 * @formatter:on
 	 */
 	private void menuInteract(int direction) {
+		if (!(BaseClient.instance.getModuleManager().getModule(TabGui.class).isToggled()))
+			return;
+
 		if (indentation == 3) {
 			indentation -= 2;
 			menuInteract(1);

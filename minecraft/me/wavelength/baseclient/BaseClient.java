@@ -77,6 +77,16 @@ public class BaseClient {
 		ircClient = new IRCClient("chat.freenode.net", 6667, Minecraft.getMinecraft().getSession().getUsername(), "#WaveLengthBaseClient");
 
 		new GuiAltManager(); // We create the instance.
+		
+		String clientFolder = new File(".").getAbsolutePath();
+
+		clientFolder = (clientFolder.contains("jars") ? new File(".").getAbsolutePath().substring(0, clientFolder.length() - 2) : new File(".").getAbsolutePath()) + Strings.getSplitter() + clientName;
+
+		String accountManagerFolder = clientFolder + Strings.getSplitter() + "alts";
+
+		Files.createRecursiveFolder(accountManagerFolder);
+
+		this.accountManager = new AccountManager(new File(accountManagerFolder));
 
 		this.clickGui = new ClickGui();
 
@@ -93,15 +103,6 @@ public class BaseClient {
 
 		this.altService = new AltService();
 
-		String clientFolder = new File(".").getAbsolutePath();
-
-		clientFolder = (clientFolder.contains("jars") ? new File(".").getAbsolutePath().substring(0, clientFolder.length() - 2) : new File(".").getAbsolutePath()) + Strings.getSplitter() + clientName;
-
-		String accountManagerFolder = clientFolder + Strings.getSplitter() + "alts";
-
-		Files.createRecursiveFolder(accountManagerFolder);
-
-		this.accountManager = new AccountManager(new File(accountManagerFolder));
 		switchToMojang();
 
 		this.genericConfig = new Config(new File(clientFolder + Strings.getSplitter() + "config.cfg"));
