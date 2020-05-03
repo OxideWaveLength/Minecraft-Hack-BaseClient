@@ -37,6 +37,9 @@ public class FriendsManager {
 			e.printStackTrace();
 		}
 
+		friendsConfig.addDefault("friends", "");
+		enemiesConfig.addDefault("enemies", "");
+
 		this.friends = friendsConfig.getStringList("friends", null);
 		this.enemies = enemiesConfig.getStringList("enemies", null);
 	}
@@ -87,7 +90,9 @@ public class FriendsManager {
 
 	public void clear() {
 		friends.clear();
+		enemies.clear();
 		friendsConfig.set("friends", friends);
+		friendsConfig.set("enemies", enemies);
 	}
 
 }

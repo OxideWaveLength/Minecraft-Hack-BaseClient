@@ -42,11 +42,11 @@ public class Module extends EventListener {
 		initializeModule(name, description, key, category, showInModuleArrayList, false, allowedAntiCheats);
 	}
 
-	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList, boolean enabled, AntiCheat... allowedAntiCheats) {
-		initializeModule(name, description, key, category, showInModuleArrayList, enabled, allowedAntiCheats);
+	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList, boolean toggled, AntiCheat... allowedAntiCheats) {
+		initializeModule(name, description, key, category, showInModuleArrayList, toggled, allowedAntiCheats);
 	}
 
-	private void initializeModule(String name, String description, int key, Category category, boolean showInModuleArrayList, boolean enabled, AntiCheat... allowedAntiCheats) {
+	private void initializeModule(String name, String description, int key, Category category, boolean showInModuleArrayList, boolean toggled, AntiCheat... allowedAntiCheats) {
 		this.name = name;
 		this.description = description;
 		this.key = key;
@@ -59,6 +59,9 @@ public class Module extends EventListener {
 		this.showInModuleArraylist = showInModuleArrayList;
 
 		this.moduleSettings = new ModuleSettings(this);
+
+		if (!(moduleSettings.wasGenerated()))
+			this.toggled = toggled;
 
 		this.timer = new Timer(true);
 		this.singleExecutorService = Executors.newFixedThreadPool(1);

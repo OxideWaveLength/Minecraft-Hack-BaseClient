@@ -14,6 +14,8 @@ public class ModuleSettings {
 	private Module module;
 	private Config config;
 
+	private boolean wasGenerated;
+	
 	public ModuleSettings(Module module) {
 		this.module = module;
 
@@ -26,18 +28,26 @@ public class ModuleSettings {
 		Files.createRecursiveFolder(path, clientName + Strings.getSplitter() + "modules" + Strings.getSplitter() + module.getCategory().name().toLowerCase());
 
 		this.config = new Config(path, clientName + Strings.getSplitter() + "modules" + Strings.getSplitter() + module.getCategory().toString().toLowerCase() + Strings.getSplitter() + module.getName() + ".cfg");
+
+		if(config.exists() && config.getObject("toggled") != null)
+			this.wasGenerated = true;
+			
+		
 		config.addDefault("toggled", false);
 		config.addDefault("key", module.getKey());
 		config.addDefault("anticheat", module.getAntiCheat().name().toLowerCase());
-		config.generateConfigs();
 	}
-
+	
 	public Module getModule() {
 		return module;
 	}
 
 	public Config getConfig() {
 		return config;
+	}
+	
+	public boolean wasGenerated() {
+		return wasGenerated;
 	}
 
 	public void generateConfigs() {
