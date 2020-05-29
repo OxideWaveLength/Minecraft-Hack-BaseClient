@@ -16,20 +16,22 @@ If you don't have Discord, but have Twitter and need help or want to stay update
 - At least 4gb of ram
 - Java JDK (1.8)
 - Java JRE (1.8)
-- An IDE (The setup is for Eclipse, but MCP can also be setup on [IntelliJ Idea](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+IntelliJ+Idea))
+- An IDE (The setup is for Eclipse, but MCP can also be setup on [IntelliJ Idea](https://www.youtube.com/watch?v=CtMhtp6QQoY))
 
 #### Video!
-Now a [video](https://www.youtube.com/watch?v=MIMqi82yzbQ) is available, showing how to set up the client. - The video is not up to date and a step is missing. Until that is updated you can watch that video and then come back and do the last step (adding javaws to your build path)
+Now a [video](https://www.youtube.com/watch?v=LSKu_zhPKc8) is available, showing how to set up the client. - The video is not up to date and a step is missing. Until that is updated you can watch that video and then come back and do the last step (adding javaws to your build path)
 
 #### Let's get started
-_Note: the instructions in italics apply ONLY to Eclipse, if you have a different IDE, [search how to set the project up on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
+_Note: the instructions in italic apply ONLY to Eclipse, if you have a different IDE, [search how to set the project up on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
 
-- Decompile the [Minecraft Coders Pack 918 (1.8.8)](http://www.modcoderpack.com/files/mcp918.zip) _(or MCP)_ in a folder (it might take a few minutes)
+- Download [Minecraft Coders Pack 918 (1.8.8)](http://www.modcoderpack.com/files/mcp918.zip) _(or MCP)_
+- Unzip the MCP into a folder and enter it
+- Double click the "decompile" bat file inside of the folder and wait for the assets to be copied
+- When the message "== Decompiling client using fernflower ==" pops up inside of the terminal you can close the window (there is no need to actually decompile the MCP)
 - Download the project as ZIP
-- Enter the folder where you decompiled the MCP in
 - Enter the "src" folder
-- Delete the "minecraft" folder
-- Copy the ZIP's "minecraft" folder into the "src" folder
+- Delete the "minecraft" folder, if any is present
+- Copy the folder "minecraft" from the project's ZIP into the "src" folder
 - _Launch Eclipse into the "eclipse" folder (that is inside the folder you decompiled the MCP in) as workspace_
 - Optionally delete the Server project (it is safe to do so)
 - _Optionally enable the @formatting tags (Window -> Preferences -> Java -> Code Style -> Formatter -> Edit -> Expand "Off/On tags" -> Tick the "Enable Off/On tags" -> Change the Profile Name (or you will not be able to save) -> OK -> Apply and Close)_
