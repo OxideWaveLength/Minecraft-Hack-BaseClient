@@ -50,12 +50,16 @@ public class XRay extends Module {
 	public void onBlockRender(BlockRenderEvent event) {
 		if (!(isInExceptions(event.getBlock())))
 			event.setCancelled(true);
+		else
+			event.setForceDraw(true);
 	}
 
 	@Override
 	public void onFluidRender(FluidRenderEvent event) {
 		if (!(isInExceptions(event.getBlock())))
 			event.setCancelled(true);
+		else
+			event.setForceDraw(true);
 	}
 
 	private boolean isInExceptions(Block block) {

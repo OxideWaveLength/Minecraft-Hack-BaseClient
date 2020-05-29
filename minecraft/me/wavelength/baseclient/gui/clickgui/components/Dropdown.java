@@ -209,9 +209,8 @@ public class Dropdown {
 
 	public boolean mouseClickMove(int mouseX, int mouseY, int mouseButton, long timeSinceLastClick) {
 		if (mouseButton == 0 && dragging) {
-
-//			this.x = (x - (x - mouseX));
-//			this.x = (x - width + (x - mouseX));
+//			this.x = (mouseX + width - x);
+//			this.x = (x - width - (x - width / 2 - mouseX));
 
 			this.x = mouseX - width / 2;
 			this.y = mouseY - headerHeight / 2;

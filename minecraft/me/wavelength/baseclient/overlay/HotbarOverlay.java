@@ -29,7 +29,7 @@ public class HotbarOverlay extends EventListener {
 		RenderUtils.drawStringFromBottomRight(Time.getTime(System.currentTimeMillis(), "HH:mm:ss"), 9, 10, Color.YELLOW.getRGB());
 
 		GuiScreen currentScreen = mc.currentScreen;
-		
+
 		if (currentScreen != null && !(currentScreen instanceof ClickGui) && !(currentScreen instanceof GuiBind))
 			return;
 

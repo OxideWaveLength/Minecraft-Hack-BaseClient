@@ -36,7 +36,7 @@ public class ClickGui extends GuiScreen {
 
 		this.showDebugInfo = mc.gameSettings.showDebugInfo;
 		mc.gameSettings.showDebugInfo = false;
-		
+
 		this.dropdowns = new ArrayList<Dropdown>();
 
 		Dropdown previousDropdown = null;
@@ -72,7 +72,7 @@ public class ClickGui extends GuiScreen {
 
 		if (fastRender)
 			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
-		
+
 		mc.gameSettings.showDebugInfo = showDebugInfo;
 	}
 
@@ -92,8 +92,8 @@ public class ClickGui extends GuiScreen {
 			int height = dropdown.getHeight();
 			List<ModuleButton> moduleButtons = dropdown.getModuleButtons();
 
-			/** Rendering this of height 0 instead of not rendering because else there would be problems with the colors.. Will be looked into */
-			RenderUtils.drawModalRectFromTopLeft(x, y + dropdown.getHeaderHeight(), width, dropdown.isExtended() ? height : 0, contentColor);
+			if (dropdown.isExtended())
+				RenderUtils.drawModalRectFromTopLeft(x, y + dropdown.getHeaderHeight(), width, height, contentColor);
 
 			if (dropdown.isExtended())
 				moduleButtons.forEach(button -> button.drawButton(Minecraft.getMinecraft(), mouseX, mouseY));

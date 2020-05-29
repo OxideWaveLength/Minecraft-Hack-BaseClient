@@ -82,7 +82,7 @@ public class UnicodeFontRenderer extends FontRenderer {
 	}
 
 	public void drawStringWithShadow(String string, int x, int y, int color) {
-		drawString(StringUtils.stripControlCodes(string), x + 1, y + 1, -16777216);
+		drawString(StringUtils.stripControlCodes(string), x + 1, y + 1, -16777216); // Shadow
 		drawString(string, x, y, color, true);
 	}
 

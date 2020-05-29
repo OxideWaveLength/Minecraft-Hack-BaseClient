@@ -5,6 +5,7 @@ import me.wavelength.baseclient.event.events.BlockRenderEvent;
 import me.wavelength.baseclient.event.events.FluidRenderEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
@@ -14,6 +15,7 @@ import net.minecraft.client.resources.model.WeightedBakedModel;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ReportedException;
@@ -56,21 +58,28 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 				return false;
 			} else {
 				switch (i) {
-				case 1:
+				case 1: {
 					FluidRenderEvent fluidRenderEvent = (FluidRenderEvent) BaseClient.instance.getEventManager().call(new FluidRenderEvent(pos, state));
+
+					boolean ignoreSides = (!(fluidRenderEvent.isCancelled()) && fluidRenderEvent.shouldForceDraw());
+
 					if (fluidRenderEvent.isCancelled())
 						return false;
 
-					return this.fluidRenderer.renderFluid(blockAccess, state, pos, worldRendererIn);
+					return this.fluidRenderer.renderFluid(blockAccess, state, pos, worldRendererIn, ignoreSides);
+				}
 				case 2:
 					return false;
-				case 3:
+				case 3: {
 					BlockRenderEvent blockRenderEvent = (BlockRenderEvent) BaseClient.instance.getEventManager().call(new BlockRenderEvent(state.getBlock()));
-					if (blockRenderEvent.isCancelled())
+					boolean checkSides = (blockRenderEvent.isCancelled() && blockRenderEvent.shouldForceDraw());
+
+					if (blockRenderEvent.isCancelled() && !(checkSides))
 						return false;
 
 					IBakedModel ibakedmodel = this.getModelFromBlockState(state, blockAccess, pos);
-					return this.blockModelRenderer.renderModel(blockAccess, ibakedmodel, state, pos, worldRendererIn);
+					return this.blockModelRenderer.renderModel(blockAccess, ibakedmodel, state, pos, worldRendererIn, checkSides);
+				}
 				default:
 					return false;
 				}

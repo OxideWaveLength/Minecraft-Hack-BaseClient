@@ -1,5 +1,7 @@
 package net.minecraft.client.gui;
 
+import org.newdawn.slick.Color;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -41,8 +43,7 @@ public class Gui {
 	}
 
 	/**
-	 * Draws a solid color rectangle with the specified coordinates and color (ARGB
-	 * format). Args: x1, y1, x2, y2, color
+	 * Draws a solid color rectangle with the specified coordinates and color (ARGB format). Args: x1, y1, x2, y2, color
 	 */
 	public static void drawRect(int left, int top, int right, int bottom, int color) {
 		if (left < right) {
@@ -66,6 +67,7 @@ public class Gui {
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+		new Color(f, f1, f2, f3).bind();
 		GlStateManager.color(f, f1, f2, f3);
 		worldrenderer.begin(7, DefaultVertexFormats.POSITION);
 		worldrenderer.pos((double) left, (double) bottom, 0.0D).endVertex();
@@ -78,8 +80,7 @@ public class Gui {
 	}
 
 	/**
-	 * Draws a rectangle with a vertical gradient between the specified colors (ARGB
-	 * format). Args : x1, y1, x2, y2, topColor, bottomColor
+	 * Draws a rectangle with a vertical gradient between the specified colors (ARGB format). Args : x1, y1, x2, y2, topColor, bottomColor
 	 */
 	protected void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
 		float f = (float) (startColor >> 24 & 255) / 255.0F;
@@ -110,24 +111,21 @@ public class Gui {
 	}
 
 	/**
-	 * Renders the specified text to the screen, center-aligned. Args : renderer,
-	 * string, x, y, color
+	 * Renders the specified text to the screen, center-aligned. Args : renderer, string, x, y, color
 	 */
 	public void drawCenteredString(FontRenderer fontRendererIn, String text, int x, int y, int color) {
 		fontRendererIn.drawStringWithShadow(text, (float) (x - fontRendererIn.getStringWidth(text) / 2), (float) y, color);
 	}
 
 	/**
-	 * Renders the specified text to the screen. Args : renderer, string, x, y,
-	 * color
+	 * Renders the specified text to the screen. Args : renderer, string, x, y, color
 	 */
 	public void drawString(FontRenderer fontRendererIn, String text, int x, int y, int color) {
 		fontRendererIn.drawStringWithShadow(text, (float) x, (float) y, color);
 	}
 
 	/**
-	 * Draws a textured rectangle at the stored z-value. Args: x, y, u, v, width,
-	 * height
+	 * Draws a textured rectangle at the stored z-value. Args: x, y, u, v, width, height
 	 */
 	public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
 		float f = 0.00390625F;
@@ -143,8 +141,7 @@ public class Gui {
 	}
 
 	/**
-	 * Draws a textured rectangle using the texture currently bound to the
-	 * TextureManager
+	 * Draws a textured rectangle using the texture currently bound to the TextureManager
 	 */
 	public void drawTexturedModalRect(float xCoord, float yCoord, int minU, int minV, int maxU, int maxV) {
 		float f = 0.00390625F;
@@ -160,8 +157,7 @@ public class Gui {
 	}
 
 	/**
-	 * Draws a texture rectangle using the texture currently bound to the
-	 * TextureManager
+	 * Draws a texture rectangle using the texture currently bound to the TextureManager
 	 */
 	public void drawTexturedModalRect(int xCoord, int yCoord, TextureAtlasSprite textureSprite, int widthIn, int heightIn) {
 		Tessellator tessellator = Tessellator.getInstance();
@@ -175,8 +171,7 @@ public class Gui {
 	}
 
 	/**
-	 * Draws a textured rectangle at z = 0. Args: x, y, u, v, width, height,
-	 * textureWidth, textureHeight
+	 * Draws a textured rectangle at z = 0. Args: x, y, u, v, width, height, textureWidth, textureHeight
 	 */
 	public static void drawModalRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
 		float f = 1.0F / textureWidth;
@@ -192,8 +187,7 @@ public class Gui {
 	}
 
 	/**
-	 * Draws a scaled, textured, tiled modal rect at z = 0. This method isn't used
-	 * anywhere in vanilla code.
+	 * Draws a scaled, textured, tiled modal rect at z = 0. This method isn't used anywhere in vanilla code.
 	 */
 	public static void drawScaledCustomSizeModalRect(int x, int y, float u, float v, int uWidth, int vHeight, int width, int height, float tileWidth, float tileHeight) {
 		float f = 1.0F / tileWidth;

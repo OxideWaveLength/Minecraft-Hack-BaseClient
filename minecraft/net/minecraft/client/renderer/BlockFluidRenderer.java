@@ -30,6 +30,10 @@ public class BlockFluidRenderer {
 	}
 
 	public boolean renderFluid(IBlockAccess blockAccess, IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn) {
+		return renderFluid(blockAccess, blockStateIn, blockPosIn, worldRendererIn, false);
+	}
+
+	public boolean renderFluid(IBlockAccess blockAccess, IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn, boolean ignoreSide) {
 		BlockLiquid blockliquid = (BlockLiquid) blockStateIn.getBlock();
 		blockliquid.setBlockBoundsBasedOnState(blockAccess, blockPosIn);
 		TextureAtlasSprite[] atextureatlassprite = blockliquid.getMaterial() == Material.lava ? this.atlasSpritesLava : this.atlasSpritesWater;
@@ -37,14 +41,14 @@ public class BlockFluidRenderer {
 		float f = (float) (i >> 16 & 255) / 255.0F;
 		float f1 = (float) (i >> 8 & 255) / 255.0F;
 		float f2 = (float) (i & 255) / 255.0F;
-		boolean flag = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.up(), EnumFacing.UP);
-		boolean flag1 = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.down(), EnumFacing.DOWN);
+		boolean flag = (ignoreSide || blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.up(), EnumFacing.UP));
+		boolean flag1 = (ignoreSide || blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.down(), EnumFacing.DOWN));
 		RenderEnv renderenv = RenderEnv.getInstance(blockAccess, blockStateIn, blockPosIn);
 		boolean[] aboolean = renderenv.getBorderFlags();
-		aboolean[0] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.north(), EnumFacing.NORTH);
-		aboolean[1] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.south(), EnumFacing.SOUTH);
-		aboolean[2] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.west(), EnumFacing.WEST);
-		aboolean[3] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.east(), EnumFacing.EAST);
+		aboolean[0] = (ignoreSide || blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.north(), EnumFacing.NORTH));
+		aboolean[1] = (ignoreSide || blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.south(), EnumFacing.SOUTH));
+		aboolean[2] = (ignoreSide || blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.west(), EnumFacing.WEST));
+		aboolean[3] = (ignoreSide || blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.east(), EnumFacing.EAST));
 
 		if (!flag && !flag1 && !aboolean[0] && !aboolean[1] && !aboolean[2] && !aboolean[3]) {
 			return false;
