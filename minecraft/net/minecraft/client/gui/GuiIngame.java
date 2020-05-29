@@ -1053,4 +1053,7 @@ public class GuiIngame extends Gui {
 		this.overlayPlayerList.func_181030_a();
 	}
 
+	public ResourceLocation getWidgetsTexPath() {
+		return widgetsTexPath;
+	}
 }

@@ -39,17 +39,22 @@ public class RenderUtils {
 
 		RenderItem itemRenderer = guiInGame.itemRenderer;
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(guiInGame.getWidgetsTexPath());
+
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableBlend();
+		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+		RenderHelper.enableGUIStandardItemLighting();
 
 		RenderHelper.enableGUIStandardItemLighting();
 		itemRenderer.renderItemAndEffectIntoGUI(itemStack, xPos, yPos);
 
 		itemRenderer.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, itemStack, xPos, yPos, "");
+		RenderHelper.disableStandardItemLighting();
 
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		RenderHelper.disableStandardItemLighting();
+		GlStateManager.disableRescaleNormal();
+		GlStateManager.disableBlend();
 	}
 
 	public static void drawString(String text, int x, int y, int color, boolean shadow, UnicodeFontRenderer font) {
@@ -140,7 +145,7 @@ public class RenderUtils {
 	public static void drawModalRectFromTopRight(int xCord, int yCord, int width, int height, int color) {
 		Gui.drawRect(getScaledResolution().getScaledWidth() - xCord, yCord, getScaledResolution().getScaledWidth() - xCord + width, yCord + height, color);
 	}
-	
+
 	public static void drawModalRectFromTopLeft(int xCord, int yCord, int width, int height, int color) {
 		Gui.drawRect(xCord, yCord, xCord + width, yCord + height, color);
 	}
