@@ -20,6 +20,7 @@ import org.lwjgl.util.glu.Project;
 import com.google.common.collect.Lists;
 
 import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
+import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -182,6 +183,11 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 		} else {
 			this.addSingleplayerMultiplayerButtons(j, 24);
 		}
+		
+		String btnAltManagerName = "Alt Manager";
+		int buttonWidth = Strings.getStringWidth(btnAltManagerName);
+
+		this.buttonList.add(new GuiButton(69, this.width - buttonWidth - (5 * 3), 5, buttonWidth + (5 * 2), 20, btnAltManagerName));
 
 		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, j + 72 + 12, 98, 20, I18n.format("menu.options", new Object[0])));
 		this.buttonList.add(new GuiButton(4, this.width / 2 + 2, j + 72 + 12, 98, 20, I18n.format("menu.quit", new Object[0])));
@@ -207,7 +213,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 		this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer", new Object[0])));
 		this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer", new Object[0])));
 		this.buttonList.add(this.realmsButton = new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.online", new Object[0])));
-		this.buttonList.add(new GuiButton(69, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 3, "Alt Manager"));
 	}
 
 	/**
