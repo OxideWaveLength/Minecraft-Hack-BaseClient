@@ -16,6 +16,7 @@ import me.wavelength.baseclient.command.commands.HelpCommand;
 import me.wavelength.baseclient.command.commands.IRCCommand;
 import me.wavelength.baseclient.command.commands.NamesCommand;
 import me.wavelength.baseclient.command.commands.SetCommand;
+import me.wavelength.baseclient.command.commands.ToggleCommand;
 import me.wavelength.baseclient.command.commands.XRayCommand;
 import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
@@ -62,6 +63,7 @@ public class CommandManager extends EventListener {
 		registerCommand(new NamesCommand());
 		registerCommand(new XRayCommand());
 		registerCommand(new FontCommand());
+		registerCommand(new ToggleCommand());
 	}
 
 	public List<Command> getCommands() {

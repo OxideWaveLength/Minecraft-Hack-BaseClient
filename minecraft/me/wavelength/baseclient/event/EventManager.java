@@ -8,6 +8,7 @@ import me.wavelength.baseclient.event.events.BlockRenderEvent;
 import me.wavelength.baseclient.event.events.CollideEvent;
 import me.wavelength.baseclient.event.events.FluidRenderEvent;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
+import me.wavelength.baseclient.event.events.LadderClimbEvent;
 import me.wavelength.baseclient.event.events.MessageReceivedEvent;
 import me.wavelength.baseclient.event.events.MessageSentEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
@@ -23,6 +24,7 @@ import me.wavelength.baseclient.event.events.RenderLivingLabelEvent;
 import me.wavelength.baseclient.event.events.ServerConnectingEvent;
 import me.wavelength.baseclient.event.events.ServerJoinEvent;
 import me.wavelength.baseclient.event.events.ServerLeaveEvent;
+import me.wavelength.baseclient.event.events.SlowDownEvent;
 import me.wavelength.baseclient.event.events.UpdateEvent;
 
 public class EventManager {
@@ -166,6 +168,14 @@ public class EventManager {
 			}
 			if (event instanceof PlayerSpawnEvent) {
 				eventListener.onPlayerSpawn((PlayerSpawnEvent) event);
+				continue;
+			}
+			if (event instanceof SlowDownEvent) {
+				eventListener.onSlowDown((SlowDownEvent) event);
+				continue;
+			}
+			if (event instanceof LadderClimbEvent) {
+				eventListener.onLadderClimb((LadderClimbEvent) event);
 				continue;
 			}
 		}

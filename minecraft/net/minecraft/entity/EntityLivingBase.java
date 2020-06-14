@@ -11,6 +11,8 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Maps;
 
+import me.wavelength.baseclient.BaseClient;
+import me.wavelength.baseclient.event.events.LadderClimbEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -70,8 +72,7 @@ public abstract class EntityLivingBase extends Entity {
 	public int arrowHitTimer;
 
 	/**
-	 * The amount of time remaining this entity should act 'hurt'. (Visual
-	 * appearance of red tint)
+	 * The amount of time remaining this entity should act 'hurt'. (Visual appearance of red tint)
 	 */
 	public int hurtTime;
 
@@ -82,8 +83,7 @@ public abstract class EntityLivingBase extends Entity {
 	public float attackedAtYaw;
 
 	/**
-	 * The amount of time remaining this entity should act 'dead', i.e. have a
-	 * corpse in the world.
+	 * The amount of time remaining this entity should act 'dead', i.e. have a corpse in the world.
 	 */
 	public int deathTime;
 	public float prevSwingProgress;
@@ -92,8 +92,7 @@ public abstract class EntityLivingBase extends Entity {
 	public float limbSwingAmount;
 
 	/**
-	 * Only relevant when limbYaw is not 0(the entity is moving). Influences where
-	 * in its swing legs and arms currently are.
+	 * Only relevant when limbYaw is not 0(the entity is moving). Influences where in its swing legs and arms currently are.
 	 */
 	public float limbSwing;
 	public int maxHurtResistantTime = 20;
@@ -111,8 +110,7 @@ public abstract class EntityLivingBase extends Entity {
 	public float prevRotationYawHead;
 
 	/**
-	 * A factor used to determine how far this entity will move each tick if it is
-	 * jumping or falling.
+	 * A factor used to determine how far this entity will move each tick if it is jumping or falling.
 	 */
 	public float jumpMovementFactor = 0.02F;
 
@@ -120,14 +118,12 @@ public abstract class EntityLivingBase extends Entity {
 	protected EntityPlayer attackingPlayer;
 
 	/**
-	 * Set to 60 when hit by the player or the player's wolf, then decrements. Used
-	 * to determine whether the entity should drop items on death.
+	 * Set to 60 when hit by the player or the player's wolf, then decrements. Used to determine whether the entity should drop items on death.
 	 */
 	protected int recentlyHit;
 
 	/**
-	 * This gets set on entity death, but never used. Looks like a duplicate of
-	 * isDead
+	 * This gets set on entity death, but never used. Looks like a duplicate of isDead
 	 */
 	protected boolean dead;
 
@@ -143,8 +139,7 @@ public abstract class EntityLivingBase extends Entity {
 	protected int scoreValue;
 
 	/**
-	 * Damage taken in the last hit. Mobs are resistant to damage less than this for
-	 * a short time after taking damage.
+	 * Damage taken in the last hit. Mobs are resistant to damage less than this for a short time after taking damage.
 	 */
 	protected float lastDamage;
 
@@ -155,8 +150,7 @@ public abstract class EntityLivingBase extends Entity {
 	protected float randomYawVelocity;
 
 	/**
-	 * The number of updates over which the new position and rotation are to be
-	 * applied to the entity.
+	 * The number of updates over which the new position and rotation are to be applied to the entity.
 	 */
 	protected int newPosRotationIncrements;
 
@@ -185,8 +179,7 @@ public abstract class EntityLivingBase extends Entity {
 	private int lastAttackerTime;
 
 	/**
-	 * A factor used to determine how far this entity will move each tick if it is
-	 * walking on land. Adjusted by speed, and slipperiness of the current block.
+	 * A factor used to determine how far this entity will move each tick if it is walking on land. Adjusted by speed, and slipperiness of the current block.
 	 */
 	private float landMovementFactor;
 
@@ -413,8 +406,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Only use is to identify if class is an instance of player for experience
-	 * dropping
+	 * Only use is to identify if class is an instance of player for experience dropping
 	 */
 	protected boolean isPlayer() {
 		return false;
@@ -588,8 +580,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Clears potion metadata values if the entity has no potion effects. Otherwise,
-	 * updates potion effect color, ambience, and invisibility metadata values
+	 * Clears potion metadata values if the entity has no potion effects. Otherwise, updates potion effect color, ambience, and invisibility metadata values
 	 */
 	protected void updatePotionMetadata() {
 		if (this.activePotionsMap.isEmpty()) {
@@ -638,8 +629,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * returns the PotionEffect for the supplied Potion if it is active, null
-	 * otherwise.
+	 * returns the PotionEffect for the supplied Potion if it is active, null otherwise.
 	 */
 	public PotionEffect getActivePotionEffect(Potion potionIn) {
 		return (PotionEffect) this.activePotionsMap.get(Integer.valueOf(potionIn.id));
@@ -998,8 +988,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Setups the entity to do the hurt animation. Only used by packets in
-	 * multiplayer.
+	 * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
 	 */
 	public void performHurtAnimation() {
 		this.hurtTime = this.maxHurtTime = 10;
@@ -1007,8 +996,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Returns the current armor value as determined by a call to
-	 * InventoryPlayer.getTotalArmorValue
+	 * Returns the current armor value as determined by a call to InventoryPlayer.getTotalArmorValue
 	 */
 	public int getTotalArmorValue() {
 		int i = 0;
@@ -1075,9 +1063,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Deals damage to the entity. If its a EntityPlayer then will take damage from
-	 * the armor first and then health second with the reduced value. Args:
-	 * damageAmount
+	 * Deals damage to the entity. If its a EntityPlayer then will take damage from the armor first and then health second with the reduced value. Args: damageAmount
 	 */
 	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
 		if (!this.isEntityInvulnerable(damageSrc)) {
@@ -1109,8 +1095,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * counts the amount of arrows stuck in the entity. getting hit by arrows
-	 * increases this, used in rendering
+	 * counts the amount of arrows stuck in the entity. getting hit by arrows increases this, used in rendering
 	 */
 	public final int getArrowCountInEntity() {
 		return this.dataWatcher.getWatchableObjectByte(9);
@@ -1124,9 +1109,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Returns an integer indicating the end point of the swing animation, used by
-	 * {@link #swingProgress} to provide a progress indicator. Takes dig speed
-	 * enchantments into account.
+	 * Returns an integer indicating the end point of the swing animation, used by {@link #swingProgress} to provide a progress indicator. Takes dig speed enchantments into account.
 	 */
 	private int getArmSwingAnimationEnd() {
 		return this.isPotionActive(Potion.digSpeed) ? 6 - (1 + this.getActivePotionEffect(Potion.digSpeed).getAmplifier()) * 1 : (this.isPotionActive(Potion.digSlowdown) ? 6 + (1 + this.getActivePotionEffect(Potion.digSlowdown).getAmplifier()) * 2 : 6);
@@ -1232,8 +1215,7 @@ public abstract class EntityLivingBase extends Entity {
 	public abstract ItemStack getCurrentArmor(int slotIn);
 
 	/**
-	 * Sets the held item, or an armor slot. Slot 0 is held item. Slot 1-4 is armor.
-	 * Params: Item, slot
+	 * Sets the held item, or an armor slot. Slot 0 is held item. Slot 1-4 is armor. Params: Item, slot
 	 */
 	public abstract void setCurrentItemOrArmor(int slotIn, ItemStack stack);
 
@@ -1401,7 +1383,9 @@ public abstract class EntityLivingBase extends Entity {
 					this.moveEntity(this.motionX, this.motionY, this.motionZ);
 
 					if (this.isCollidedHorizontally && this.isOnLadder()) {
-						this.motionY = 0.2D;
+						LadderClimbEvent event = (LadderClimbEvent) BaseClient.instance.getEventManager().call(new LadderClimbEvent(0.2D));
+						if (!(event.isCancelled()))
+							this.motionY = event.getMotionY();
 					}
 
 					if (this.worldObj.isRemote && (!this.worldObj.isBlockLoaded(new BlockPos((int) this.posX, 0, (int) this.posZ)) || !this.worldObj.getChunkFromBlockCoords(new BlockPos((int) this.posX, 0, (int) this.posZ)).isLoaded())) {
@@ -1639,9 +1623,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Called frequently so the entity can update its state every tick as required.
-	 * For example, zombies and skeletons use this to react to sunlight and start to
-	 * burn.
+	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
 		if (this.jumpTicks > 0) {
@@ -1786,8 +1768,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Called whenever an item is picked up from walking over it. Args:
-	 * pickedUpEntity, stackSize
+	 * Called whenever an item is picked up from walking over it. Args: pickedUpEntity, stackSize
 	 */
 	public void onItemPickup(Entity p_71001_1_, int p_71001_2_) {
 		if (!p_71001_1_.isDead && !this.worldObj.isRemote) {
@@ -1835,8 +1816,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Returns where in the swing animation the living entity is (from 0 to 1).
-	 * Args: partialTickTime
+	 * Returns where in the swing animation the living entity is (from 0 to 1). Args: partialTickTime
 	 */
 	public float getSwingProgress(float partialTickTime) {
 		float f = this.swingProgress - this.prevSwingProgress;
@@ -1856,16 +1836,14 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Returns true if other Entities should be prevented from moving through this
-	 * Entity.
+	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
 		return !this.isDead;
 	}
 
 	/**
-	 * Returns true if this entity should push and be pushed by other entities when
-	 * colliding.
+	 * Returns true if this entity should push and be pushed by other entities when colliding.
 	 */
 	public boolean canBePushed() {
 		return !this.isDead;

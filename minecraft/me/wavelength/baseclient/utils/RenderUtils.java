@@ -5,7 +5,7 @@ import java.awt.Color;
 import org.lwjgl.opengl.GL11;
 
 import me.wavelength.baseclient.BaseClient;
-import me.wavelength.baseclient.font.FontManager;
+import me.wavelength.baseclient.font.Font;
 import me.wavelength.baseclient.font.UnicodeFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -24,7 +24,7 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class RenderUtils {
 
-	private static FontManager getFontRenderer() {
+	private static Font getFontRenderer() {
 		return BaseClient.instance.getFontRenderer();
 	}
 

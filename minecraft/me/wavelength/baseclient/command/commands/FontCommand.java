@@ -19,7 +19,7 @@ public class FontCommand extends Command {
 		if (size < 13 || size > 45)
 			return "&cPlease, type a number within 13 and 45.";
 
-		BaseClient.instance.getFontRenderer().setFontSize(size);
+		BaseClient.instance.getFontRenderer().setFontSizeNormal(size);
 
 		return String.format("&aThe font size has been set to &e%1$d&a.", size);
 	}

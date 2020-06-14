@@ -4,6 +4,7 @@ import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.events.MessageSentEvent;
 import me.wavelength.baseclient.event.events.PostMotionEvent;
 import me.wavelength.baseclient.event.events.PreMotionEvent;
+import me.wavelength.baseclient.event.events.SlowDownEvent;
 import me.wavelength.baseclient.event.events.UpdateEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
@@ -61,7 +62,14 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 	public enum Direction {
 
-		S, SW, W, NW, N, NE, E, SE;
+		S,
+		SW,
+		W,
+		NW,
+		N,
+		NE,
+		E,
+		SE;
 
 	}
 
@@ -69,32 +77,27 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	private final StatFileWriter statWriter;
 
 	/**
-	 * The last X position which was transmitted to the server, used to determine
-	 * when the X position changes and needs to be re-trasmitted
+	 * The last X position which was transmitted to the server, used to determine when the X position changes and needs to be re-trasmitted
 	 */
 	private double lastReportedPosX;
 
 	/**
-	 * The last Y position which was transmitted to the server, used to determine
-	 * when the Y position changes and needs to be re-transmitted
+	 * The last Y position which was transmitted to the server, used to determine when the Y position changes and needs to be re-transmitted
 	 */
 	private double lastReportedPosY;
 
 	/**
-	 * The last Z position which was transmitted to the server, used to determine
-	 * when the Z position changes and needs to be re-transmitted
+	 * The last Z position which was transmitted to the server, used to determine when the Z position changes and needs to be re-transmitted
 	 */
 	private double lastReportedPosZ;
 
 	/**
-	 * The last yaw value which was transmitted to the server, used to determine
-	 * when the yaw changes and needs to be re-transmitted
+	 * The last yaw value which was transmitted to the server, used to determine when the yaw changes and needs to be re-transmitted
 	 */
 	private float lastReportedYaw;
 
 	/**
-	 * The last pitch value which was transmitted to the server, used to determine
-	 * when the pitch changes and needs to be re-transmitted
+	 * The last pitch value which was transmitted to the server, used to determine when the pitch changes and needs to be re-transmitted
 	 */
 	private float lastReportedPitch;
 
@@ -105,8 +108,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	private boolean serverSprintState;
 
 	/**
-	 * Reset to 0 every time position is sent to the server, used to send periodic
-	 * updates every 20 ticks even when the player is not moving.
+	 * Reset to 0 every time position is sent to the server, used to send periodic updates every 20 ticks even when the player is not moving.
 	 */
 	private int positionUpdateTicks;
 	private boolean hasValidHealth;
@@ -115,9 +117,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	protected Minecraft mc;
 
 	/**
-	 * Used to tell if the player pressed forward twice. If this is at 0 and it's
-	 * pressed (And they are allowed to sprint, aka enough food on the ground etc)
-	 * it sets this to 7. If it's pressed and it's greater than 0 enable sprinting.
+	 * Used to tell if the player pressed forward twice. If this is at 0 and it's pressed (And they are allowed to sprint, aka enough food on the ground etc) it sets this to 7. If it's pressed and it's greater than 0 enable sprinting.
 	 */
 	protected int sprintToggleTimer;
 
@@ -191,8 +191,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	/**
-	 * called every tick when the player is on foot. Performs all the things that
-	 * normally happen during movement.
+	 * called every tick when the player is on foot. Performs all the things that normally happen during movement.
 	 */
 	public void onUpdateWalkingPlayer() {
 		boolean flag = this.isSprinting();
@@ -298,9 +297,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	/**
-	 * Deals damage to the entity. If its a EntityPlayer then will take damage from
-	 * the armor first and then health second with the reduced value. Args:
-	 * damageAmount
+	 * Deals damage to the entity. If its a EntityPlayer then will take damage from the armor first and then health second with the reduced value. Args: damageAmount
 	 */
 	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
 		if (!this.isEntityInvulnerable(damageSrc)) {
@@ -453,8 +450,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	/**
-	 * Returns true if the block at the given BlockPos and the block above it are
-	 * NOT full cubes.
+	 * Returns true if the block at the given BlockPos and the block above it are NOT full cubes.
 	 */
 	private boolean isOpenBlockSpace(BlockPos pos) {
 		return !this.worldObj.getBlockState(pos).getBlock().isNormalCube() && !this.worldObj.getBlockState(pos.up()).getBlock().isNormalCube();
@@ -485,16 +481,14 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	/**
-	 * Returns {@code true} if the CommandSender is allowed to execute the command,
-	 * {@code false} if not
+	 * Returns {@code true} if the CommandSender is allowed to execute the command, {@code false} if not
 	 */
 	public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
 		return permLevel <= 0;
 	}
 
 	/**
-	 * Get the position in the world. <b>{@code null} is not allowed!</b> If you are
-	 * not an entity in the world, return the coordinates 0, 0, 0
+	 * Get the position in the world. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return the coordinates 0, 0, 0
 	 */
 	public BlockPos getPosition() {
 		return new BlockPos(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D);
@@ -582,8 +576,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	/**
-	 * Called when the player performs a critical hit on the Entity. Args: entity
-	 * that was hit critically
+	 * Called when the player performs a critical hit on the Entity. Args: entity that was hit critically
 	 */
 	public void onCriticalHit(Entity entityHit) {
 		this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT);
@@ -620,9 +613,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	/**
-	 * Called frequently so the entity can update its state every tick as required.
-	 * For example, zombies and skeletons use this to react to sunlight and start to
-	 * burn.
+	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
 		if (this.sprintingTicksLeft > 0) {
@@ -682,9 +673,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		this.movementInput.updatePlayerMoveState();
 
 		if (this.isUsingItem() && !this.isRiding()) {
-			this.movementInput.moveStrafe *= 0.2F;
-			this.movementInput.moveForward *= 0.2F;
-			this.sprintToggleTimer = 0;
+			SlowDownEvent event = (SlowDownEvent) BaseClient.instance.getEventManager().call(new SlowDownEvent(0.2F));
+			if (!(event.isCancelled())) {
+				this.movementInput.moveStrafe *= event.getSlowDownMultiplier();
+				this.movementInput.moveForward *= event.getSlowDownMultiplier();
+				this.sprintToggleTimer = 0;
+			}
 		}
 
 		this.pushOutOfBlocks(this.posX - (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + (double) this.width * 0.35D);

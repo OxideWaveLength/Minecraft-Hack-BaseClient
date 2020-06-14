@@ -5,6 +5,7 @@ import me.wavelength.baseclient.event.events.BlockRenderEvent;
 import me.wavelength.baseclient.event.events.CollideEvent;
 import me.wavelength.baseclient.event.events.FluidRenderEvent;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
+import me.wavelength.baseclient.event.events.LadderClimbEvent;
 import me.wavelength.baseclient.event.events.MessageReceivedEvent;
 import me.wavelength.baseclient.event.events.MessageSentEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
@@ -20,6 +21,7 @@ import me.wavelength.baseclient.event.events.RenderLivingLabelEvent;
 import me.wavelength.baseclient.event.events.ServerConnectingEvent;
 import me.wavelength.baseclient.event.events.ServerJoinEvent;
 import me.wavelength.baseclient.event.events.ServerLeaveEvent;
+import me.wavelength.baseclient.event.events.SlowDownEvent;
 import me.wavelength.baseclient.event.events.UpdateEvent;
 import net.minecraft.client.Minecraft;
 
@@ -92,6 +94,12 @@ public class EventListener {
 	}
 
 	public void onFluidRender(FluidRenderEvent event) {
+	}
+
+	public void onSlowDown(SlowDownEvent event) {
+	}
+	
+	public void onLadderClimb(LadderClimbEvent event) {
 	}
 
 }

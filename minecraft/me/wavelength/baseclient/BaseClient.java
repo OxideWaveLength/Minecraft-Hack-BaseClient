@@ -7,7 +7,7 @@ import org.lwjgl.opengl.Display;
 import me.wavelength.baseclient.account.AccountManager;
 import me.wavelength.baseclient.command.CommandManager;
 import me.wavelength.baseclient.event.EventManager;
-import me.wavelength.baseclient.font.FontManager;
+import me.wavelength.baseclient.font.Font;
 import me.wavelength.baseclient.friends.FriendsManager;
 import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
 import me.wavelength.baseclient.gui.clickgui.ClickGui;
@@ -57,7 +57,7 @@ public class BaseClient {
 
 	private AltService altService;
 
-	private FontManager fontRenderer;
+	private Font font;
 
 	private String packageBase = "me.wavelength.baseclient";
 
@@ -121,7 +121,7 @@ public class BaseClient {
 	public void afterMinecraft() {
 		Display.setTitle(String.format("%1$s - %2$s", clientName, clientVersion));
 
-		this.fontRenderer = new FontManager(packageBase + ".font.fonts", "BwModelicaSS01-RegularCondensed", 25);
+		this.font = new Font(packageBase + ".font.fonts", "BwModelicaSS01-RegularCondensed", 50, 25, 30, 33);
 
 		registerHuds();
 	}
@@ -176,8 +176,13 @@ public class BaseClient {
 		return altService;
 	}
 
-	public FontManager getFontRenderer() {
-		return fontRenderer;
+	@Deprecated
+	public Font getFontRenderer() {
+		return font;
+	}
+	
+	public Font getFont() {
+		return font;
 	}
 
 	public String getPackageBase() {
