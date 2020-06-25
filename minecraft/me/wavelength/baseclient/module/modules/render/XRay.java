@@ -66,7 +66,7 @@ public class XRay extends Module {
 		if (exceptions == null)
 			return false;
 
-		return exceptions.contains(block.getLocalizedName().replace(" ", "_").toUpperCase()) || exceptions.contains(Integer.toString(Block.getIdFromBlock(block)));
+		return exceptions.contains(I18n.translateToFallback(block.getUnlocalizedName() + ".name").replace(" ", "_").toUpperCase()) || exceptions.contains(Integer.toString(Block.getIdFromBlock(block)));
 	}
 
 	public List<String> getExceptions() {
