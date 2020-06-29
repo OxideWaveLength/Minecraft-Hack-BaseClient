@@ -4,6 +4,8 @@ import java.io.File;
 
 import org.lwjgl.opengl.Display;
 
+import com.google.common.collect.Lists;
+
 import me.wavelength.baseclient.account.AccountManager;
 import me.wavelength.baseclient.command.CommandManager;
 import me.wavelength.baseclient.event.EventManager;
@@ -21,6 +23,7 @@ import me.wavelength.baseclient.utils.Config;
 import me.wavelength.baseclient.utils.Files;
 import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.Locale;
 
 public class BaseClient {
 
@@ -67,6 +70,8 @@ public class BaseClient {
 
 	private ClickGui clickGui;
 
+	private Locale englishLocale;
+
 	public BaseClient() {
 		instance = this;
 	}
@@ -74,10 +79,12 @@ public class BaseClient {
 	public void initialize() {
 		Display.setTitle(String.format("%1$s - %2$s | Loading...", clientName, clientVersion));
 
-		ircClient = new IRCClient("chat.freenode.net", 6667, Minecraft.getMinecraft().getSession().getUsername(), "#WaveLengthBaseClient");
+		this.englishLocale = new Locale();
+
+		this.ircClient = new IRCClient("chat.freenode.net", 6667, Minecraft.getMinecraft().getSession().getUsername(), "#WaveLengthBaseClient");
 
 		new GuiAltManager(); // We create the instance.
-		
+
 		String clientFolder = new File(".").getAbsolutePath();
 
 		clientFolder = (clientFolder.contains("jars") ? new File(".").getAbsolutePath().substring(0, clientFolder.length() - 2) : new File(".").getAbsolutePath()) + Strings.getSplitter() + clientName;
@@ -180,7 +187,7 @@ public class BaseClient {
 	public Font getFontRenderer() {
 		return font;
 	}
-	
+
 	public Font getFont() {
 		return font;
 	}
@@ -199,6 +206,10 @@ public class BaseClient {
 
 	public ClickGui getClickGui() {
 		return clickGui;
+	}
+
+	public Locale getEnglishLocale() {
+		return englishLocale;
 	}
 
 	public void switchToMojang() {

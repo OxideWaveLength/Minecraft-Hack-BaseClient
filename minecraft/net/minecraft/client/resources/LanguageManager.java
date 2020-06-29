@@ -12,6 +12,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import me.wavelength.baseclient.BaseClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.client.resources.data.LanguageMetadataSection;
 import net.minecraft.util.StringTranslate;
@@ -60,6 +62,8 @@ public class LanguageManager implements IResourceManagerReloadListener {
 
 		currentLocale.loadLocaleDataFiles(resourceManager, list);
 		StringTranslate.replaceWith(currentLocale.properties);
+		
+		BaseClient.instance.getEnglishLocale().loadLocaleDataFiles(Minecraft.getMinecraft().getResourceManager(), Lists.newArrayList(new String[] { "en_US" }));
 	}
 
 	public boolean isCurrentLocaleUnicode() {
@@ -81,4 +85,9 @@ public class LanguageManager implements IResourceManagerReloadListener {
 	public SortedSet<Language> getLanguages() {
 		return Sets.newTreeSet(this.languageMap.values());
 	}
+	
+	public final Map<String, Language> getLanguageMap() {
+		return languageMap;
+	}
+	
 }

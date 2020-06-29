@@ -6,6 +6,7 @@ import java.util.function.Function;
 
 import org.lwjgl.input.Keyboard;
 
+import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.events.BlockBrightnessRequestEvent;
 import me.wavelength.baseclient.event.events.BlockRenderEvent;
 import me.wavelength.baseclient.event.events.FluidRenderEvent;
@@ -66,7 +67,9 @@ public class XRay extends Module {
 		if (exceptions == null)
 			return false;
 
-		return exceptions.contains(I18n.translateToFallback(block.getUnlocalizedName() + ".name").replace(" ", "_").toUpperCase()) || exceptions.contains(Integer.toString(Block.getIdFromBlock(block)));
+		String unlocalizedName = BaseClient.instance.getEnglishLocale().formatMessage(block.getUnlocalizedName() + ".name", null).toUpperCase();
+
+		return exceptions.contains(unlocalizedName) || exceptions.contains(Integer.toString(Block.getIdFromBlock(block)));
 	}
 
 	public List<String> getExceptions() {
