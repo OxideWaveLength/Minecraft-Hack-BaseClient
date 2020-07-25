@@ -18,7 +18,7 @@ public class EventManager {
 
 		Method[] methods = EventListener.class.getMethods();
 		for (Method method : methods) {
-			this.listenerMethods.put(method.getName(), method);
+			this.listenerMethods.put(method.getName().substring(2), method);
 		}
 	}
 
@@ -70,17 +70,16 @@ public class EventManager {
 
 		String eventName = event.getClass().getSimpleName();
 		eventName = eventName.substring(0, eventName.toLowerCase().lastIndexOf("event"));
-		String methodName = String.format("on%s", eventName);
 
 		for (EventListener listener : eventListeners) {
 			if (event instanceof CancellableEvent)
 				if (((CancellableEvent) event).isCancelled())
 					return event;
 			try {
-				if (!(listenerMethods.containsKey(methodName)))
-					listenerMethods.put(methodName, EventListener.class.getMethod(String.format("on%s", eventName), event.getClass()));
+				if (!(listenerMethods.containsKey(eventName)))
+					listenerMethods.put(eventName, EventListener.class.getMethod("on" + eventName, event.getClass()));
 
-				Method method = listenerMethods.get(methodName);
+				Method method = listenerMethods.get(eventName);
 				method.invoke(listener, event);
 			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				e.printStackTrace();

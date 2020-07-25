@@ -67,7 +67,7 @@ public class XRay extends Module {
 		if (exceptions == null)
 			return false;
 
-		String unlocalizedName = BaseClient.instance.getEnglishLocale().formatMessage(block.getUnlocalizedName() + ".name", null).toUpperCase();
+		String unlocalizedName = BaseClient.instance.getEnglishLocale().formatMessage(block.getUnlocalizedName() + ".name", null).toUpperCase().replace(" ", "_");
 
 		return exceptions.contains(unlocalizedName) || exceptions.contains(Integer.toString(Block.getIdFromBlock(block)));
 	}

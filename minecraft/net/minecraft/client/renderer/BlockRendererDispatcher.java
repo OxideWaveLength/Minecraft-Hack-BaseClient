@@ -72,13 +72,13 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 					return false;
 				case 3: {
 					BlockRenderEvent blockRenderEvent = (BlockRenderEvent) BaseClient.instance.getEventManager().call(new BlockRenderEvent(state.getBlock()));
-					boolean checkSides = (blockRenderEvent.isCancelled() && blockRenderEvent.shouldForceDraw());
+					boolean forceDraw = blockRenderEvent.shouldForceDraw();
 
-					if (blockRenderEvent.isCancelled() && !(checkSides))
+					if (blockRenderEvent.isCancelled() && !(forceDraw))
 						return false;
-
+					
 					IBakedModel ibakedmodel = this.getModelFromBlockState(state, blockAccess, pos);
-					return this.blockModelRenderer.renderModel(blockAccess, ibakedmodel, state, pos, worldRendererIn, checkSides);
+					return this.blockModelRenderer.renderModel(blockAccess, ibakedmodel, state, pos, worldRendererIn, !forceDraw);
 				}
 				default:
 					return false;

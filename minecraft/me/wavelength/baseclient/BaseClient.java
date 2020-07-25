@@ -39,13 +39,13 @@ public class BaseClient {
 	 * @formatter:on
 	 **/
 
-	private String clientName = "BaseClient";
-	private String clientVersion = "0.1";
-	private String author = "WaveLength";
+	private final String clientName = "BaseClient";
+	private final String clientVersion = "0.1";
+	private final String author = "WaveLength";
 
 	public static BaseClient instance;
 
-	private String defaultUsername = "WaveLength";
+	private final String defaultUsername = "WaveLength";
 
 	private EventManager eventManager;
 
