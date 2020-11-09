@@ -55,7 +55,7 @@ public class FriendsManager {
 	public void addFriend(String playerName) {
 		if (!(isFriend(playerName))) {
 			friends.add(playerName);
-			friendsConfig.set("friends", Lists.listStringToString(friends, "\n"));
+			friendsConfig.set("friends", friends);
 		}
 	}
 
