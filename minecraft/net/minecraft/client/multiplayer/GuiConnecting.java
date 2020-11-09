@@ -78,7 +78,7 @@ public class GuiConnecting extends GuiScreen {
 
 					/** Handle the ServerJoinEvent - Start */
 					new Thread(() -> {
-						while (mc.currentScreen == null || mc.theWorld == null || mc.thePlayer == null || mc.getCurrentServerData() == null)
+						while (mc.currentScreen == null && mc.theWorld == null && mc.thePlayer == null && mc.getCurrentServerData() == null)
 							synchronized (BaseClient.instance.getEventManager()) {
 								if (cancel)
 									return;
