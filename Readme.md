@@ -36,7 +36,7 @@ _Note: the instructions in italic apply ONLY to Eclipse, if you have a different
 - Optionally delete the Server project (it is safe to do so)
 - _Optionally enable the @formatting tags (Window -> Preferences -> Java -> Code Style -> Formatter -> Edit -> Expand "Off/On tags" -> Tick the "Enable Off/On tags" -> Change the Profile Name (or you will not be able to save) -> OK -> Apply and Close)_
 - Change the JRE version from JRE1\_6 to JRE1\_8 _(Right click on "Client" -> Build Path -> Libraries -> Scroll to the bottom -> Double click "JRE System" -> Choose a JRE1\_8 -> Finish -> Apply and Close)_
-- Add the javaws.jar to your project buildpath (the file is located here: "JAVA_PATH\jre1.8.0_VERSION\lib\javaws.jar", where "JAVA_PATH" is where your java is installed ("C:\Java\" is the default on Windows) and "VERSION" is the java version you have installed.
+- Add the javaws.jar to your project buildpath (the file is located here: "JAVA_PATH\jre1.8.0_VERSION\lib\javaws.jar", where "JAVA_PATH" is where your java is installed ("C:\Program Files\Java\", or "C:\Program Files (x86)\Java\" for 64-bit computers, is the default path on Windows) and "VERSION" is the java version you have installed.
 
 ------------
 
