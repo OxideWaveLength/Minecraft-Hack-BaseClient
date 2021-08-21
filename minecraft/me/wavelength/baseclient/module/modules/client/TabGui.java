@@ -8,7 +8,7 @@ import me.wavelength.baseclient.module.Module;
 public class TabGui extends Module {
 
 	public TabGui() {
-		super("TabGui", "This is the TabGui", Keyboard.KEY_NONE, Category.CLIENT, true);
+		super("TabGui", "This is the TabGui", Keyboard.KEY_NONE, Category.CLIENT, true, true);
 	}
 
 	@Override

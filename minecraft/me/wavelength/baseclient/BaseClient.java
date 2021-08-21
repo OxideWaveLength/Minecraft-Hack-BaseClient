@@ -13,6 +13,7 @@ import me.wavelength.baseclient.font.Font;
 import me.wavelength.baseclient.friends.FriendsManager;
 import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
 import me.wavelength.baseclient.gui.clickgui.ClickGui;
+import me.wavelength.baseclient.hooks.HookManager;
 import me.wavelength.baseclient.irc.IRCClient;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.overlay.HotbarOverlay;
@@ -34,6 +35,7 @@ public class BaseClient {
 	 * Fonts: Slick's font manager edited by Russian412 and color system by me
 	 * Alt Manager: Russian412's Alt Manager with some small bug-fixes by me
 	 * The Altening Implementation: Russian412
+	 * ZeroDay b21 colored ClickGUI, epic arraylist and client module group: AcaiBerii
 	 * 
 	 * Everything else is made by me
 	 * @formatter:on
@@ -77,6 +79,9 @@ public class BaseClient {
 	}
 
 	public void initialize() {
+		printStartup();
+		setupShutdownHook();
+		
 		Display.setTitle(String.format("%1$s - %2$s | Loading...", clientName, clientVersion));
 
 		this.englishLocale = new Locale();
@@ -230,6 +235,18 @@ public class BaseClient {
 		} catch (IllegalAccessException e) {
 			System.out.println("Couldn't switch to altening altservice -2");
 		}
+	}
+	
+	public void setupShutdownHook() {
+		boolean shutdownHookInit = HookManager.installShutdownHook(new Thread(() -> {
+			System.out.println(String.format("%s %s shutting down.", this.clientName, this.clientVersion));
+		}));
+		
+		System.out.println(String.format("Shutdown hook %s initialized.", shutdownHookInit ? "successfully" : "unsuccessfully"));
+	}
+	
+	public void printStartup() {
+		System.out.println(String.format("%s %s starting up.", this.clientName, this.clientVersion));
 	}
 
 }

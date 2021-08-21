@@ -8,6 +8,7 @@ import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.module.modules.client.ClickGui;
+import me.wavelength.baseclient.module.modules.client.HotbarOverlay;
 import me.wavelength.baseclient.module.modules.client.TabGui;
 import me.wavelength.baseclient.module.modules.combat.Friends;
 import me.wavelength.baseclient.module.modules.movement.Fly;
@@ -41,6 +42,7 @@ public class ModuleManager extends EventListener {
 		registerModule(new NameProtect());
 		registerModule(new AdvancedTabGui());
 		registerModule(new TabGui());
+		registerModule(new HotbarOverlay());
 		registerModule(new me.wavelength.baseclient.module.modules.client.ArrayList());
 		registerModule(new ClickGui());
 	}

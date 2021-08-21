@@ -37,10 +37,16 @@ public class ToggledModules1 extends EventListener {
 
 			for (int i = 0; i < modules.size(); i++) {
 				Module module = modules.get(i);
-
+				String s = Strings.capitalizeFirstLetter(module.getNameWithAntiCheat());
+				int mWidth = Strings.getStringWidthCFR(s);
+				
 				int moduleColor = arrayList.getModuleSettings().getBoolean("rainbow") == true
 						? Colors.getRGBWave(arrayList.getModuleSettings().getInt("speed"), 1, 0.7f,
 								Math.round(((i * y) * arrayList.getModuleSettings().getInt("offset"))))
+						: module.getColor().getRGB();
+				int tabColor = arrayList.getModuleSettings().getBoolean("rainbow") == true
+						? Colors.getRGBWave(arrayList.getModuleSettings().getInt("speed"), 1, 0.7f,
+								Math.round(((i * y) * arrayList.getModuleSettings().getInt("offset"))) + (event.getWidth() - mWidth + relativeXOffset - 5))
 						: module.getColor().getRGB();
 				boolean showGradient = arrayList.getModuleSettings().getBoolean("gradient");
 				int opacity = arrayList.getModuleSettings().getInt("opacity") > 255 ? 255 : arrayList.getModuleSettings().getInt("opacity");
@@ -48,14 +54,11 @@ public class ToggledModules1 extends EventListener {
 				if (module.getCategory().equals(Category.HIDDEN) || !(module.isShownInModuleArrayList()))
 					continue;
 
-				String s = Strings.capitalizeFirstLetter(module.getNameWithAntiCheat());
-				int mWidth = Strings.getStringWidthCFR(s);
-
 				RenderUtils.drawGradientRect(event.getWidth() - mWidth + relativeXOffset - 5, y + 1, event.getWidth(),
 						y + offset - 1, new Color(0, 0, 0, opacity).getRGB(), showGradient ? new Color(100, 100, 100, opacity).getRGB() : new Color(0, 0, 0, opacity).getRGB());
 				RenderUtils.drawRect(event.getWidth() - mWidth + relativeXOffset - 5, y + 1, event.getWidth() - mWidth - 5,
 						y + offset - 1, moduleColor);
-				RenderUtils.drawString(s, event.getWidth() - mWidth + relativeXOffset, y, moduleColor,
+				RenderUtils.drawString(s, event.getWidth() - mWidth + relativeXOffset, y + 1, moduleColor,
 						BaseClient.instance.getFontRenderer().fontSizeNormal, true);
 				y += offset - 2;
 			}

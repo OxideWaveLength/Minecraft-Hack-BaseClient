@@ -4,6 +4,7 @@ import me.wavelength.baseclient.event.events.PacketReceivedEvent;
 import me.wavelength.baseclient.event.events.UpdateEvent;
 import me.wavelength.baseclient.module.AntiCheat;
 import me.wavelength.baseclient.module.Category;
+import me.wavelength.baseclient.module.Color;
 import me.wavelength.baseclient.module.Module;
 
 public class TestModule extends Module {
@@ -14,6 +15,7 @@ public class TestModule extends Module {
 
 	@Override
 	public void setup() {
+		this.color = Color.MOVEMENT;
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import me.wavelength.baseclient.event.events.MessageReceivedEvent;
 import me.wavelength.baseclient.event.events.PlayerSpawnEvent;
 import me.wavelength.baseclient.event.events.RenderLivingLabelEvent;
 import me.wavelength.baseclient.module.Category;
+import me.wavelength.baseclient.module.Color;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -21,6 +22,11 @@ public class NameProtect extends Module {
 		super("Name Protect", "Hide players names", 0, Category.WORLD);
 
 		this.names = new HashMap<String, String>();
+	}
+	
+	@Override
+	public void setup() {
+		this.color = Color.WORLD;
 	}
 
 	@Override
