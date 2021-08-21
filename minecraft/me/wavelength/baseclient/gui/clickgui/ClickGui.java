@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.input.Mouse;
+
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.gui.clickgui.components.Dropdown;
 import me.wavelength.baseclient.gui.clickgui.components.ModuleButton;
+import me.wavelength.baseclient.event.events.MouseScrollEvent;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.utils.Colors;
 import me.wavelength.baseclient.utils.RenderUtils;
@@ -20,20 +23,22 @@ import net.minecraft.client.settings.GameSettings.Options;
 public class ClickGui extends GuiScreen {
 
 	private List<Dropdown> dropdowns;
-
+	
+	public me.wavelength.baseclient.module.Module clickGuiMod; 
+	
 	private boolean fastRender;
 	private boolean showDebugInfo;
+	
+	private int scroll = 5;
 
 	public ClickGui() {
 	}
 
 	@Override
 	public void initGui() {
-		me.wavelength.baseclient.module.Module clickGuiMod = BaseClient.instance.getModuleManager()
+		this.clickGuiMod = BaseClient.instance.getModuleManager()
 				.getModule("ClickGui");
-
 		int clickGuiSpacing = clickGuiMod.getModuleSettings().getInt("spacing");
-		int clickGuiScroll = clickGuiMod.getModuleSettings().getInt("scroll");
 
 		if (fastRender = mc.gameSettings.ofFastRender)
 			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
@@ -52,7 +57,7 @@ public class ClickGui extends GuiScreen {
 
 			int x = (previousDropdown == null ? 5
 					: clickGuiSpacing + (previousDropdown.getX() + previousDropdown.getWidth()));
-			int y = clickGuiScroll;
+			int y = scroll;
 
 			dropdown.setX(x);
 			dropdown.setY(y);
@@ -82,8 +87,7 @@ public class ClickGui extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		me.wavelength.baseclient.module.Module clickGuiMod = BaseClient.instance.getModuleManager()
-				.getModule("ClickGui");
+		handleScrolling();
 		boolean isRainbow = clickGuiMod.getModuleSettings().getBoolean("rainbow");
 		int rainbowOffset = clickGuiMod.getModuleSettings().getInt("offset");
 		int rainbowSpeed = clickGuiMod.getModuleSettings().getInt("speed");
@@ -95,6 +99,8 @@ public class ClickGui extends GuiScreen {
 
 		for (int i = 0; i < dropdowns.size(); i++) {
 			Dropdown dropdown = dropdowns.get(i);
+			
+			dropdown.setY(this.scroll);
 
 			int contentColor = isRainbow
 					? Colors.getRGBWave(rainbowSpeed, 1, 0.5f,
@@ -171,6 +177,15 @@ public class ClickGui extends GuiScreen {
 
 	public void setButtonList(List<GuiButton> buttonList) {
 		this.buttonList = buttonList;
+	}
+	
+	public void handleScrolling() {
+	    if (Mouse.hasWheel()) {
+	        this.scroll += -(Mouse.getDWheel() / clickGuiMod.getModuleSettings().getInt("scroll speed"));
+
+	        if (this.scroll < 5)
+	            this.scroll = 0;
+	    }
 	}
 
 }

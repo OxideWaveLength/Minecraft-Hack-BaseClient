@@ -19,7 +19,7 @@ public class ClickGui extends Module {
 		moduleSettings.addDefault("offset", 1);
 		moduleSettings.addDefault("speed", 20);
 		moduleSettings.addDefault("spacing", 5);
-		moduleSettings.addDefault("scroll", 5);
+		moduleSettings.addDefault("scroll speed", 10);
 	}
 
 	@Override

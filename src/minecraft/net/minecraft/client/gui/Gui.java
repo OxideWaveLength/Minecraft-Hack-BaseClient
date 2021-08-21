@@ -2,6 +2,7 @@ package net.minecraft.client.gui;
 
 import org.newdawn.slick.Color;
 
+import me.wavelength.baseclient.event.EventListener;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -9,7 +10,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 
-public class Gui {
+public class Gui extends EventListener {
 
 	public static final ResourceLocation optionsBackground = new ResourceLocation("textures/gui/options_background.png");
 	public static final ResourceLocation statIcons = new ResourceLocation("textures/gui/container/stats_icons.png");
