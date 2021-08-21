@@ -11,6 +11,7 @@ import me.wavelength.baseclient.event.events.BlockBrightnessRequestEvent;
 import me.wavelength.baseclient.event.events.BlockRenderEvent;
 import me.wavelength.baseclient.event.events.FluidRenderEvent;
 import me.wavelength.baseclient.module.Category;
+import me.wavelength.baseclient.module.Color;
 import me.wavelength.baseclient.module.Module;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -25,6 +26,7 @@ public class XRay extends Module {
 
 	@Override
 	public void setup() {
+		this.color = Color.RENDER;
 		moduleSettings.addDefault("blocks", Arrays.asList(Blocks.iron_ore.getLocalizedName().toUpperCase().replace(" ", "_")));
 
 		Function<String, String> consumer = line -> line = line.toUpperCase().replace(" ", "_"); // Replaces every line with an uppercase version that has spaces replaced with underscores

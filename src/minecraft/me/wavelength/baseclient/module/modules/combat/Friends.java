@@ -4,6 +4,7 @@ import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.command.commands.FriendsCommand;
 import me.wavelength.baseclient.event.events.PacketSentEvent;
 import me.wavelength.baseclient.module.Category;
+import me.wavelength.baseclient.module.Color;
 import me.wavelength.baseclient.module.Module;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.Entity;
@@ -19,6 +20,7 @@ public class Friends extends Module {
 
 	@Override
 	public void setup() {
+		this.color = Color.COMBAT;
 		setToggled(true);
 	}
 

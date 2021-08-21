@@ -9,7 +9,7 @@ import me.wavelength.baseclient.module.Module;
 public class ClickGui extends Module {
 
 	public ClickGui() {
-		super("ClickGui", "This is the ClickGui", Keyboard.KEY_RSHIFT, Category.CLIENT, true);
+		super("ClickGui", "This is the ClickGui", Keyboard.KEY_RSHIFT, Category.CLIENT, true, true);
 	}
 
 	@Override
