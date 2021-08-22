@@ -31,3 +31,8 @@ src/
 jars/
 conf/
 docs/
+LICENSE.txt
+CHANGELOG
+reobf/
+lib/
+bin/
