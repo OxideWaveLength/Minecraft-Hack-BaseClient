@@ -1,5 +1,6 @@
 package me.wavelength.baseclient;
 
+import java.awt.Color;
 import java.io.File;
 
 import org.lwjgl.opengl.Display;
@@ -13,6 +14,7 @@ import me.wavelength.baseclient.font.Font;
 import me.wavelength.baseclient.friends.FriendsManager;
 import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
 import me.wavelength.baseclient.gui.clickgui.ClickGui;
+import me.wavelength.baseclient.hooks.HookManager;
 import me.wavelength.baseclient.irc.IRCClient;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.overlay.HotbarOverlay;
@@ -34,6 +36,7 @@ public class BaseClient {
 	 * Fonts: Slick's font manager edited by Russian412 and color system by me
 	 * Alt Manager: Russian412's Alt Manager with some small bug-fixes by me
 	 * The Altening Implementation: Russian412
+	 * ZeroDay b21 colored ClickGUI, epic arraylist and client module group: AcaiBerii
 	 * 
 	 * Everything else is made by me
 	 * @formatter:on
@@ -77,6 +80,9 @@ public class BaseClient {
 	}
 
 	public void initialize() {
+		printStartup();
+		setupShutdownHook();
+		
 		Display.setTitle(String.format("%1$s - %2$s | Loading...", clientName, clientVersion));
 
 		this.englishLocale = new Locale();
@@ -113,7 +119,7 @@ public class BaseClient {
 		switchToMojang();
 
 		this.genericConfig = new Config(new File(clientFolder + Strings.getSplitter() + "config.cfg"));
-		genericConfig.addDefault("tabguicolor", "5556190");
+		genericConfig.addDefault("tabguicolor", String.valueOf(new Color(100, 100, 100).getRGB()));
 
 		/** Setting a custom icon */
 
@@ -128,7 +134,7 @@ public class BaseClient {
 	public void afterMinecraft() {
 		Display.setTitle(String.format("%1$s - %2$s", clientName, clientVersion));
 
-		this.font = new Font(packageBase + ".font.fonts", "BwModelicaSS01-RegularCondensed", 50, 25, 30, 33);
+		this.font = new Font(packageBase + ".font.fonts", "BwModelicaSS01-RegularCondensed", 25, 30, 33, 50);
 
 		registerHuds();
 	}
@@ -230,6 +236,18 @@ public class BaseClient {
 		} catch (IllegalAccessException e) {
 			System.out.println("Couldn't switch to altening altservice -2");
 		}
+	}
+	
+	public void setupShutdownHook() {
+		boolean shutdownHookInit = HookManager.installShutdownHook(new Thread(() -> {
+			System.out.println(String.format("%s %s shutting down.", this.clientName, this.clientVersion));
+		}));
+		
+		System.out.println(String.format("Shutdown hook %s initialized.", shutdownHookInit ? "successfully" : "unsuccessfully"));
+	}
+	
+	public void printStartup() {
+		System.out.println(String.format("%s %s starting up.", this.clientName, this.clientVersion));
 	}
 
 }

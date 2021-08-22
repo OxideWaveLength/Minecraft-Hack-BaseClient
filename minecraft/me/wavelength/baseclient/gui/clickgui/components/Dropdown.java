@@ -26,14 +26,17 @@ public class Dropdown {
 	private int headerHeight;
 
 	private boolean dragging;
-	private boolean extended;
+	private boolean extended = false;
 
 	private int fontSize;
 
 	private List<Module> modules;
 	private List<ModuleButton> moduleButtons;
 
-	/** TODO: Replace this to feed directly the title and the content as string and string list, this way this class can be used for the module settings as well */
+	/**
+	 * TODO: Replace this to feed directly the title and the content as string and
+	 * string list, this way this class can be used for the module settings as well
+	 */
 	public Dropdown(ClickGui clickGui, Category category, int x, int y, boolean extended) {
 		this.clickGui = clickGui;
 
@@ -47,7 +50,8 @@ public class Dropdown {
 		this.modules = BaseClient.instance.getModuleManager().getModules(category);
 		this.moduleButtons = new ArrayList<ModuleButton>();
 
-		modules.sort((module1, module2) -> Strings.getStringWidthCFR(Strings.capitalizeFirstLetter(module2.getName())) - Strings.getStringWidthCFR(Strings.capitalizeFirstLetter(module1.getName())));
+		modules.sort((module1, module2) -> Strings.getStringWidthCFR(Strings.capitalizeFirstLetter(module2.getName()))
+				- Strings.getStringWidthCFR(Strings.capitalizeFirstLetter(module1.getName())));
 
 		this.fontSize = BaseClient.instance.getFontRenderer().getFontSize() / 2;
 
@@ -156,7 +160,8 @@ public class Dropdown {
 
 				int[] position = ModuleButton.getPosition(this, i);
 
-				this.moduleButtons.add(new ModuleButton(i, position[0], position[1], moduleWidth, fontSize, module, clickGui));
+				this.moduleButtons
+						.add(new ModuleButton(i, position[0], position[1], moduleWidth, fontSize, module, clickGui));
 			}
 		} else if (action.equals(UpdateAction.UPDATE_POSITION)) {
 			for (int i = 0; i < moduleButtons.size(); i++) {

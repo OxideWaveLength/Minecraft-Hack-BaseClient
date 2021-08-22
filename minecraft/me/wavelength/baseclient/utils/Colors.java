@@ -55,4 +55,8 @@ public class Colors {
 		return new Color(red, green, blue);
 	}
 
+	public static int getRGBWave(float seconds, float brightness, float saturation, long index) {
+		float hue = ((System.currentTimeMillis() + index) % (int) (seconds * 1000)) / (seconds * 1000);
+		return Color.HSBtoRGB(hue, saturation, brightness);
+	}
 }

@@ -23,3 +23,11 @@
 hs_err_pid*
 
 minecraft/net
+*.bat
+*.sh
+runtime/
+eclipse/
+src/
+jars/
+conf/
+docs/

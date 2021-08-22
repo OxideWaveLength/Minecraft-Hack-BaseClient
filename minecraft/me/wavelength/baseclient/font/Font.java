@@ -15,10 +15,10 @@ public class Font {
 	private String packageName;
 	private String fontName;
 
-	private int fontSizeSmall;
-	private int fontSizeNormal;
-	private int fontSizeLarge;
-	private int fontSizeLargest;
+	public int fontSizeSmall;
+	public int fontSizeNormal;
+	public int fontSizeLarge;
+	public int fontSizeLargest;
 
 	public static Map<String, List<UnicodeFontRenderer>> getRegisteredRenderers() {
 		return REGISTERED_RENDERERS;
