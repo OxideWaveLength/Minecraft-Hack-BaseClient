@@ -43,11 +43,11 @@ public class ToggledModules1 extends EventListener {
 				
 				int tabWidth = arrayList.getModuleSettings().getInt("tab size");
 				
-				int moduleColor = arrayList.getModuleSettings().getBoolean("rainbow") == true
+				int moduleColor = arrayList.getModuleSettings().getBoolean("rainbow")
 						? Colors.getRGBWave(arrayList.getModuleSettings().getInt("speed"), 1, 0.7f,
 								Math.round(((i * y) * arrayList.getModuleSettings().getInt("offset"))))
 						: module.getColor().getRGB();
-				int tabColor = arrayList.getModuleSettings().getBoolean("rainbow") == true
+				int tabColor = arrayList.getModuleSettings().getBoolean("rainbow")
 						? Colors.getRGBWave(arrayList.getModuleSettings().getInt("speed"), 1, 0.7f,
 								Math.round(((i * y) * arrayList.getModuleSettings().getInt("offset"))) + (event.getWidth() - mWidth + relativeXOffset - ((mWidth + tabWidth) * 2)))
 						: module.getColor().getRGB();

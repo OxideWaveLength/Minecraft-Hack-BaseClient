@@ -51,7 +51,7 @@ public class GuiBind extends GuiScreen {
 
 		String bindText = String.format("Bind the module %s", Strings.capitalizeFirstLetter(module.getName()));
 		String currentBoundText = (module.getKey() == 0 ? "Currently not bound" : String.format("Currently bound to %s", KeyUtils.getKeyName(module.getKey())));
-		String escapeText = "Press Escape to cancel and Back or Delete to unbind";
+		String escapeText = "Escape to cancel - Back or Delete to unbind";
 
 		int currentBoundTextFontSize = BaseClient.instance.getFontRenderer().getFontSize() - 3;
 		int escapeTextFontSize = BaseClient.instance.getFontRenderer().getFontSize() - 8;
@@ -65,8 +65,6 @@ public class GuiBind extends GuiScreen {
 		int escapeTextWidth = Strings.getStringWidthCFR(escapeText, escapeTextFontSize);
 
 		int yOffset = 3;
-		
-		RenderUtils.drawModalRect(0, 0, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), new Color(0, 0, 0, 110).getRGB());
 
 		RenderUtils.drawString(bindText, scaledResolution.getScaledWidth() / 2 - bindTextWidth / 2, bindTextHeight, Color.WHITE.getRGB());
 
