@@ -133,5 +133,11 @@ public class ModuleManager extends EventListener {
 			modules.get(i).toggle();
 		}
 	}
-
+	
+	public void toggleModules() {
+		for (int i = 0; i < modules.size(); i++) {
+			if (modules.get(i).isToggled())
+				modules.get(i).setToggled(true);
+		}
+	}
 }

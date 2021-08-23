@@ -22,7 +22,7 @@ public class HotbarOverlay extends EventListener {
 	/** The rest of the code is in GuiIngame#renderTooltip() */
 	@Override
 	public void onRender2D(Render2DEvent event) {
-		me.wavelength.baseclient.module.Module mod = BaseClient.instance.getModuleManager().getModule("HotbarOverlay");
+		me.wavelength.baseclient.module.Module mod = BaseClient.instance.getModuleManager().getModule(me.wavelength.baseclient.module.modules.client.HotbarOverlay.class);
 		
 		if (mod.isToggled()) {
 			if (BaseClient.instance.isDefaultHotbar())
@@ -30,7 +30,7 @@ public class HotbarOverlay extends EventListener {
 
 			RenderUtils.drawModalRectFromRight(5, 0, 5, 21, Colors.getRGBWave(10, 1, 0.7f, System.currentTimeMillis() / 1000));
 			if (mod.getModuleSettings().getBoolean("time")) {
-				RenderUtils.drawStringFromBottomRight(Time.getTime(System.currentTimeMillis(), "hh:mm:ss"), 9, 10, Color.YELLOW.getRGB());
+				RenderUtils.drawStringFromBottomRight("[TIME] " + Time.getTime(System.currentTimeMillis(), "h:mm"), 9, 10, mod.getModuleSettings().getBoolean("rainbow") ? Colors.getRGBWave(10, 1, 0.7f, System.currentTimeMillis() / 5000) : Color.YELLOW.getRGB());
 			}
 
 			GuiScreen currentScreen = mc.currentScreen;
@@ -39,14 +39,9 @@ public class HotbarOverlay extends EventListener {
 				return;
 			
 			if (mod.getModuleSettings().getBoolean("fps")) {
-				renderText(event, "&7[&dFPS&7]&5 " + Minecraft.getDebugFPS(), 2);
+				RenderUtils.drawStringFromBottomLeft("[FPS] " + Minecraft.getDebugFPS(), 2, 10, mod.getModuleSettings().getBoolean("rainbow") ? Colors.getRGBWave(10, 1, 0.7f, System.currentTimeMillis() / 5000) : Color.magenta.getRGB());
 			}
 		}
-	}
-
-	private void renderText(Render2DEvent event, String text, int x) {
-		String fpsText = text;
-		RenderUtils.drawStringFromBottomLeft(fpsText, x, 10, -1);
 	}
 
 }

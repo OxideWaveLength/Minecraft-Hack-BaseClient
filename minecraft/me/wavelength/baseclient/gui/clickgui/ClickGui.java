@@ -37,7 +37,7 @@ public class ClickGui extends GuiScreen {
 	@Override
 	public void initGui() {
 		this.clickGuiMod = BaseClient.instance.getModuleManager()
-				.getModule("ClickGui");
+				.getModule(me.wavelength.baseclient.module.modules.client.ClickGui.class);
 		int clickGuiSpacing = clickGuiMod.getModuleSettings().getInt("spacing");
 
 		if (fastRender = mc.gameSettings.ofFastRender)
@@ -74,11 +74,6 @@ public class ClickGui extends GuiScreen {
 
 	@Override
 	public void onGuiClosed() {
-		if (!(mc.gameSettings.ofFastRender) && this.mc.entityRenderer.theShaderGroup != null) {
-			this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
-			this.mc.entityRenderer.theShaderGroup = null;
-		}
-
 		if (fastRender)
 			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
 

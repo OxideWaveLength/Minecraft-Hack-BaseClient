@@ -2,6 +2,7 @@ package me.wavelength.baseclient.gui.clickgui;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Comparator;
 
 import org.lwjgl.input.Keyboard;
 
@@ -35,30 +36,18 @@ public class GuiBind extends GuiScreen {
 	public void initGui() {
 		if (fastRender = mc.gameSettings.ofFastRender)
 			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
+	}
 
-		if (!(mc.gameSettings.ofFastRender) && OpenGlHelper.shadersSupported && this.mc.getRenderViewEntity() instanceof EntityPlayer) {
-			if (this.mc.entityRenderer.theShaderGroup != null)
-				this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
-
-			this.mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
-		}
-
+	@Override
+	public void onGuiClosed() {
 		if (fastRender)
 			mc.gameSettings.setOptionValue(Options.FAST_RENDER, 1);
 	}
 
 	@Override
-	public void onGuiClosed() {
-		if (!(mc.gameSettings.ofFastRender) && this.mc.entityRenderer.theShaderGroup != null) {
-			this.mc.entityRenderer.theShaderGroup.deleteShaderGroup();
-			this.mc.entityRenderer.theShaderGroup = null;
-		}
-	}
-
-	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		ScaledResolution scaledResolution = RenderUtils.getScaledResolution();
-		RenderUtils.drawModalRect(0, 0, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), new Color(0, 0, 0, 110).getRGB());
+		
 
 		String bindText = String.format("Bind the module %s", Strings.capitalizeFirstLetter(module.getName()));
 		String currentBoundText = (module.getKey() == 0 ? "Currently not bound" : String.format("Currently bound to %s", KeyUtils.getKeyName(module.getKey())));
@@ -76,6 +65,8 @@ public class GuiBind extends GuiScreen {
 		int escapeTextWidth = Strings.getStringWidthCFR(escapeText, escapeTextFontSize);
 
 		int yOffset = 3;
+		
+		RenderUtils.drawModalRect(0, 0, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), new Color(0, 0, 0, 110).getRGB());
 
 		RenderUtils.drawString(bindText, scaledResolution.getScaledWidth() / 2 - bindTextWidth / 2, bindTextHeight, Color.WHITE.getRGB());
 

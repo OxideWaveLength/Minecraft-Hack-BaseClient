@@ -8,7 +8,7 @@ import me.wavelength.baseclient.module.Module;
 public class ArrayList extends Module {
 
 	public ArrayList() {
-		super("ArrayList", "Shows the list of toggled modules.", Keyboard.KEY_NONE, Category.CLIENT, true, true);
+		super("Array List", "Shows the list of toggled modules.", Keyboard.KEY_NONE, Category.CLIENT, true, true);
 	}
 
 	@Override
@@ -19,5 +19,6 @@ public class ArrayList extends Module {
 		moduleSettings.addDefault("speed", 20);
 		moduleSettings.addDefault("opacity", 100);
 		moduleSettings.addDefault("gradient", true);
+		moduleSettings.addDefault("tab size", 5);
 	}
 }
