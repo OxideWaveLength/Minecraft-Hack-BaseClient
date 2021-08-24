@@ -42,7 +42,7 @@ public class BaseClient {
 	 * @formatter:on
 	 **/
 
-	private final String clientName = "BaseClient";
+	private String clientName = "BaseClient";
 	private final String clientVersion = "0.1";
 	private final String author = "WaveLength";
 
@@ -216,6 +216,10 @@ public class BaseClient {
 
 	public Locale getEnglishLocale() {
 		return englishLocale;
+	}
+	
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 
 	public void switchToMojang() {
