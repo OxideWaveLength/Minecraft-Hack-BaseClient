@@ -26,7 +26,6 @@ hs_err_pid*
 *.sh
 runtime/
 eclipse/
-src/
 jars/
 conf/
 docs/
