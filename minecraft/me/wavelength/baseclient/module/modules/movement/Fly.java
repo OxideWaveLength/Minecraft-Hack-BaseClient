@@ -11,7 +11,7 @@ import me.wavelength.baseclient.module.Module;
 public class Fly extends Module {
 
 	public Fly() {
-		super("Fly", "Reach the outer skies!", Keyboard.KEY_NONE, Category.MOVEMENT, AntiCheat.VANILLA, AntiCheat.AAC);
+		super("Fly", "Reach the outer skies!", Keyboard.KEY_F, Category.MOVEMENT, AntiCheat.VANILLA, AntiCheat.AAC);
 	}
 
 	private boolean isFlying;

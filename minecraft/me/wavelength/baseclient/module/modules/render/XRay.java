@@ -19,7 +19,7 @@ import net.minecraft.init.Blocks;
 public class XRay extends Module {
 
 	public XRay() {
-		super("XRay", "See only specific blocks", Keyboard.KEY_NONE, Category.RENDER);
+		super("XRay", "See only specific blocks", Keyboard.KEY_X, Category.RENDER);
 	}
 
 	private List<String> exceptions;
