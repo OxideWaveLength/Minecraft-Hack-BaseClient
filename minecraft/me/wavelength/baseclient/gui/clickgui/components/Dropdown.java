@@ -19,6 +19,8 @@ public class Dropdown {
 
 	private int x;
 	private int y;
+	private int origX;
+	private int origY;
 
 	private int width;
 	private int height;
@@ -27,6 +29,22 @@ public class Dropdown {
 
 	private boolean dragging;
 	private boolean extended = false;
+
+	public int getOrigX() {
+		return origX;
+	}
+
+	public void setOrigX(int origX) {
+		this.origX = origX;
+	}
+
+	public int getOrigY() {
+		return origY;
+	}
+
+	public void setOrigY(int origY) {
+		this.origY = origY;
+	}
 
 	private int fontSize;
 
@@ -217,8 +235,8 @@ public class Dropdown {
 //			this.x = (mouseX + width - x);
 //			this.x = (x - width - (x - width / 2 - mouseX));
 
-			this.x = mouseX - width / 2;
-			this.y = mouseY - headerHeight / 2;
+			this.x = mouseX - (width / 2);
+			this.y = mouseY - (headerHeight / 2);
 
 			updateButtons(UpdateAction.UPDATE_POSITION);
 			return true;
