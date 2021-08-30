@@ -151,7 +151,10 @@ public class Dropdown {
 	}
 
 	private void updateHeight() {
-		this.height = fontSize * (extended ? (modules.size()) : 0) + 6;
+		if (extended && !(modules.size() == 0))
+			this.height = (fontSize * (modules.size()) + 6);
+		else
+			this.height = 0;
 
 		this.headerHeight = fontSize + 6;
 	}
