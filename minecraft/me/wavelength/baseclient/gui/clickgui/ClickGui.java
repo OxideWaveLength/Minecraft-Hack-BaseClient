@@ -93,7 +93,7 @@ public class ClickGui extends GuiScreen {
 		for (int i = 0; i < dropdowns.size(); i++) {
 			Dropdown dropdown = dropdowns.get(i);
 
-			dropdown.setY(this.scroll + dropdown.getOrigY());
+			dropdown.setY(this.scroll + dropdown.getMouseLastY());
 
 			int contentColor = isRainbow
 					? Colors.getRGBWave(rainbowSpeed, 1, 0.5f,
@@ -146,8 +146,8 @@ public class ClickGui extends GuiScreen {
 		List<Dropdown> dropdowns = new ArrayList<Dropdown>(this.dropdowns);
 		for (int i = dropdowns.size() - 1; i >= 0; i--) {
 			if (dropdowns.get(i).mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)) {
-				dropdowns.get(i).setOrigX(mouseX);
-				dropdowns.get(i).setOrigY(mouseY - this.scroll);
+				dropdowns.get(i).setMouseLastX(mouseX);
+				dropdowns.get(i).setMouseLastY(mouseY - this.scroll);
 				return;
 			}
 		}

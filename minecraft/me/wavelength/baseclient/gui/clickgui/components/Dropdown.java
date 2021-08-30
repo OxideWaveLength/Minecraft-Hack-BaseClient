@@ -19,8 +19,8 @@ public class Dropdown {
 
 	private int x;
 	private int y;
-	private int origX;
-	private int origY;
+	private int mouseLastX;
+	private int mouseLastY;
 
 	private int width;
 	private int height;
@@ -35,20 +35,20 @@ public class Dropdown {
 	private List<Module> modules;
 	private List<ModuleButton> moduleButtons;
 
-	public int getOrigX() {
-		return origX;
+	public int getMouseLastX() {
+		return mouseLastX;
 	}
 
-	public void setOrigX(int origX) {
-		this.origX = origX;
+	public void setMouseLastX(int mouseLastX) {
+		this.mouseLastX = mouseLastX;
 	}
 
-	public int getOrigY() {
-		return origY;
+	public int getMouseLastY() {
+		return mouseLastY;
 	}
 
-	public void setOrigY(int origY) {
-		this.origY = origY;
+	public void setMouseLastY(int mouseLastY) {
+		this.mouseLastY = mouseLastY;
 	}
 
 	/**
