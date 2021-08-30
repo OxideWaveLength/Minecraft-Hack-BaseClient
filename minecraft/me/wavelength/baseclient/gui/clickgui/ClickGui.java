@@ -22,14 +22,13 @@ import net.minecraft.client.settings.GameSettings.Options;
 public class ClickGui extends GuiScreen {
 
 	private List<Dropdown> dropdowns;
-	
-	public me.wavelength.baseclient.module.Module clickGuiMod; 
-	
+
+	public me.wavelength.baseclient.module.Module clickGuiMod;
+
 	private boolean fastRender;
 	private boolean showDebugInfo;
-	
+
 	private int scroll = 5;
-	
 
 	public ClickGui() {
 	}
@@ -83,20 +82,17 @@ public class ClickGui extends GuiScreen {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		handleScrolling();
-		
+
 		boolean isRainbow = clickGuiMod.getModuleSettings().getBoolean("rainbow");
 		boolean isGradient = clickGuiMod.getModuleSettings().getBoolean("gradient");
 		int rainbowOffset = clickGuiMod.getModuleSettings().getInt("offset");
 		int rainbowSpeed = clickGuiMod.getModuleSettings().getInt("speed");
 
-		int screenHeight = mc.displayHeight;
-		int screenWidth = mc.displayWidth;
-
 		int textColor = new Color(255, 255, 255).getRGB();
 
 		for (int i = 0; i < dropdowns.size(); i++) {
 			Dropdown dropdown = dropdowns.get(i);
-			
+
 			dropdown.setY(this.scroll + dropdown.getOrigY());
 
 			int contentColor = isRainbow
@@ -112,11 +108,13 @@ public class ClickGui extends GuiScreen {
 			List<ModuleButton> moduleButtons = dropdown.getModuleButtons();
 
 			if (dropdown.isExtended()) {
-				RenderUtils.drawModalGradientRectFromTopLeft(x, y + dropdown.getHeaderHeight(), width, height, contentColor, isGradient ? new Color(0, 0, 0).getRGB() : contentColor);
+				RenderUtils.drawModalGradientRectFromTopLeft(x, y + dropdown.getHeaderHeight(), width, height,
+						contentColor, isGradient ? new Color(0, 0, 0).getRGB() : contentColor);
 				moduleButtons.forEach(button -> button.drawButton(Minecraft.getMinecraft(), mouseX, mouseY));
 			}
 
-			RenderUtils.drawModalGradientRectFromTopLeft(x, y, width, dropdown.getHeaderHeight(), contentColor, isGradient ? new Color(0, 0, 0).getRGB() : contentColor);
+			RenderUtils.drawModalGradientRectFromTopLeft(x, y, width, dropdown.getHeaderHeight(), contentColor,
+					isGradient ? new Color(0, 0, 0).getRGB() : contentColor);
 			RenderUtils.drawString(Strings.capitalizeOnlyFirstLetter(category.name()), x + 3, y + 1, textColor,
 					BaseClient.instance.getFontRenderer().fontSizeNormal, true);
 		}
@@ -179,15 +177,15 @@ public class ClickGui extends GuiScreen {
 	public void setButtonList(List<GuiButton> buttonList) {
 		this.buttonList = buttonList;
 	}
-	
+
 	public void handleScrolling() {
 		if (Mouse.hasWheel()) {
 			int mouseDelta = Mouse.getDWheel() / clickGuiMod.getModuleSettings().getInt("scroll speed");
-			
+
 			this.scroll += -(mouseDelta);
 
-	        if (this.scroll < 5)
-	            this.scroll = 5;
+			if (this.scroll < 5)
+				this.scroll = 5;
 		}
 	}
 }

@@ -400,8 +400,7 @@ public class TabGui1 extends EventListener {
 	}
 
 	private void renderMenu(List<String> items, int currentItem) {
-		me.wavelength.baseclient.module.Module tabGuiModule = BaseClient.instance.getModuleManager()
-				.getModule(TabGui.class);
+		Module tabGuiModule = BaseClient.instance.getModuleManager().getModule(TabGui.class);
 
 		boolean tabGuiRainbow = tabGuiModule.getModuleSettings().getBoolean("rainbow");
 		boolean tabGuiGradient = tabGuiModule.getModuleSettings().getBoolean("gradient");
@@ -418,7 +417,8 @@ public class TabGui1 extends EventListener {
 						: new Color(255, 255, 255).getRGB());
 
 		RenderUtils.drawGradientRect(5, height * 2 - 5, (maxItemWidth + 15) * 2, height * (items.size() + 2) - 5,
-				new Color(0, 0, 0, 100).getRGB(), tabGuiGradient ? new Color(100, 100, 100, 200).getRGB() : new Color(0, 0, 0, 100).getRGB());
+				new Color(0, 0, 0, 100).getRGB(),
+				tabGuiGradient ? new Color(100, 100, 100, 200).getRGB() : new Color(0, 0, 0, 100).getRGB());
 
 		for (int i = 0; i < items.size(); i++) {
 			String item = items.get(i);
@@ -435,8 +435,9 @@ public class TabGui1 extends EventListener {
 						height * (i + 3) - 5,
 						tabGuiRainbow ? Colors.getRGBWave(rainbowSpeed, 1, 0.5f, ((i) * rainbowOffset) * 2)
 								: me.wavelength.baseclient.module.Color.getColor(item).getRGB(),
-						tabGuiGradient ? new Color(0, 0, 0).getRGB() : tabGuiRainbow ? Colors.getRGBWave(rainbowSpeed, 1, 0.5f, ((i) * rainbowOffset) * 2)
-								: me.wavelength.baseclient.module.Color.getColor(item).getRGB());
+						tabGuiGradient ? new Color(0, 0, 0).getRGB()
+								: tabGuiRainbow ? Colors.getRGBWave(rainbowSpeed, 1, 0.5f, ((i) * rainbowOffset) * 2)
+										: me.wavelength.baseclient.module.Color.getColor(item).getRGB());
 				if (indentation == 3)
 					item = "&a" + item;
 			}
@@ -450,7 +451,8 @@ public class TabGui1 extends EventListener {
 		String description = getCurrentModule().getDescription();
 		RenderUtils.drawGradientRect(5, 1 + height * (items.size() + 3) - height,
 				Strings.getStringWidthCFR(description) + 12, height * (items.size() + 3),
-				new Color(0, 0, 0, 100).getRGB(), tabGuiGradient ? new Color(0, 0, 0, 100).getRGB() : new Color(100, 100, 100, 200).getRGB());
+				new Color(0, 0, 0, 100).getRGB(),
+				tabGuiGradient ? new Color(0, 0, 0, 100).getRGB() : new Color(100, 100, 100, 200).getRGB());
 		RenderUtils.drawString(description, 8, height * (items.size() + 2) + 2, -1);
 	}
 
