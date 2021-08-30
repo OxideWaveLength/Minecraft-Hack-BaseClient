@@ -30,6 +30,11 @@ public class Dropdown {
 	private boolean dragging;
 	private boolean extended = false;
 
+	private int fontSize;
+
+	private List<Module> modules;
+	private List<ModuleButton> moduleButtons;
+
 	public int getOrigX() {
 		return origX;
 	}
@@ -45,11 +50,6 @@ public class Dropdown {
 	public void setOrigY(int origY) {
 		this.origY = origY;
 	}
-
-	private int fontSize;
-
-	private List<Module> modules;
-	private List<ModuleButton> moduleButtons;
 
 	/**
 	 * TODO: Replace this to feed directly the title and the content as string and

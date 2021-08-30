@@ -2,7 +2,6 @@ package me.wavelength.baseclient.gui.clickgui;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.util.Comparator;
 
 import org.lwjgl.input.Keyboard;
 
@@ -14,10 +13,7 @@ import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.settings.GameSettings.Options;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
 
 public class GuiBind extends GuiScreen {
 
@@ -47,10 +43,10 @@ public class GuiBind extends GuiScreen {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		ScaledResolution scaledResolution = RenderUtils.getScaledResolution();
-		
 
 		String bindText = String.format("Bind the module %s", Strings.capitalizeFirstLetter(module.getName()));
-		String currentBoundText = (module.getKey() == 0 ? "Currently not bound" : String.format("Currently bound to %s", KeyUtils.getKeyName(module.getKey())));
+		String currentBoundText = (module.getKey() == 0 ? "Currently not bound"
+				: String.format("Currently bound to %s", KeyUtils.getKeyName(module.getKey())));
 		String escapeText = "Escape to cancel - Back or Delete to unbind";
 
 		int currentBoundTextFontSize = BaseClient.instance.getFontRenderer().getFontSize() - 3;
@@ -66,10 +62,14 @@ public class GuiBind extends GuiScreen {
 
 		int yOffset = 3;
 
-		RenderUtils.drawString(bindText, scaledResolution.getScaledWidth() / 2 - bindTextWidth / 2, bindTextHeight, Color.WHITE.getRGB());
+		RenderUtils.drawString(bindText, scaledResolution.getScaledWidth() / 2 - bindTextWidth / 2, bindTextHeight,
+				Color.WHITE.getRGB());
 
-		RenderUtils.drawString(currentBoundText, scaledResolution.getScaledWidth() / 2 - currentBoundTextWidth / 2, bindTextHeight + yOffset + currentBoundTextHeight, Color.LIGHT_GRAY.getRGB(), currentBoundTextFontSize);
-		RenderUtils.drawString(escapeText, scaledResolution.getScaledWidth() / 2 - escapeTextWidth / 2, bindTextHeight + yOffset + currentBoundTextHeight + yOffset * 2 + escapeTextHeight, Color.GRAY.getRGB(), escapeTextFontSize);
+		RenderUtils.drawString(currentBoundText, scaledResolution.getScaledWidth() / 2 - currentBoundTextWidth / 2,
+				bindTextHeight + yOffset + currentBoundTextHeight, Color.LIGHT_GRAY.getRGB(), currentBoundTextFontSize);
+		RenderUtils.drawString(escapeText, scaledResolution.getScaledWidth() / 2 - escapeTextWidth / 2,
+				bindTextHeight + yOffset + currentBoundTextHeight + yOffset * 2 + escapeTextHeight, Color.GRAY.getRGB(),
+				escapeTextFontSize);
 	}
 
 	@Override
