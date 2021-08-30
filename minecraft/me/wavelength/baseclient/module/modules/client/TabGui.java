@@ -16,5 +16,6 @@ public class TabGui extends Module {
 		moduleSettings.addDefault("rainbow", true);
 		moduleSettings.addDefault("speed", 20);
 		moduleSettings.addDefault("offset", 1);
+		moduleSettings.addDefault("gradient", true);
 	}
 }

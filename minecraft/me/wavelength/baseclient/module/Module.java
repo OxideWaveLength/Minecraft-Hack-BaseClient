@@ -27,7 +27,7 @@ public class Module extends EventListener {
 
 	private boolean showInModuleArraylist;
 
-	protected Color color;
+	public Color color;
 
 	protected Timer timer;
 
@@ -69,7 +69,6 @@ public class Module extends EventListener {
 
 		loadFromSettings();
 		setup();
-		randomColor();
 	}
 
 	private void loadFromSettings() {
@@ -148,10 +147,6 @@ public class Module extends EventListener {
 		setToggled(!(toggled));
 	}
 
-	private void randomColor() {
-		this.color = Random.getRandomLightColor();
-	}
-
 	public Timer getTimer() {
 		return timer;
 	}
@@ -159,7 +154,6 @@ public class Module extends EventListener {
 	public void setToggled(boolean toggled) {
 		this.toggled = toggled;
 		if (toggled) {
-			randomColor();
 			moduleSettings.set("toggled", true);
 			BaseClient.instance.getEventManager().registerListener(this);
 			onEnable();

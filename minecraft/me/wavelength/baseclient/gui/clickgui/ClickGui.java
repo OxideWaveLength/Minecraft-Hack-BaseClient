@@ -10,7 +10,6 @@ import org.lwjgl.input.Mouse;
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.gui.clickgui.components.Dropdown;
 import me.wavelength.baseclient.gui.clickgui.components.ModuleButton;
-import me.wavelength.baseclient.event.events.MouseScrollEvent;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.utils.Colors;
 import me.wavelength.baseclient.utils.RenderUtils;
@@ -30,6 +29,7 @@ public class ClickGui extends GuiScreen {
 	private boolean showDebugInfo;
 	
 	private int scroll = 5;
+	
 
 	public ClickGui() {
 	}
@@ -57,7 +57,7 @@ public class ClickGui extends GuiScreen {
 
 			int x = (previousDropdown == null ? 5
 					: clickGuiSpacing + (previousDropdown.getX() + previousDropdown.getWidth()));
-			int y = scroll;
+			int y = this.scroll + (previousDropdown == null ? 5 : previousDropdown.getY());
 
 			dropdown.setX(x);
 			dropdown.setY(y);
@@ -83,7 +83,9 @@ public class ClickGui extends GuiScreen {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		handleScrolling();
+		
 		boolean isRainbow = clickGuiMod.getModuleSettings().getBoolean("rainbow");
+		boolean isGradient = clickGuiMod.getModuleSettings().getBoolean("gradient");
 		int rainbowOffset = clickGuiMod.getModuleSettings().getInt("offset");
 		int rainbowSpeed = clickGuiMod.getModuleSettings().getInt("speed");
 
@@ -95,7 +97,7 @@ public class ClickGui extends GuiScreen {
 		for (int i = 0; i < dropdowns.size(); i++) {
 			Dropdown dropdown = dropdowns.get(i);
 			
-			dropdown.setY(this.scroll);
+			dropdown.setY(this.scroll + dropdown.getOrigY());
 
 			int contentColor = isRainbow
 					? Colors.getRGBWave(rainbowSpeed, 1, 0.5f,
@@ -110,11 +112,11 @@ public class ClickGui extends GuiScreen {
 			List<ModuleButton> moduleButtons = dropdown.getModuleButtons();
 
 			if (dropdown.isExtended()) {
-				RenderUtils.drawModalRectFromTopLeft(x, y + dropdown.getHeaderHeight(), width, height, contentColor);
+				RenderUtils.drawModalGradientRectFromTopLeft(x, y + dropdown.getHeaderHeight(), width, height, contentColor, isGradient ? new Color(0, 0, 0).getRGB() : contentColor);
 				moduleButtons.forEach(button -> button.drawButton(Minecraft.getMinecraft(), mouseX, mouseY));
 			}
 
-			RenderUtils.drawModalRectFromTopLeft(x, y, width, dropdown.getHeaderHeight(), contentColor);
+			RenderUtils.drawModalGradientRectFromTopLeft(x, y, width, dropdown.getHeaderHeight(), contentColor, isGradient ? new Color(0, 0, 0).getRGB() : contentColor);
 			RenderUtils.drawString(Strings.capitalizeOnlyFirstLetter(category.name()), x + 3, y + 1, textColor,
 					BaseClient.instance.getFontRenderer().fontSizeNormal, true);
 		}
@@ -145,8 +147,11 @@ public class ClickGui extends GuiScreen {
 	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
 		List<Dropdown> dropdowns = new ArrayList<Dropdown>(this.dropdowns);
 		for (int i = dropdowns.size() - 1; i >= 0; i--) {
-			if (dropdowns.get(i).mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick))
+			if (dropdowns.get(i).mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)) {
+				dropdowns.get(i).setOrigX(mouseX);
+				dropdowns.get(i).setOrigY(mouseY - this.scroll);
 				return;
+			}
 		}
 	}
 
@@ -154,8 +159,9 @@ public class ClickGui extends GuiScreen {
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
 		List<Dropdown> dropdowns = new ArrayList<Dropdown>(this.dropdowns);
 		for (int i = dropdowns.size() - 1; i >= 0; i--) {
-			if (dropdowns.get(i).mouseReleased(mouseX, mouseY, state))
+			if (dropdowns.get(i).mouseReleased(mouseX, mouseY, state)) {
 				return;
+			}
 		}
 
 		super.mouseReleased(mouseX, mouseY, state);
@@ -175,12 +181,13 @@ public class ClickGui extends GuiScreen {
 	}
 	
 	public void handleScrolling() {
-	    if (Mouse.hasWheel()) {
-	        this.scroll += -(Mouse.getDWheel() / clickGuiMod.getModuleSettings().getInt("scroll speed"));
+		if (Mouse.hasWheel()) {
+			int mouseDelta = Mouse.getDWheel() / clickGuiMod.getModuleSettings().getInt("scroll speed");
+			
+			this.scroll += -(mouseDelta);
 
 	        if (this.scroll < 5)
 	            this.scroll = 5;
-	    }
+		}
 	}
-
 }

@@ -153,6 +153,14 @@ public class RenderUtils {
 	public static void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
 		Gui.drawGradientRect(left, top, right, bottom, startColor, endColor);
 	}
+	
+	public static void drawModalGradientRectFromTopRight(int xCord, int yCord, int width, int height, int startColor, int endColor) {
+		Gui.drawGradientRect(getScaledResolution().getScaledWidth() - xCord, yCord, getScaledResolution().getScaledWidth() - xCord + width, yCord + height, startColor, endColor);
+	}
+	
+	public static void drawModalGradientRectFromTopLeft(int xCord, int yCord, int width, int height, int startColor, int endColor) {
+		Gui.drawGradientRect(xCord, yCord, xCord + width, yCord + height, startColor, endColor);
+	}
 
 	public static ScaledResolution getScaledResolution() {
 		return new ScaledResolution(Minecraft.getMinecraft());
