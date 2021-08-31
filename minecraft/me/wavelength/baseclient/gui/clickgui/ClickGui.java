@@ -115,8 +115,11 @@ public class ClickGui extends GuiScreen {
 
 			RenderUtils.drawModalGradientRectFromTopLeft(x, y, width, dropdown.getHeaderHeight(), contentColor,
 					isGradient ? new Color(0, 0, 0).getRGB() : contentColor);
-			RenderUtils.drawString(Strings.capitalizeOnlyFirstLetter(category.name()), x + 3, y, textColor,
-					BaseClient.instance.getFontRenderer().fontSizeNormal, true);
+			RenderUtils.drawString(Strings.capitalizeOnlyFirstLetter(category.name()), x + 3,
+					y + ((dropdown.getHeaderHeight() / 2)
+							- (Strings.getStringHeightCFR(Strings.capitalizeOnlyFirstLetter(category.name()),
+									BaseClient.instance.getFontRenderer().fontSizeNormal) / 2)),
+					textColor, BaseClient.instance.getFontRenderer().fontSizeNormal, true);
 		}
 	}
 
