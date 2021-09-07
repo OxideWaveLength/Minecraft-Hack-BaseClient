@@ -13,27 +13,37 @@ public class ModuleManager extends EventListener {
 	/** If you are wondering "why not lambda", it's pretty easy: thread safety. */
 
 	private List<Module> modules;
-	private Package modulePackage;
 
 	public ModuleManager() {
 		this.modules = new ArrayList<Module>();
 		BaseClient.instance.getEventManager().registerListener(this);
-		this.modulePackage = BaseClient.instance.getLoader()
-				.getDefinedPackage("me.wavelength.baseclient.module.modules");
 
 		registerModules();
 	}
 
 	public void registerModules() {
+		/// CLIENT
 		registerModule(new me.wavelength.baseclient.module.modules.client.ArrayList());
 		registerModule(new me.wavelength.baseclient.module.modules.client.ClickGui());
 		registerModule(new me.wavelength.baseclient.module.modules.client.HotbarOverlay());
 		registerModule(new me.wavelength.baseclient.module.modules.client.TabGui());
+
+		/// COMBAT
 		registerModule(new me.wavelength.baseclient.module.modules.combat.Friends());
+
+		/// MOVEMENT
 		registerModule(new me.wavelength.baseclient.module.modules.movement.Fly());
 		registerModule(new me.wavelength.baseclient.module.modules.movement.TestModule());
-		registerModule(new me.wavelength.baseclient.module.modules.render.XRay());
+
+		/// RENDER
+
+		/// PLAYER
+
+		/// WORLD
 		registerModule(new me.wavelength.baseclient.module.modules.world.NameProtect());
+		registerModule(new me.wavelength.baseclient.module.modules.world.XRay());
+
+		/// SEMI_HIDDEN
 		registerModule(new me.wavelength.baseclient.module.modules.semi_hidden.AdvancedTabGui());
 	}
 

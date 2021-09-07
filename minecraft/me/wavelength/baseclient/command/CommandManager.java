@@ -10,7 +10,6 @@ import org.lwjgl.input.Keyboard;
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.command.commands.BindCommand;
 import me.wavelength.baseclient.command.commands.ClientCommand;
-import me.wavelength.baseclient.command.commands.ColorCommand;
 import me.wavelength.baseclient.command.commands.FontCommand;
 import me.wavelength.baseclient.command.commands.FriendsCommand;
 import me.wavelength.baseclient.command.commands.HelpCommand;
@@ -59,7 +58,6 @@ public class CommandManager extends EventListener {
 		registerCommand(new IRCCommand());
 		registerCommand(new SetCommand());
 		registerCommand(new BindCommand());
-		registerCommand(new ColorCommand());
 		registerCommand(new FriendsCommand(BaseClient.instance.getFriendsManager()));
 		registerCommand(new NamesCommand());
 		registerCommand(new XRayCommand());
@@ -83,7 +81,8 @@ public class CommandManager extends EventListener {
 	public Command getCommand(String name) {
 		for (int i = 0; i < commands.size(); i++) {
 			Command command = commands.get(i);
-			if (command.getName().equalsIgnoreCase(name) || Arrays.stream(command.getAliases()).anyMatch(name::equalsIgnoreCase))
+			if (command.getName().equalsIgnoreCase(name)
+					|| Arrays.stream(command.getAliases()).anyMatch(name::equalsIgnoreCase))
 				return command;
 		}
 
@@ -122,10 +121,12 @@ public class CommandManager extends EventListener {
 				if (ircClient != null && ircClient.isActive()) {
 					try {
 						ircClient.sendMessage(ircClient.getChannel(), commandLine.substring(1));
-						Player.sendMessage(String.format("%1$s&6YOU &7(&e&o%2$s&7)&7: &e%3$s", ircClient.getPrefix(), ircClient.getUsername(), commandLine.substring(1)));
+						Player.sendMessage(String.format("%1$s&6YOU &7(&e&o%2$s&7)&7: &e%3$s", ircClient.getPrefix(),
+								ircClient.getUsername(), commandLine.substring(1)));
 					} catch (IOException e) {
 						e.printStackTrace();
-						Player.sendMessage(String.format("%1$sCan't send the chat message. (%2$s)", ircClient.getPrefix(), e.getMessage()));
+						Player.sendMessage(String.format("%1$sCan't send the chat message. (%2$s)",
+								ircClient.getPrefix(), e.getMessage()));
 					}
 					event.setCancelled(true);
 				}

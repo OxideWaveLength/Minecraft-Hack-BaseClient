@@ -1,6 +1,5 @@
 package me.wavelength.baseclient;
 
-import java.awt.Color;
 import java.io.File;
 
 import org.lwjgl.opengl.Display;
@@ -126,7 +125,6 @@ public class BaseClient {
 		switchToMojang();
 
 		this.genericConfig = new Config(new File(clientFolder + Strings.getSplitter() + "config.cfg"));
-		genericConfig.addDefault("tabguicolor", String.valueOf(new Color(100, 100, 100).getRGB()));
 
 		/** Setting a custom icon */
 

@@ -17,7 +17,6 @@ import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.settings.GameSettings.Options;
 
 public class ClickGui extends GuiScreen {
@@ -82,8 +81,6 @@ public class ClickGui extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-
-		ScaledResolution scaledResolution = RenderUtils.getScaledResolution();
 		boolean isRainbow = clickGuiMod.getModuleSettings().getBoolean("rainbow");
 		boolean isGradient = clickGuiMod.getModuleSettings().getBoolean("gradient");
 		int rainbowOffset = clickGuiMod.getModuleSettings().getInt("offset");
