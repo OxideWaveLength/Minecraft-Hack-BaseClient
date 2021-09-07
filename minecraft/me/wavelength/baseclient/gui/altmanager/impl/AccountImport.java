@@ -39,7 +39,8 @@ public class AccountImport extends JPanel implements ActionListener {
 						String[] arguments = line.split(":");
 						for (int i = 0; i < 2; i++)
 							arguments[i].replace(" ", "");
-						BaseClient.instance.getAccountManager().getAccounts().add(new Account(arguments[0], arguments[1], ""));
+						BaseClient.instance.getAccountManager().getAccounts()
+								.add(new Account(arguments[0], arguments[1], ""));
 					}
 					BaseClient.instance.getAccountManager().save();
 				} catch (Exception ex) {

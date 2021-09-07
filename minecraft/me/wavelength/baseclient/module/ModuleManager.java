@@ -7,44 +7,38 @@ import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
-import me.wavelength.baseclient.module.modules.client.ClickGui;
-import me.wavelength.baseclient.module.modules.client.HotbarOverlay;
-import me.wavelength.baseclient.module.modules.client.TabGui;
-import me.wavelength.baseclient.module.modules.combat.Friends;
-import me.wavelength.baseclient.module.modules.movement.Fly;
-import me.wavelength.baseclient.module.modules.movement.TestModule;
-import me.wavelength.baseclient.module.modules.render.XRay;
-import me.wavelength.baseclient.module.modules.semi_hidden.AdvancedTabGui;
-import me.wavelength.baseclient.module.modules.world.NameProtect;
 
 public class ModuleManager extends EventListener {
 
 	/** If you are wondering "why not lambda", it's pretty easy: thread safety. */
 
 	private List<Module> modules;
+	private Package modulePackage;
 
 	public ModuleManager() {
 		this.modules = new ArrayList<Module>();
 		BaseClient.instance.getEventManager().registerListener(this);
+		this.modulePackage = BaseClient.instance.getLoader()
+				.getDefinedPackage("me.wavelength.baseclient.module.modules");
 
 		registerModules();
 	}
 
-	public void registerModule(Module module) {
-		modules.add(module);
+	public void registerModules() {
+		registerModule(new me.wavelength.baseclient.module.modules.client.ArrayList());
+		registerModule(new me.wavelength.baseclient.module.modules.client.ClickGui());
+		registerModule(new me.wavelength.baseclient.module.modules.client.HotbarOverlay());
+		registerModule(new me.wavelength.baseclient.module.modules.client.TabGui());
+		registerModule(new me.wavelength.baseclient.module.modules.combat.Friends());
+		registerModule(new me.wavelength.baseclient.module.modules.movement.Fly());
+		registerModule(new me.wavelength.baseclient.module.modules.movement.TestModule());
+		registerModule(new me.wavelength.baseclient.module.modules.render.XRay());
+		registerModule(new me.wavelength.baseclient.module.modules.world.NameProtect());
+		registerModule(new me.wavelength.baseclient.module.modules.semi_hidden.AdvancedTabGui());
 	}
 
-	public void registerModules() {
-		registerModule(new Friends());
-		registerModule(new Fly());
-		registerModule(new TestModule());
-		registerModule(new XRay());
-		registerModule(new NameProtect());
-		registerModule(new AdvancedTabGui());
-		registerModule(new TabGui());
-		registerModule(new HotbarOverlay());
-		registerModule(new me.wavelength.baseclient.module.modules.client.ArrayList());
-		registerModule(new ClickGui());
+	public void registerModule(Module module) {
+		modules.add(module);
 	}
 
 	public Module getModule(Class<? extends Module> clasz) {
@@ -74,7 +68,7 @@ public class ModuleManager extends EventListener {
 
 		return modules;
 	}
-	
+
 	public List<Module> getModules(Category category) {
 		List<Module> modules = new ArrayList<Module>();
 		for (int i = 0; i < this.modules.size(); i++) {
@@ -133,11 +127,15 @@ public class ModuleManager extends EventListener {
 			modules.get(i).toggle();
 		}
 	}
-	
+
 	public void toggleModules() {
 		for (int i = 0; i < modules.size(); i++) {
 			if (modules.get(i).isToggled())
 				modules.get(i).setToggled(true);
 		}
+	}
+
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
 	}
 }

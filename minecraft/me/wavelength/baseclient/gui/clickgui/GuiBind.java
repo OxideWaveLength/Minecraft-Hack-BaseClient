@@ -44,6 +44,14 @@ public class GuiBind extends GuiScreen {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		ScaledResolution scaledResolution = RenderUtils.getScaledResolution();
 
+		Module clickGuiMod = BaseClient.instance.getModuleManager()
+				.getModule(me.wavelength.baseclient.module.modules.client.ClickGui.class);
+
+		boolean isRainbow = clickGuiMod.getModuleSettings().getBoolean("rainbow");
+		boolean isGradient = clickGuiMod.getModuleSettings().getBoolean("gradient");
+		int rainbowOffset = clickGuiMod.getModuleSettings().getInt("offset");
+		int rainbowSpeed = clickGuiMod.getModuleSettings().getInt("speed");
+
 		String bindText = String.format("Bind the module %s", Strings.capitalizeFirstLetter(module.getName()));
 		String currentBoundText = (module.getKey() == 0 ? "Currently not bound"
 				: String.format("Currently bound to %s", KeyUtils.getKeyName(module.getKey())));

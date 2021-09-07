@@ -408,16 +408,19 @@ public class TabGui1 extends EventListener {
 		int rainbowOffset = tabGuiModule.getModuleSettings().getInt("offset");
 
 		int height = BaseClient.instance.getFontRenderer().getFontSize() / 2 + 4;
+		int y = BaseClient.instance.getFontRenderer().fontSizeLogo;
 		String watermark = BaseClient.instance.getClientName();
 		String version = BaseClient.instance.getClientVersion();
 		String author = BaseClient.instance.getAuthor();
 
-		RenderUtils.drawString(String.format("%s %s", watermark, version, author), 5, 5,
-				tabGuiRainbow ? Colors.getRGBWave(10, 1, 0.7F, watermark.toCharArray().length)
-						: new Color(255, 255, 255).getRGB());
+		RenderUtils
+				.drawString(String.format("%s %s", watermark, version, author), 5, 5,
+						tabGuiRainbow ? Colors.getRGBWave(10, 1, 0.7F, watermark.toCharArray().length)
+								: new Color(255, 255, 255).getRGB(),
+						BaseClient.instance.getFontRenderer().fontSizeLogo);
 
-		RenderUtils.drawGradientRect(5, height * 2 - 5, (maxItemWidth + 15) * 2, height * (items.size() + 2) - 5,
-				new Color(0, 0, 0, 100).getRGB(),
+		RenderUtils.drawGradientRect(5, height * 2 - 5 + y, (maxItemWidth + 15) * 2,
+				height * (items.size() + 2) - 5 + y, new Color(0, 0, 0, 100).getRGB(),
 				tabGuiGradient ? new Color(100, 100, 100, 200).getRGB() : new Color(0, 0, 0, 100).getRGB());
 
 		for (int i = 0; i < items.size(); i++) {
@@ -431,8 +434,8 @@ public class TabGui1 extends EventListener {
 			boolean isCurrentItem = (i == currentItem);
 
 			if (isCurrentItem) {
-				RenderUtils.drawGradientRect(5, height * (i + 2) - 5, ((maxItemWidth + 15 + 5) * 2) - 7,
-						height * (i + 3) - 5,
+				RenderUtils.drawGradientRect(5, height * (i + 2) - 5 + y, ((maxItemWidth + 15 + 5) * 2) - 7,
+						height * (i + 3) - 5 + y,
 						tabGuiRainbow ? Colors.getRGBWave(rainbowSpeed, 1, 0.5f, ((i) * rainbowOffset) * 2)
 								: me.wavelength.baseclient.module.Color.getColor(item).getRGB(),
 						tabGuiGradient ? new Color(0, 0, 0).getRGB()
@@ -442,18 +445,18 @@ public class TabGui1 extends EventListener {
 					item = "&a" + item;
 			}
 
-			RenderUtils.drawString(item, 10, height * (i + 2) - 3, -1);
+			RenderUtils.drawString(item, 10, height * (i + 2) - 3 + y, -1);
 		}
 
 		if (indentation != 1 || getCurrentModule() == null)
 			return;
 
 		String description = getCurrentModule().getDescription();
-		RenderUtils.drawGradientRect(5, 1 + height * (items.size() + 3) - height,
-				Strings.getStringWidthCFR(description) + 12, height * (items.size() + 3),
+		RenderUtils.drawGradientRect(5, 1 + height * (items.size() + 3) - height + y,
+				Strings.getStringWidthCFR(description) + 12, height * (items.size() + 3) + y,
 				new Color(0, 0, 0, 100).getRGB(),
 				tabGuiGradient ? new Color(0, 0, 0, 100).getRGB() : new Color(100, 100, 100, 200).getRGB());
-		RenderUtils.drawString(description, 8, height * (items.size() + 2) + 2, -1);
+		RenderUtils.drawString(description, 8, height * (items.size() + 2) + y, -1);
 	}
 
 }

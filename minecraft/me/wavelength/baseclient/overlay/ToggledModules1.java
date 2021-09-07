@@ -51,9 +51,8 @@ public class ToggledModules1 extends EventListener {
 				int tabColor = arrayList.getModuleSettings().getBoolean("rainbow")
 						? arrayList.getModuleSettings().getBoolean("match module color") ? moduleColor
 								: Colors.getRGBWave(arrayList.getModuleSettings().getInt("speed"), 1, 0.7f,
-										Math.round(Integers
-												.flipPositive(((i * y) * arrayList.getModuleSettings().getInt("offset"))
-														- ((event.getWidth() - (mWidth + tabWidth)) * offset))))
+										Integers.flipPositive(
+												Math.round(((i * y) * arrayList.getModuleSettings().getInt("offset")))))
 						: module.getColor().getRGB();
 				boolean showGradient = arrayList.getModuleSettings().getBoolean("gradient");
 				int opacity = arrayList.getModuleSettings().getInt("opacity") > 255 ? 255
