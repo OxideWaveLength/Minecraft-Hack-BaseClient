@@ -22,24 +22,32 @@ public class HotbarOverlay extends EventListener {
 	/** The rest of the code is in GuiIngame#renderTooltip() */
 	@Override
 	public void onRender2D(Render2DEvent event) {
-		me.wavelength.baseclient.module.Module mod = BaseClient.instance.getModuleManager().getModule(me.wavelength.baseclient.module.modules.client.HotbarOverlay.class);
-		
+		me.wavelength.baseclient.module.Module mod = BaseClient.instance.getModuleManager()
+				.getModule(me.wavelength.baseclient.module.modules.client.HotbarOverlay.class);
+
 		if (mod.isToggled()) {
 			if (BaseClient.instance.isDefaultHotbar())
 				return;
 
-			RenderUtils.drawModalRectFromRight(5, 0, 5, 21, Colors.getRGBWave(10, 1, 0.7f, System.currentTimeMillis() / 1000));
+			RenderUtils.drawModalRectFromRight(5, 0, 5, 21,
+					Colors.getRGBWave(10, 1, 0.7f, System.currentTimeMillis() / 1000));
 			if (mod.getModuleSettings().getBoolean("time")) {
-				RenderUtils.drawStringFromBottomRight("[TIME] " + Time.getTime(System.currentTimeMillis(), "h:mm"), 9, 10, mod.getModuleSettings().getBoolean("rainbow") ? Colors.getRGBWave(10, 1, 0.7f, System.currentTimeMillis() / 5000) : Color.YELLOW.getRGB());
+				RenderUtils.drawStringFromBottomRight(Time.getTime(System.currentTimeMillis(), "h:mm"), 9, 10,
+						mod.getModuleSettings().getBoolean("rainbow")
+								? Colors.getRGBWave(10, 1, 0.7f, System.currentTimeMillis() / 5000)
+								: Color.YELLOW.getRGB());
 			}
 
 			GuiScreen currentScreen = mc.currentScreen;
 
 			if (currentScreen != null && !(currentScreen instanceof ClickGui) && !(currentScreen instanceof GuiBind))
 				return;
-			
+
 			if (mod.getModuleSettings().getBoolean("fps")) {
-				RenderUtils.drawStringFromBottomLeft("[FPS] " + Minecraft.getDebugFPS(), 2, 10, mod.getModuleSettings().getBoolean("rainbow") ? Colors.getRGBWave(10, 1, 0.7f, System.currentTimeMillis() / 5000) : Color.magenta.getRGB());
+				RenderUtils.drawStringFromBottomLeft("[FPS] " + Minecraft.getDebugFPS(), 2, 10,
+						mod.getModuleSettings().getBoolean("rainbow")
+								? Colors.getRGBWave(10, 1, 0.7f, System.currentTimeMillis() / 5000)
+								: Color.magenta.getRGB());
 			}
 		}
 	}

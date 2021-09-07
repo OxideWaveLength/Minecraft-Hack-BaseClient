@@ -17,19 +17,23 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
 public class XRay extends Module {
+	private List<String> exceptions;
 
 	public XRay() {
-		super("XRay", "See only specific blocks", Keyboard.KEY_X, Category.RENDER);
+		super("XRay", "See only specific blocks", Keyboard.KEY_X, Category.WORLD);
 	}
-
-	private List<String> exceptions;
 
 	@Override
 	public void setup() {
-		this.color = Color.RENDER;
-		moduleSettings.addDefault("blocks", Arrays.asList(Blocks.iron_ore.getLocalizedName().toUpperCase().replace(" ", "_")));
+		this.color = Color.WORLD;
+		moduleSettings.addDefault("blocks",
+				Arrays.asList(Blocks.iron_ore.getLocalizedName().toUpperCase().replace(" ", "_")));
 
-		Function<String, String> consumer = line -> line = line.toUpperCase().replace(" ", "_"); // Replaces every line with an uppercase version that has spaces replaced with underscores
+		Function<String, String> consumer = line -> line = line.toUpperCase().replace(" ", "_"); // Replaces every line
+																									// with an uppercase
+																									// version that has
+																									// spaces replaced
+																									// with underscores
 		this.exceptions = moduleSettings.getStringList("blocks", consumer);
 	}
 
@@ -69,9 +73,11 @@ public class XRay extends Module {
 		if (exceptions == null)
 			return false;
 
-		String unlocalizedName = BaseClient.instance.getEnglishLocale().formatMessage(block.getUnlocalizedName() + ".name", null).toUpperCase().replace(" ", "_");
+		String unlocalizedName = BaseClient.instance.getEnglishLocale()
+				.formatMessage(block.getUnlocalizedName() + ".name", null).toUpperCase().replace(" ", "_");
 
-		return exceptions.contains(unlocalizedName) || exceptions.contains(Integer.toString(Block.getIdFromBlock(block)));
+		return exceptions.contains(unlocalizedName)
+				|| exceptions.contains(Integer.toString(Block.getIdFromBlock(block)));
 	}
 
 	public List<String> getExceptions() {
