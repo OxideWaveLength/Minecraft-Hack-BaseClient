@@ -21,12 +21,12 @@ public class SetCommand extends Command {
 		if (args.length < 1)
 			return getSyntax("&c");
 
-		Module module = BaseClient.instance.getModuleManager().getModule(args[0]);
+		Module module = BaseClient.instance.getModuleManager().getModule(args[0].replace("_", " "));
 		if (module == null)
-			return String.format("&cThe module &e%1$s&c does not exist.", args[0]);
+			return String.format("&cThe module &e%1$s&c does not exist.", args[0].replace("_", " "));
 
 		if (module.getCategory().equals(Category.HIDDEN))
-			return String.format("&cThe module &e%1$s&c is hidden.", args[0]);
+			return String.format("&cThe module &e%1$s&c is hidden.", args[0].replace("_", " "));
 
 		ModuleSettings moduleSettings = module.getModuleSettings();
 
@@ -46,7 +46,8 @@ public class SetCommand extends Command {
 
 		if (args.length == 2) {
 			if (module.getModuleSettings().getString(args[1]) != null)
-				return String.format("&e%1$s&a's &e%2$s&a is set to &e%3$s", module.getName(), args[1], moduleSettings.getString(args[1]));
+				return String.format("&e%1$s&a's &e%2$s&a is set to &e%3$s", module.getName(), args[1],
+						moduleSettings.getString(args[1]));
 			else
 				return String.format("&cThe key &e%1$s&c does not exist.", args[1]);
 		}

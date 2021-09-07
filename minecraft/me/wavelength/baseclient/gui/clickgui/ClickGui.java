@@ -17,6 +17,7 @@ import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.settings.GameSettings.Options;
 
 public class ClickGui extends GuiScreen {
@@ -81,24 +82,23 @@ public class ClickGui extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		handleScrolling();
 
+		ScaledResolution scaledResolution = RenderUtils.getScaledResolution();
 		boolean isRainbow = clickGuiMod.getModuleSettings().getBoolean("rainbow");
 		boolean isGradient = clickGuiMod.getModuleSettings().getBoolean("gradient");
 		int rainbowOffset = clickGuiMod.getModuleSettings().getInt("offset");
 		int rainbowSpeed = clickGuiMod.getModuleSettings().getInt("speed");
 
+		handleScrolling();
+
 		int textColor = new Color(255, 255, 255).getRGB();
 
 		for (int i = 0; i < dropdowns.size(); i++) {
 			Dropdown dropdown = dropdowns.get(i);
+			int contentColor = isRainbow ? Colors.getRGBWave(rainbowSpeed, 1, 0.5f, dropdown.getX() * rainbowOffset)
+					: me.wavelength.baseclient.module.Color.getColor(dropdown.getCategory()).getRGB();
 
 			dropdown.setY(this.scroll + dropdown.getMouseLastY());
-
-			int contentColor = isRainbow
-					? Colors.getRGBWave(rainbowSpeed, 1, 0.5f,
-							(i * ((dropdown.getWidth() + dropdown.getX()) / 2) * rainbowOffset))
-					: me.wavelength.baseclient.module.Color.getColor(dropdown.getCategory()).getRGB();
 
 			Category category = dropdown.getCategory();
 			int x = dropdown.getX();
@@ -115,11 +115,16 @@ public class ClickGui extends GuiScreen {
 
 			RenderUtils.drawModalGradientRectFromTopLeft(x, y, width, dropdown.getHeaderHeight(), contentColor,
 					isGradient ? new Color(0, 0, 0).getRGB() : contentColor);
-			RenderUtils.drawString(Strings.capitalizeOnlyFirstLetter(category.name()), x + 3,
+			RenderUtils.drawString(Strings.capitalizeOnlyFirstLetter(category.name()), x + 2,
 					y + ((dropdown.getHeaderHeight() / 2)
 							- (Strings.getStringHeightCFR(Strings.capitalizeOnlyFirstLetter(category.name()),
 									BaseClient.instance.getFontRenderer().fontSizeNormal) / 2)),
 					textColor, BaseClient.instance.getFontRenderer().fontSizeNormal, true);
+
+			RenderUtils.drawModalRectFromTopLeft(x, (y + dropdown.getHeaderHeight()) - 1,
+					Strings.getStringWidthCFR(Strings.capitalizeOnlyFirstLetter(category.name())) / 2, 1,
+					new Color(122, 122, 122).getRGB());
+
 		}
 	}
 

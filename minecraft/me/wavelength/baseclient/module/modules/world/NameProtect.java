@@ -25,7 +25,7 @@ public class NameProtect extends Module {
 
 		this.names = new HashMap<String, String>();
 	}
-	
+
 	@Override
 	public void setup() {
 		this.color = Color.WORLD;
@@ -54,7 +54,8 @@ public class NameProtect extends Module {
 		if (event.getEntity() == null || event.getEntity().getName() == null)
 			return;
 
-		if (((NamesCommand) BaseClient.instance.getCommandManager().getCommand(NamesCommand.class)).isInExceptions(event.getEntity().getName()))
+		if (((NamesCommand) BaseClient.instance.getCommandManager().getCommand(NamesCommand.class))
+				.isInExceptions(event.getEntity().getName()))
 			return;
 
 		event.setLabel(getNewName(event.getEntity().getName()));
@@ -68,7 +69,8 @@ public class NameProtect extends Module {
 	public String getNewName(String name) {
 		String newName = null;
 		if (!(names.containsKey(name))) {
-			names.put(name, Strings.randomString(10, true, false, false) + (name.equals(mc.thePlayer.getName()) ? " (YOU)" : ""));
+			names.put(name,
+					Strings.randomString(10, true, true, true) + (name.equals(mc.thePlayer.getName()) ? " (YOU)" : ""));
 		}
 
 		newName = names.get(name);

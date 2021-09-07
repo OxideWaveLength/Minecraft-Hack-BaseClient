@@ -19,18 +19,21 @@ public class Font {
 	public int fontSizeNormal;
 	public int fontSizeLarge;
 	public int fontSizeLargest;
+	public int fontSizeLogo;
 
 	public static Map<String, List<UnicodeFontRenderer>> getRegisteredRenderers() {
 		return REGISTERED_RENDERERS;
 	}
 
-	public Font(String packageName, String fontName, int fontSizeSmall, int fontSizeNormal, int fontSizeLarge, int fontSizeLargest) {
+	public Font(String packageName, String fontName, int fontSizeSmall, int fontSizeNormal, int fontSizeLarge,
+			int fontSizeLargest, int fontSizeLogo) {
 		this.packageName = packageName;
 		this.fontName = fontName;
 		this.fontSizeSmall = fontSizeSmall;
 		this.fontSizeNormal = fontSizeNormal;
 		this.fontSizeLarge = fontSizeLarge;
 		this.fontSizeLargest = fontSizeLargest;
+		this.fontSizeLogo = fontSizeLogo;
 	}
 
 	public Font(String packageName, String fontName, int fontSizeNormal) {
@@ -87,6 +90,10 @@ public class Font {
 
 	public void setFontSizeLargest(int fontSizeLargest) {
 		this.fontSizeLargest = fontSizeLargest;
+	}
+
+	public void setFontSizeLogo(int fontSizeLogo) {
+		this.fontSizeLogo = fontSizeLogo;
 	}
 
 	public UnicodeFontRenderer getFont() {

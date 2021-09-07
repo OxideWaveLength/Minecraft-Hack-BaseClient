@@ -56,7 +56,7 @@ public class ModuleButton extends GuiButton {
 				j = new Color(0, 240, 0).getRGB();
 			}
 
-			RenderUtils.drawString(this.displayString, this.xPosition, this.yPosition + 3, j,
+			RenderUtils.drawString(this.displayString, this.xPosition, this.yPosition, j,
 					BaseClient.instance.getFontRenderer().fontSizeSmall, true);
 		}
 	}
