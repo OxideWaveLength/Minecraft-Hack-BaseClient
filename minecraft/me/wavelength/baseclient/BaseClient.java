@@ -64,7 +64,7 @@ public class BaseClient {
 
 	private String packageBase = "me.wavelength.baseclient";
 
-	private boolean defaultHotbar = false;
+	public boolean defaultHotbar = true;
 
 	private Config genericConfig;
 
