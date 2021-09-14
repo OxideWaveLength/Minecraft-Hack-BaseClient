@@ -21,7 +21,7 @@ Now it's time for my fork! ♥
 Now a [video](https://www.youtube.com/watch?v=LSKu_zhPKc8) is available, showing how to set up the client. - The video is not up to date and a step is missing. Until that is updated you can watch that video and then come back and do the last step (adding javaws to your build path)
 
 #### Let's get started!
-_Note: the instructions in italic apply ONLY to Eclipse, if you have a different IDE, [Search "How to set the project up" on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
+_Note: the instructions in italic apply ONLY to Eclipse, if you have a different IDE, [Search how to set the project up on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
 
 - Download [Minecraft Coders Pack 918 (1.8.8)](http://www.modcoderpack.com/files/mcp918.zip) _(or MCP)_
 - Unzip the MCP into a folder and enter it
