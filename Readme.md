@@ -39,5 +39,5 @@ _Note: the instructions in italic apply ONLY to Eclipse, if you have a different
 
 #### Let's build it!
 Here are videos showing how to export your client in Eclipse:
-- [Minecraft Launcher (full tutorial)](https://www.youtube.com/watch?v=TjJz9Iisg-Y)
-- [MultiMC (requires JSON file)](https://www.youtube.com/watch?v=nlZKdifpoUA)
+- [Minecraft Launcher (full tutorial)](https://www.youtube.com/watch?v=nlZKdifpoUA)
+- [MultiMC (requires JSON file)](https://www.youtube.com/watch?v=TjJz9Iisg-Y)
