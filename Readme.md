@@ -4,7 +4,7 @@
 The [original](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient) repository has way less updates and way less support/activity so I made my own fork.  
 This was going to be a pull request into the main repository, but there was no activity at all there for ~2 weeks so I closed it.
 
-Now it's time for my fork! <3
+Now it's time for my fork! ♥
 
 ------------
 
@@ -20,7 +20,7 @@ Now it's time for my fork! <3
 #### Video by OxideWaveLength
 Now a [video](https://www.youtube.com/watch?v=LSKu_zhPKc8) is available, showing how to set up the client. - The video is not up to date and a step is missing. Until that is updated you can watch that video and then come back and do the last step (adding javaws to your build path)
 
-#### Let's get started
+#### Let's get started!
 _Note: the instructions in italic apply ONLY to Eclipse, if you have a different IDE, [search how to set the project up on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
 
 - Download [Minecraft Coders Pack 918 (1.8.8)](http://www.modcoderpack.com/files/mcp918.zip) _(or MCP)_
@@ -36,3 +36,6 @@ _Note: the instructions in italic apply ONLY to Eclipse, if you have a different
 - _Optionally enable the @formatting tags (Window -> Preferences -> Java -> Code Style -> Formatter -> Edit -> Expand "Off/On tags" -> Tick the "Enable Off/On tags" -> Change the Profile Name (or you will not be able to save) -> OK -> Apply and Close)_
 - Change the JRE version from JRE1\_6 to JRE1\_8 _(Right click on "Client" -> Build Path -> Libraries -> Scroll to the bottom -> Double click "JRE System" -> Choose a JRE1\_8 -> Finish -> Apply and Close)_
 - Add the javaws.jar to your project buildpath (the file is located here: "JAVA_PATH\jre1.8.0_VERSION\lib\javaws.jar".
+
+#### Let's build it!
+I made a [video](https://www.youtube.com/watch?v=TjJz9Iisg-Y) showcasing how to export the client to MultiMC from Eclipse. There are also other tutorials available. [Search How to export a JAR from my IDE](https://bfy.tw/ReNB).
