@@ -9,7 +9,7 @@ import me.wavelength.baseclient.module.Module;
 public class ClickGui extends Module {
 
 	public ClickGui() {
-		super("ClickGui", "This is the ClickGui", Keyboard.KEY_RSHIFT, Category.CLIENT, true, true);
+		super("ClickGui", "This is the ClickGui", Keyboard.KEY_RSHIFT, Category.CLIENT, true, false);
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class ClickGui extends Module {
 		moduleSettings.addDefault("offset", 1);
 		moduleSettings.addDefault("speed", 20);
 		moduleSettings.addDefault("spacing", 5);
-		moduleSettings.addDefault("gradient", true);
+		moduleSettings.addDefault("gradient", false);
 		moduleSettings.addDefault("scroll speed", 10);
 	}
 

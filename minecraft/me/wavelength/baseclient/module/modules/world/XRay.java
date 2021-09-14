@@ -29,7 +29,7 @@ public class XRay extends Module {
 		moduleSettings.addDefault("blocks",
 				Arrays.asList(Blocks.iron_ore.getLocalizedName().toUpperCase().replace(" ", "_")));
 
-		Function<String, String> consumer = line -> line = line.toUpperCase().replace(" ", "_"); // Replaces every line
+		Function<String, String> consumer = line -> line = line.toUpperCase().replace(" ", "_");	// Replaces every line
 																									// with an uppercase
 																									// version that has
 																									// spaces replaced

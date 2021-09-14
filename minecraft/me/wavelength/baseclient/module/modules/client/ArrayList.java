@@ -18,7 +18,7 @@ public class ArrayList extends Module {
 		moduleSettings.addDefault("offset", 2);
 		moduleSettings.addDefault("speed", 20);
 		moduleSettings.addDefault("opacity", 100);
-		moduleSettings.addDefault("gradient", true);
+		moduleSettings.addDefault("gradient", false);
 		moduleSettings.addDefault("match module color", false);
 		moduleSettings.addDefault("tab size", 5);
 	}
