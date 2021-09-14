@@ -38,4 +38,6 @@ _Note: the instructions in italic apply ONLY to Eclipse, if you have a different
 - Add the javaws.jar to your project buildpath (the file is located here: "JAVA_PATH\jre1.8.0_VERSION\lib\javaws.jar".
 
 #### Let's build it!
-I made a [video](https://www.youtube.com/watch?v=TjJz9Iisg-Y) showcasing how to export the client to MultiMC from Eclipse. There are also other tutorials available. [Search "How to export a JAR from my IDE" on Google](https://bfy.tw/ReNB).
+Here are videos showing how to export your client in Eclipse:
+- [Minecraft Launcher (full tutorial)](https://www.youtube.com/watch?v=TjJz9Iisg-Y)
+- [MultiMC (requires JSON file)](https://www.youtube.com/watch?v=nlZKdifpoUA)
