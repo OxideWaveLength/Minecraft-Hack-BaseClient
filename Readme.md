@@ -21,7 +21,7 @@ Now it's time for my fork! ♥
 Now a [video](https://www.youtube.com/watch?v=LSKu_zhPKc8) is available, showing how to set up the client. - The video is not up to date and a step is missing. Until that is updated you can watch that video and then come back and do the last step (adding javaws to your build path)
 
 #### Let's get started!
-_Note: the instructions in italic apply ONLY to Eclipse, if you have a different IDE, [search how to set the project up on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
+_Note: the instructions in italic apply ONLY to Eclipse, if you have a different IDE, [Search "How to set the project up" on Google](https://lmgtfy.com/?q=How+to+setup+Minecraft+Coders+Pack+in+%5BMY+IDE%5D)_
 
 - Download [Minecraft Coders Pack 918 (1.8.8)](http://www.modcoderpack.com/files/mcp918.zip) _(or MCP)_
 - Unzip the MCP into a folder and enter it
@@ -38,4 +38,4 @@ _Note: the instructions in italic apply ONLY to Eclipse, if you have a different
 - Add the javaws.jar to your project buildpath (the file is located here: "JAVA_PATH\jre1.8.0_VERSION\lib\javaws.jar".
 
 #### Let's build it!
-I made a [video](https://www.youtube.com/watch?v=TjJz9Iisg-Y) showcasing how to export the client to MultiMC from Eclipse. There are also other tutorials available. [Search How to export a JAR from my IDE](https://bfy.tw/ReNB).
+I made a [video](https://www.youtube.com/watch?v=TjJz9Iisg-Y) showcasing how to export the client to MultiMC from Eclipse. There are also other tutorials available. [Search "How to export a JAR from my IDE" on Google](https://bfy.tw/ReNB).
