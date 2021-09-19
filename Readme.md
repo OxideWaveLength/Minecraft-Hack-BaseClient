@@ -1,10 +1,7 @@
-# Minecraft-Hack-BaseClient - AcaiBerii's Fork
+# Oxide's 1.8.8 Base Hacked Client (OptiFine included)
 
 ## Welcome!
-The [original](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient) repository has way less updates and way less support/activity so I made my own fork.  
-This was going to be a pull request into the main repository, but there was no activity at all there for ~2 weeks so I closed it.
-
-Now it's time for my fork! ♥
+This is a hacked client made for Minecraft 1.8.8.
 
 ------------
 
