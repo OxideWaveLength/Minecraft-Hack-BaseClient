@@ -28,6 +28,7 @@ import me.wavelength.baseclient.utils.Colors;
 import me.wavelength.baseclient.utils.Integers;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Strings;
+import me.wavelength.baseclient.utils.animation.basic.Translate;
 import net.minecraft.client.gui.GuiScreen;
 
 public class TabGui1 extends EventListener {
@@ -35,6 +36,8 @@ public class TabGui1 extends EventListener {
 	private int currentCategory;
 	private int currentModule;
 	private int currentSetting;
+
+	private Translate translator = new Translate(0, 0);
 
 	private String[] moduleSettingsExceptions;
 
@@ -434,12 +437,15 @@ public class TabGui1 extends EventListener {
 			boolean isCurrentItem = (i == currentItem);
 
 			if (isCurrentItem) {
-				RenderUtils.drawGradientRect(5, height * (i + 2) - 5 + y, ((maxItemWidth + 15 + 5) * 2) - 7,
-						height * (i + 3) - 5 + y,
-						tabGuiRainbow ? Colors.getRGBWave(rainbowSpeed, 1, 0.5f, ((i) * rainbowOffset) * 2)
-								: me.wavelength.baseclient.module.Color.getColor(item).getRGB(),
+				int selectionColor = tabGuiRainbow ? Colors.getRGBWave(rainbowSpeed, 1, 0.5f, ((i) * rainbowOffset) * 2)
+						: me.wavelength.baseclient.module.Color.getColor(item).getRGB();
+				this.translator.interpolate(height * (i + 2) - 5 + y, height * (i + 3) - 5 + y, 10);
+
+				RenderUtils.drawGradientRect(5, (int) (translator.getX()), ((maxItemWidth + 15 + 5) * 2) - 7,
+						(int) (translator.getY()),
+						tabGuiRainbow ? selectionColor : me.wavelength.baseclient.module.Color.getColor(item).getRGB(),
 						tabGuiGradient ? new Color(0, 0, 0).getRGB()
-								: tabGuiRainbow ? Colors.getRGBWave(rainbowSpeed, 1, 0.5f, ((i) * rainbowOffset) * 2)
+								: tabGuiRainbow ? selectionColor
 										: me.wavelength.baseclient.module.Color.getColor(item).getRGB());
 				if (indentation == 3)
 					item = "&a" + item;

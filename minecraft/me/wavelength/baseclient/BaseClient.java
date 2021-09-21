@@ -14,7 +14,6 @@ import me.wavelength.baseclient.gui.clickgui.ClickGui;
 import me.wavelength.baseclient.hooks.HookManager;
 import me.wavelength.baseclient.irc.IRCClient;
 import me.wavelength.baseclient.module.ModuleManager;
-import me.wavelength.baseclient.overlay.HotbarOverlay;
 import me.wavelength.baseclient.overlay.TabGui1;
 import me.wavelength.baseclient.overlay.ToggledModules1;
 import me.wavelength.baseclient.thealtening.AltService;
@@ -63,8 +62,6 @@ public class BaseClient {
 	private Font font;
 
 	private String packageBase = "me.wavelength.baseclient";
-
-	public boolean defaultHotbar = true;
 
 	private Config genericConfig;
 
@@ -145,7 +142,6 @@ public class BaseClient {
 	}
 
 	private void registerHuds() {
-		new HotbarOverlay();
 		new ToggledModules1();
 		new TabGui1();
 	}
@@ -205,10 +201,6 @@ public class BaseClient {
 
 	public String getPackageBase() {
 		return packageBase;
-	}
-
-	public boolean isDefaultHotbar() {
-		return defaultHotbar;
 	}
 
 	public Config getGenericConfig() {

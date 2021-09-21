@@ -25,9 +25,7 @@ public class ModuleManager extends EventListener {
 		/// CLIENT
 		registerModule(new me.wavelength.baseclient.module.modules.client.ArrayList());
 		registerModule(new me.wavelength.baseclient.module.modules.client.ClickGui());
-		registerModule(new me.wavelength.baseclient.module.modules.client.HotbarOverlay());
 		registerModule(new me.wavelength.baseclient.module.modules.client.TabGui());
-		registerModule(new me.wavelength.baseclient.module.modules.client.CustomHotbar());
 
 		/// COMBAT
 		registerModule(new me.wavelength.baseclient.module.modules.combat.Friends());
