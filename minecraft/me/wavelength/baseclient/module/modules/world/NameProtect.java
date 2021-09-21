@@ -3,12 +3,15 @@ package me.wavelength.baseclient.module.modules.world;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.lwjgl.input.Keyboard;
+
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.command.commands.NamesCommand;
 import me.wavelength.baseclient.event.events.MessageReceivedEvent;
 import me.wavelength.baseclient.event.events.PlayerSpawnEvent;
 import me.wavelength.baseclient.event.events.RenderLivingLabelEvent;
 import me.wavelength.baseclient.module.Category;
+import me.wavelength.baseclient.module.Color;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -18,9 +21,14 @@ public class NameProtect extends Module {
 	private Map<String, String> names;
 
 	public NameProtect() {
-		super("Name Protect", "Hide players names", 0, Category.WORLD);
+		super("Name Protect", "Hide players names", Keyboard.KEY_NONE, Category.WORLD);
 
 		this.names = new HashMap<String, String>();
+	}
+
+	@Override
+	public void setup() {
+		this.color = Color.WORLD;
 	}
 
 	@Override
@@ -46,7 +54,8 @@ public class NameProtect extends Module {
 		if (event.getEntity() == null || event.getEntity().getName() == null)
 			return;
 
-		if (((NamesCommand) BaseClient.instance.getCommandManager().getCommand(NamesCommand.class)).isInExceptions(event.getEntity().getName()))
+		if (((NamesCommand) BaseClient.instance.getCommandManager().getCommand(NamesCommand.class))
+				.isInExceptions(event.getEntity().getName()))
 			return;
 
 		event.setLabel(getNewName(event.getEntity().getName()));
@@ -60,7 +69,8 @@ public class NameProtect extends Module {
 	public String getNewName(String name) {
 		String newName = null;
 		if (!(names.containsKey(name))) {
-			names.put(name, Strings.randomString(10, true, false, false) + (name.equals(mc.thePlayer.getName()) ? " (YOU)" : ""));
+			names.put(name,
+					Strings.randomString(10, true, true, true) + (name.equals(mc.thePlayer.getName()) ? " (YOU)" : ""));
 		}
 
 		newName = names.get(name);

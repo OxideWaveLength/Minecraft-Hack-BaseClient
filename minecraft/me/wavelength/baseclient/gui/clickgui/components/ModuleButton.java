@@ -21,7 +21,8 @@ public class ModuleButton extends GuiButton {
 		int[] position = new int[2];
 
 		position[0] = dropdown.getX() + 3;
-		position[1] = dropdown.getY() + dropdown.getHeaderHeight() + ((buttonIndex) * (BaseClient.instance.getFontRenderer().getFontSize() / 2)) + (1 * (buttonIndex));
+		position[1] = dropdown.getY() + dropdown.getHeaderHeight()
+				+ ((buttonIndex) * (BaseClient.instance.getFontRenderer().getFontSize() / 2)) + (1 * (buttonIndex));
 
 		return position;
 	}
@@ -39,7 +40,8 @@ public class ModuleButton extends GuiButton {
 	@Override
 	public void drawButton(Minecraft mc, int mouseX, int mouseY) {
 		if (this.visible) {
-			this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+			this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width
+					&& mouseY < this.yPosition + this.height - 3;
 			this.mouseDragged(mc, mouseX, mouseY);
 			int j = 14737632;
 
@@ -54,7 +56,8 @@ public class ModuleButton extends GuiButton {
 				j = new Color(0, 240, 0).getRGB();
 			}
 
-			RenderUtils.drawString(this.displayString, this.xPosition, this.yPosition, j);
+			RenderUtils.drawString(this.displayString, this.xPosition, this.yPosition, j,
+					BaseClient.instance.getFontRenderer().fontSizeSmall, true);
 		}
 	}
 

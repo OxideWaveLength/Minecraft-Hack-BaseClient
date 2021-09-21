@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.lwjgl.input.Keyboard;
 
@@ -21,12 +22,13 @@ import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.module.ModuleSettings;
+import me.wavelength.baseclient.module.modules.client.TabGui;
 import me.wavelength.baseclient.module.modules.semi_hidden.AdvancedTabGui;
-import me.wavelength.baseclient.module.modules.semi_hidden.TabGui;
-import me.wavelength.baseclient.utils.Config;
+import me.wavelength.baseclient.utils.Colors;
 import me.wavelength.baseclient.utils.Integers;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Strings;
+import me.wavelength.baseclient.utils.animation.basic.Translate;
 import net.minecraft.client.gui.GuiScreen;
 
 public class TabGui1 extends EventListener {
@@ -34,6 +36,8 @@ public class TabGui1 extends EventListener {
 	private int currentCategory;
 	private int currentModule;
 	private int currentSetting;
+
+	private Translate translator = new Translate(0, 0);
 
 	private String[] moduleSettingsExceptions;
 
@@ -60,7 +64,8 @@ public class TabGui1 extends EventListener {
 	}
 
 	/**
-	 * @return The current mode, 0 = default mode (ARROW KEYS), 1 = "Advanced" mode (MOUSE WHEEL (CAN BE BOUND) AND MOUSE CLICKS)
+	 * @return The current mode, 0 = default mode (ARROW KEYS), 1 = "Advanced" mode
+	 *         (MOUSE WHEEL (CAN BE BOUND) AND MOUSE CLICKS)
 	 */
 	private int getMode() {
 		return (BaseClient.instance.getModuleManager().getModule(AdvancedTabGui.class).isToggled() ? 1 : 0);
@@ -83,7 +88,7 @@ public class TabGui1 extends EventListener {
 	}
 
 	private List<String> getFilteredSettingsList() {
-		List<String> settings = new ArrayList<String>(getCurrentSettingsList());
+		List<String> settings = getCurrentSettingsList().stream().distinct().collect(Collectors.toList());
 		for (int i = 0; i < moduleSettingsExceptions.length; i++) {
 			for (int j = 0; j < settings.size(); j++) {
 				String setting = settings.get(j);
@@ -165,7 +170,6 @@ public class TabGui1 extends EventListener {
 			} else if (Integers.isDouble(value)) {
 				double v = Double.parseDouble(value);
 				double incr = mc.gameSettings.keyBindSneak.isKeyDown() ? 1 : 0.1D;
-
 				v += (direction == 0 ? -incr : incr);
 
 				v = Double.valueOf(new DecimalFormat("#.#").format(v).replace(",", "."));
@@ -185,9 +189,12 @@ public class TabGui1 extends EventListener {
 				if (key.equalsIgnoreCase("anticheat")) {
 					AntiCheat[] allowedAntiCheats = getCurrentModule().getAllowedAntiCheats();
 
-					int currentAntiCheat = Arrays.asList(allowedAntiCheats).indexOf(AntiCheat.valueOf(value.toUpperCase()));
+					int currentAntiCheat = Arrays.asList(allowedAntiCheats)
+							.indexOf(AntiCheat.valueOf(value.toUpperCase()));
 
-					int newAntiCheat = (direction == 0 ? (currentAntiCheat == 0 ? allowedAntiCheats.length - 1 : currentAntiCheat - 1) : (currentAntiCheat + 1 >= allowedAntiCheats.length ? 0 : currentAntiCheat + 1));
+					int newAntiCheat = (direction == 0
+							? (currentAntiCheat == 0 ? allowedAntiCheats.length - 1 : currentAntiCheat - 1)
+							: (currentAntiCheat + 1 >= allowedAntiCheats.length ? 0 : currentAntiCheat + 1));
 
 					getCurrentModule().setAntiCheat(allowedAntiCheats[newAntiCheat]);
 				}
@@ -201,17 +208,22 @@ public class TabGui1 extends EventListener {
 		/** If inside the Category indentation scroll through it */
 		case 0:
 		default: {
-			currentCategory = (direction == 0 ? (currentCategory == Category.values().length - 3 ? 0 : currentCategory + 1) : (currentCategory == 0 ? Category.values().length - 3 : currentCategory - 1));
+			currentCategory = (direction == 0
+					? (currentCategory == Category.values().length - 3 ? 0 : currentCategory + 1)
+					: (currentCategory == 0 ? Category.values().length - 3 : currentCategory - 1));
 			break;
 		}
 		/** If inside the Module indentation scroll through it */
 		case 1: {
-			currentModule = (direction == 0 ? (currentModule == getModules().size() - 1 ? 0 : currentModule + 1) : (currentModule == 0 ? getModules().size() - 1 : currentModule - 1));
+			currentModule = (direction == 0 ? (currentModule == getModules().size() - 1 ? 0 : currentModule + 1)
+					: (currentModule == 0 ? getModules().size() - 1 : currentModule - 1));
 			break;
 		}
 		case 2:
 		case 3: {
-			currentSetting = (direction == 0 ? (currentSetting == getFilteredSettingsList().size() - 1 ? 0 : currentSetting + 1) : (currentSetting == 0 ? getFilteredSettingsList().size() - 1 : currentSetting - 1));
+			currentSetting = (direction == 0
+					? (currentSetting == getFilteredSettingsList().size() - 1 ? 0 : currentSetting + 1)
+					: (currentSetting == 0 ? getFilteredSettingsList().size() - 1 : currentSetting - 1));
 			break;
 		}
 		}
@@ -232,7 +244,8 @@ public class TabGui1 extends EventListener {
 			return;
 		}
 
-		boolean next = (indentation == 0 && getModules().size() == 0 ? false : (indentation == 1 && getCurrentSettingsList().size() == 0 ? false : true));
+		boolean next = (indentation == 0 && getModules().size() == 0 ? false
+				: (indentation == 1 && getCurrentSettingsList().size() == 0 ? false : true));
 
 		if (indentation == 0 && getModules().size() == 0)
 			next = false;
@@ -390,11 +403,28 @@ public class TabGui1 extends EventListener {
 	}
 
 	private void renderMenu(List<String> items, int currentItem) {
+		Module tabGuiModule = BaseClient.instance.getModuleManager().getModule(TabGui.class);
+
+		boolean tabGuiRainbow = tabGuiModule.getModuleSettings().getBoolean("rainbow");
+		boolean tabGuiGradient = tabGuiModule.getModuleSettings().getBoolean("gradient");
+		int rainbowSpeed = tabGuiModule.getModuleSettings().getInt("speed");
+		int rainbowOffset = tabGuiModule.getModuleSettings().getInt("offset");
+
 		int height = BaseClient.instance.getFontRenderer().getFontSize() / 2 + 4;
+		int y = BaseClient.instance.getFontRenderer().fontSizeLogo;
+		String watermark = BaseClient.instance.getClientName();
+		String version = BaseClient.instance.getClientVersion();
+		String author = BaseClient.instance.getAuthor();
 
-		RenderUtils.drawString(String.format("&f%1$s &8-&b %2$s", BaseClient.instance.getClientName(), BaseClient.instance.getClientVersion()), 5, 12, -1);
+		RenderUtils
+				.drawString(String.format("%s %s", watermark, version, author), 5, 5,
+						tabGuiRainbow ? Colors.getRGBWave(10, 1, 0.7F, watermark.toCharArray().length)
+								: new Color(255, 255, 255).getRGB(),
+						BaseClient.instance.getFontRenderer().fontSizeLogo);
 
-		RenderUtils.drawRect(5, height * 2 - 5, maxItemWidth + 15 + 5, height * (items.size() + 2) - 5, new Color(0, 0, 0, 130).getRGB());
+		RenderUtils.drawGradientRect(5, height * 2 - 5 + y, (maxItemWidth + 15) * 2,
+				height * (items.size() + 2) - 5 + y, new Color(0, 0, 0, 100).getRGB(),
+				tabGuiGradient ? new Color(100, 100, 100, 200).getRGB() : new Color(0, 0, 0, 100).getRGB());
 
 		for (int i = 0; i < items.size(); i++) {
 			String item = items.get(i);
@@ -406,27 +436,33 @@ public class TabGui1 extends EventListener {
 
 			boolean isCurrentItem = (i == currentItem);
 
-			Color backgroundColor = new Color(255, 255, 255);
-
 			if (isCurrentItem) {
-				Config genericConfig = BaseClient.instance.getGenericConfig();
-				String tabGuiColor = genericConfig.getString("tabguicolor");
-				backgroundColor = (Integers.isInteger(tabGuiColor) ? new Color(Integers.getInteger(tabGuiColor)) : Strings.getColor(tabGuiColor));
+				int selectionColor = tabGuiRainbow ? Colors.getRGBWave(rainbowSpeed, 1, 0.5f, ((i) * rainbowOffset) * 2)
+						: me.wavelength.baseclient.module.Color.getColor(item).getRGB();
+				this.translator.interpolate(height * (i + 2) - 5 + y, height * (i + 3) - 5 + y, 10);
 
-				RenderUtils.drawRect(5, height * (i + 2) - 5, maxItemWidth + 15 + 5, height * (i + 3) - 5, backgroundColor.getRGB());
+				RenderUtils.drawGradientRect(5, (int) (translator.getX()), ((maxItemWidth + 15 + 5) * 2) - 7,
+						(int) (translator.getY()),
+						tabGuiRainbow ? selectionColor : me.wavelength.baseclient.module.Color.getColor(item).getRGB(),
+						tabGuiGradient ? new Color(0, 0, 0).getRGB()
+								: tabGuiRainbow ? selectionColor
+										: me.wavelength.baseclient.module.Color.getColor(item).getRGB());
 				if (indentation == 3)
 					item = "&a" + item;
 			}
 
-			RenderUtils.drawString(item, 10, height * (i + 2) - 5, -1);
+			RenderUtils.drawString(item, 10, height * (i + 2) - 3 + y, -1);
 		}
 
 		if (indentation != 1 || getCurrentModule() == null)
 			return;
 
 		String description = getCurrentModule().getDescription();
-		RenderUtils.drawRect(5, 9 + height * (items.size() + 3) - height + 2, Strings.getStringWidthCFR(description) + 12, height * (items.size() + 4) - 3, new Color(0, 0, 0, 100).getRGB());
-		RenderUtils.drawString(description, 8, height * (items.size() + 3), -1);
+		RenderUtils.drawGradientRect(5, 1 + height * (items.size() + 3) - height + y,
+				Strings.getStringWidthCFR(description) + 12, height * (items.size() + 3) + y,
+				new Color(0, 0, 0, 100).getRGB(),
+				tabGuiGradient ? new Color(0, 0, 0, 100).getRGB() : new Color(100, 100, 100, 200).getRGB());
+		RenderUtils.drawString(description, 8, height * (items.size() + 2) + y, -1);
 	}
 
 }

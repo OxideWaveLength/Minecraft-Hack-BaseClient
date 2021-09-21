@@ -87,7 +87,8 @@ public class RenderUtils {
 	}
 
 	public static void drawStringFromTopRight(String text, int x, int y, int color, int fontSize, boolean shadow) {
-		drawString(text, getScaledResolution().getScaledWidth() - Strings.getStringWidthCFR(text) - x, y, color, shadow);
+		drawString(text, getScaledResolution().getScaledWidth() - Strings.getStringWidthCFR(text) - x, y, color,
+				shadow);
 	}
 
 	public static void drawStringFromTopRight(String text, int x, int y, int color, boolean shadow) {
@@ -135,7 +136,8 @@ public class RenderUtils {
 	}
 
 	public static void drawModalRect(int xCord, int yCord, int width, int height, int color) {
-		Gui.drawRect(xCord, getScaledResolution().getScaledHeight() - yCord, xCord + width, getScaledResolution().getScaledHeight() - yCord - height, color);
+		Gui.drawRect(xCord, getScaledResolution().getScaledHeight() - yCord, xCord + width,
+				getScaledResolution().getScaledHeight() - yCord - height, color);
 	}
 
 	public static void drawModalRectFromRight(int xCord, int yCord, int width, int height, int color) {
@@ -143,11 +145,33 @@ public class RenderUtils {
 	}
 
 	public static void drawModalRectFromTopRight(int xCord, int yCord, int width, int height, int color) {
-		Gui.drawRect(getScaledResolution().getScaledWidth() - xCord, yCord, getScaledResolution().getScaledWidth() - xCord + width, yCord + height, color);
+		Gui.drawRect(getScaledResolution().getScaledWidth() - xCord, yCord,
+				getScaledResolution().getScaledWidth() - xCord + width, yCord + height, color);
 	}
 
 	public static void drawModalRectFromTopLeft(int xCord, int yCord, int width, int height, int color) {
 		Gui.drawRect(xCord, yCord, xCord + width, yCord + height, color);
+	}
+
+	public static void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
+		Gui.drawGradientRect(left, top, right, bottom, startColor, endColor);
+	}
+
+	public static void drawModalGradientRectFromTopRight(int xCord, int yCord, int width, int height, int startColor,
+			int endColor) {
+		Gui.drawGradientRect(getScaledResolution().getScaledWidth() - xCord, yCord,
+				getScaledResolution().getScaledWidth() - xCord + width, yCord + height, startColor, endColor);
+	}
+
+	public static void drawModalGradientRectFromTopLeft(int xCord, int yCord, int width, int height, int startColor,
+			int endColor) {
+		Gui.drawGradientRect(xCord, yCord, xCord + width, yCord + height, startColor, endColor);
+	}
+
+	public static void drawModalGradientRect(int xCord, int yCord, int width, int height, int startColor,
+			int endColor) {
+		Gui.drawGradientRect(xCord, getScaledResolution().getScaledHeight() - yCord, xCord + width,
+				getScaledResolution().getScaledHeight() - yCord - height, startColor, endColor);
 	}
 
 	public static ScaledResolution getScaledResolution() {
@@ -257,7 +281,8 @@ public class RenderUtils {
 		tessellator.draw();
 	}
 
-	public static void drawOutlinedBlockESP(double x, double y, double z, float red, float green, float blue, float alpha, float lineWidth) {
+	public static void drawOutlinedBlockESP(double x, double y, double z, float red, float green, float blue,
+			float alpha, float lineWidth) {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(770, 771);
@@ -278,7 +303,8 @@ public class RenderUtils {
 		GL11.glPopMatrix();
 	}
 
-	public static void drawBlockESP(double x, double y, double z, float red, float green, float blue, float alpha, float lineRed, float lineGreen, float lineBlue, float lineAlpha, float lineWidth) {
+	public static void drawBlockESP(double x, double y, double z, float red, float green, float blue, float alpha,
+			float lineRed, float lineGreen, float lineBlue, float lineAlpha, float lineWidth) {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(770, 771);
@@ -301,7 +327,8 @@ public class RenderUtils {
 		GL11.glPopMatrix();
 	}
 
-	public static void drawSolidBlockESP(double x, double y, double z, float red, float green, float blue, float alpha) {
+	public static void drawSolidBlockESP(double x, double y, double z, float red, float green, float blue,
+			float alpha) {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(770, 771);
@@ -321,7 +348,8 @@ public class RenderUtils {
 		GL11.glPopMatrix();
 	}
 
-	public static void drawOutlinedEntityESP(double x, double y, double z, double width, double height, float red, float green, float blue, float alpha) {
+	public static void drawOutlinedEntityESP(double x, double y, double z, double width, double height, float red,
+			float green, float blue, float alpha) {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(770, 771);
@@ -341,7 +369,8 @@ public class RenderUtils {
 		GL11.glPopMatrix();
 	}
 
-	public static void drawSolidEntityESP(double x, double y, double z, double width, double height, float red, float green, float blue, float alpha) {
+	public static void drawSolidEntityESP(double x, double y, double z, double width, double height, float red,
+			float green, float blue, float alpha) {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(770, 771);
@@ -361,7 +390,8 @@ public class RenderUtils {
 		GL11.glPopMatrix();
 	}
 
-	public static void drawEntityESP(double x, double y, double z, double width, double height, float red, float green, float blue, float alpha, float lineRed, float lineGreen, float lineBlue, float lineAlpha, float lineWdith) {
+	public static void drawEntityESP(double x, double y, double z, double width, double height, float red, float green,
+			float blue, float alpha, float lineRed, float lineGreen, float lineBlue, float lineAlpha, float lineWdith) {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(770, 771);
@@ -384,7 +414,8 @@ public class RenderUtils {
 		GL11.glPopMatrix();
 	}
 
-	public static void drawTracerLine(double x, double y, double z, float red, float green, float blue, float alpha, float lineWdith) {
+	public static void drawTracerLine(double x, double y, double z, float red, float green, float blue, float alpha,
+			float lineWdith) {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
@@ -408,7 +439,8 @@ public class RenderUtils {
 		GL11.glPopMatrix();
 	}
 
-	public static void renderBoundingBox(Entity entityIn, double x, double y, double z, float partialTicks, int red, int green, int blue, double xAdd, double yAdd, double zAdd) {
+	public static void renderBoundingBox(Entity entityIn, double x, double y, double z, float partialTicks, int red,
+			int green, int blue, double xAdd, double yAdd, double zAdd) {
 		GlStateManager.depthMask(false);
 		GlStateManager.disableTexture2D();
 		GlStateManager.disableLighting();
@@ -416,7 +448,10 @@ public class RenderUtils {
 		GlStateManager.disableBlend();
 		GlStateManager.disableDepth();
 		AxisAlignedBB axisalignedbb = entityIn.getEntityBoundingBox();
-		AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(axisalignedbb.minX + xAdd - entityIn.posX + x, axisalignedbb.minY - entityIn.posY + y, axisalignedbb.minZ + zAdd - entityIn.posZ + z, axisalignedbb.maxX - xAdd - entityIn.posX + x, axisalignedbb.maxY + yAdd - entityIn.posY + y, axisalignedbb.maxZ - zAdd - entityIn.posZ + z);
+		AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(axisalignedbb.minX + xAdd - entityIn.posX + x,
+				axisalignedbb.minY - entityIn.posY + y, axisalignedbb.minZ + zAdd - entityIn.posZ + z,
+				axisalignedbb.maxX - xAdd - entityIn.posX + x, axisalignedbb.maxY + yAdd - entityIn.posY + y,
+				axisalignedbb.maxZ - zAdd - entityIn.posZ + z);
 
 		RenderGlobal.func_181563_a(axisalignedbb1, red, green, blue, 255);
 
@@ -430,7 +465,8 @@ public class RenderUtils {
 		GlStateManager.depthMask(true);
 	}
 
-	public static void renderPlayerESP(Entity entityIn, double x, double y, double z, int red, int green, int blue, float partialTicks) {
+	public static void renderPlayerESP(Entity entityIn, double x, double y, double z, int red, int green, int blue,
+			float partialTicks) {
 		renderBoundingBox(entityIn, x, y, z, partialTicks, red, green, blue, 0.75, 0.15, 0.75);
 	}
 

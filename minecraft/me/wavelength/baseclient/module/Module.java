@@ -7,7 +7,6 @@ import java.util.concurrent.Executors;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.EventListener;
-import me.wavelength.baseclient.utils.Random;
 import me.wavelength.baseclient.utils.Strings;
 import me.wavelength.baseclient.utils.Timer;
 
@@ -27,7 +26,7 @@ public class Module extends EventListener {
 
 	private boolean showInModuleArraylist;
 
-	protected Color color;
+	public Color color;
 
 	protected Timer timer;
 
@@ -35,23 +34,29 @@ public class Module extends EventListener {
 	protected ExecutorService executorService;
 
 	public Module(String name, String description, int key, Category category, AntiCheat... allowedAntiCheats) {
-		initializeModule(name, description, key, category, (category.equals(Category.HIDDEN) ? false : true), false, allowedAntiCheats);
+		initializeModule(name, description, key, category, (category.equals(Category.HIDDEN) ? false : true), false,
+				allowedAntiCheats);
 	}
 
-	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList, AntiCheat... allowedAntiCheats) {
+	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList,
+			AntiCheat... allowedAntiCheats) {
 		initializeModule(name, description, key, category, showInModuleArrayList, false, allowedAntiCheats);
 	}
 
-	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList, boolean toggled, AntiCheat... allowedAntiCheats) {
+	public Module(String name, String description, int key, Category category, boolean showInModuleArrayList,
+			boolean toggled, AntiCheat... allowedAntiCheats) {
 		initializeModule(name, description, key, category, showInModuleArrayList, toggled, allowedAntiCheats);
 	}
 
-	private void initializeModule(String name, String description, int key, Category category, boolean showInModuleArrayList, boolean toggled, AntiCheat... allowedAntiCheats) {
+	private void initializeModule(String name, String description, int key, Category category,
+			boolean showInModuleArrayList, boolean toggled, AntiCheat... allowedAntiCheats) {
 		this.name = name;
 		this.description = description;
 		this.key = key;
 		this.category = category;
-		allowedAntiCheats = (allowedAntiCheats == null || allowedAntiCheats.length == 0 ? new AntiCheat[] { AntiCheat.VANILLA } : allowedAntiCheats);
+		allowedAntiCheats = (allowedAntiCheats == null || allowedAntiCheats.length == 0
+				? new AntiCheat[] { AntiCheat.VANILLA }
+				: allowedAntiCheats);
 
 		this.allowedAntiCheats = allowedAntiCheats;
 		this.antiCheat = allowedAntiCheats[0];
@@ -69,7 +74,6 @@ public class Module extends EventListener {
 
 		loadFromSettings();
 		setup();
-		randomColor();
 	}
 
 	private void loadFromSettings() {
@@ -80,7 +84,8 @@ public class Module extends EventListener {
 
 		this.key = moduleSettings.getInt("key");
 		this.antiCheat = AntiCheat.valueOf(moduleSettings.getString("anticheat").toUpperCase());
-		this.antiCheat = (Arrays.stream(allowedAntiCheats).anyMatch(antiCheat::equals) ? antiCheat : allowedAntiCheats[0]);
+		this.antiCheat = (Arrays.stream(allowedAntiCheats).anyMatch(antiCheat::equals) ? antiCheat
+				: allowedAntiCheats[0]);
 	}
 
 	public String getName() {
@@ -129,7 +134,9 @@ public class Module extends EventListener {
 	}
 
 	public String getNameWithAntiCheat() {
-		return name + (antiCheat.equals(AntiCheat.VANILLA) ? "" : " &7-&f " + (antiCheat.isCapital() ? antiCheat.name() : Strings.capitalizeOnlyFirstLetter(antiCheat.name())));
+		return name + (antiCheat.equals(AntiCheat.VANILLA) ? ""
+				: " &7-&f " + (antiCheat.isCapital() ? antiCheat.name()
+						: Strings.capitalizeOnlyFirstLetter(antiCheat.name())));
 	}
 
 	public void setup() {
@@ -148,10 +155,6 @@ public class Module extends EventListener {
 		setToggled(!(toggled));
 	}
 
-	private void randomColor() {
-		this.color = Random.getRandomLightColor();
-	}
-
 	public Timer getTimer() {
 		return timer;
 	}
@@ -159,7 +162,6 @@ public class Module extends EventListener {
 	public void setToggled(boolean toggled) {
 		this.toggled = toggled;
 		if (toggled) {
-			randomColor();
 			moduleSettings.set("toggled", true);
 			BaseClient.instance.getEventManager().registerListener(this);
 			onEnable();

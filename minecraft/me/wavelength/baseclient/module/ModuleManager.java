@@ -7,14 +7,6 @@ import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
-import me.wavelength.baseclient.module.modules.combat.Friends;
-import me.wavelength.baseclient.module.modules.movement.Fly;
-import me.wavelength.baseclient.module.modules.movement.TestModule;
-import me.wavelength.baseclient.module.modules.render.XRay;
-import me.wavelength.baseclient.module.modules.semi_hidden.AdvancedTabGui;
-import me.wavelength.baseclient.module.modules.semi_hidden.ClickGui;
-import me.wavelength.baseclient.module.modules.semi_hidden.TabGui;
-import me.wavelength.baseclient.module.modules.world.NameProtect;
 
 public class ModuleManager extends EventListener {
 
@@ -29,19 +21,33 @@ public class ModuleManager extends EventListener {
 		registerModules();
 	}
 
-	public void registerModule(Module module) {
-		modules.add(module);
+	public void registerModules() {
+		/// CLIENT
+		registerModule(new me.wavelength.baseclient.module.modules.client.ArrayList());
+		registerModule(new me.wavelength.baseclient.module.modules.client.ClickGui());
+		registerModule(new me.wavelength.baseclient.module.modules.client.TabGui());
+
+		/// COMBAT
+		registerModule(new me.wavelength.baseclient.module.modules.combat.Friends());
+
+		/// MOVEMENT
+		registerModule(new me.wavelength.baseclient.module.modules.movement.Fly());
+		registerModule(new me.wavelength.baseclient.module.modules.movement.TestModule());
+
+		/// RENDER
+
+		/// PLAYER
+
+		/// WORLD
+		registerModule(new me.wavelength.baseclient.module.modules.world.NameProtect());
+		registerModule(new me.wavelength.baseclient.module.modules.world.XRay());
+
+		/// SEMI_HIDDEN
+		registerModule(new me.wavelength.baseclient.module.modules.semi_hidden.AdvancedTabGui());
 	}
 
-	public void registerModules() {
-		registerModule(new Friends());
-		registerModule(new Fly());
-		registerModule(new TestModule());
-		registerModule(new XRay());
-		registerModule(new NameProtect());
-		registerModule(new AdvancedTabGui());
-		registerModule(new TabGui());
-		registerModule(new ClickGui());
+	public void registerModule(Module module) {
+		modules.add(module);
 	}
 
 	public Module getModule(Class<? extends Module> clasz) {
@@ -71,7 +77,7 @@ public class ModuleManager extends EventListener {
 
 		return modules;
 	}
-	
+
 	public List<Module> getModules(Category category) {
 		List<Module> modules = new ArrayList<Module>();
 		for (int i = 0; i < this.modules.size(); i++) {
@@ -131,4 +137,14 @@ public class ModuleManager extends EventListener {
 		}
 	}
 
+	public void toggleModules() {
+		for (int i = 0; i < modules.size(); i++) {
+			if (modules.get(i).isToggled())
+				modules.get(i).setToggled(true);
+		}
+	}
+
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
+	}
 }

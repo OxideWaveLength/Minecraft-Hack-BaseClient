@@ -1,6 +1,8 @@
 package me.wavelength.baseclient.utils;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 
@@ -55,4 +57,27 @@ public class Colors {
 		return new Color(red, green, blue);
 	}
 
+	public static int getRGBWave(float seconds, float brightness, float saturation, long index) {
+		float hue = ((System.currentTimeMillis() + index) % (int) (seconds * 1000)) / (seconds * 1000);
+		return Color.HSBtoRGB(hue, saturation, brightness);
+	}
+
+	public static Integer[] getGradientArray(Color color1, Color color2, int steps) {
+		List<Integer> colors = new ArrayList<Integer>();
+
+		for (int i = 0; i < steps; i++) {
+			float ratio = (float) i / (float) steps;
+			int red = (int) (color2.getRed() * ratio + color1.getRed() * (1 - ratio));
+			int green = (int) (color2.getGreen() * ratio + color1.getGreen() * (1 - ratio));
+			int blue = (int) (color2.getBlue() * ratio + color1.getBlue() * (1 - ratio));
+			Color stepColor = new Color(red, green, blue);
+			colors.add(stepColor.getRGB());
+		}
+
+		return (Integer[]) colors.toArray();
+	}
+
+	public static long getIndex(long index) {
+		return ((System.currentTimeMillis() + index));
+	}
 }

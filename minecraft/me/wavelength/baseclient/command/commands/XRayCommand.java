@@ -5,7 +5,7 @@ import java.util.List;
 
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.command.Command;
-import me.wavelength.baseclient.module.modules.render.XRay;
+import me.wavelength.baseclient.module.modules.world.XRay;
 import me.wavelength.baseclient.utils.Lists;
 
 public class XRayCommand extends Command {

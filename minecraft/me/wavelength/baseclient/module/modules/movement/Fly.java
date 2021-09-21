@@ -5,6 +5,7 @@ import org.lwjgl.input.Keyboard;
 import me.wavelength.baseclient.event.events.UpdateEvent;
 import me.wavelength.baseclient.module.AntiCheat;
 import me.wavelength.baseclient.module.Category;
+import me.wavelength.baseclient.module.Color;
 import me.wavelength.baseclient.module.Module;
 
 public class Fly extends Module {
@@ -18,6 +19,7 @@ public class Fly extends Module {
 
 	@Override
 	public void setup() {
+		this.color = Color.MOVEMENT;
 		moduleSettings.addDefault("speed", 1.0D);
 	}
 
