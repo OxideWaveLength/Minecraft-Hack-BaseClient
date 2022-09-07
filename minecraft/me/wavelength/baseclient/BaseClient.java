@@ -24,6 +24,7 @@ import me.wavelength.baseclient.utils.Files;
 import me.wavelength.baseclient.utils.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.Locale;
+import viamcp.ViaMCP;
 
 public class BaseClient {
 
@@ -123,6 +124,18 @@ public class BaseClient {
 
 		/** Calling the #setWindowIcon() method with the two encoded icons */
 		Minecraft.getMinecraft().setWindowIcon(icon16x16, icon32x32);
+
+		try {
+
+			ViaMCP.getInstance().start();
+
+			ViaMCP.getInstance().initAsyncSlider();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
 	}
 
 	public void afterMinecraft() {
