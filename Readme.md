@@ -66,7 +66,7 @@ _Note: the instructions in italic apply ONLY to Eclipse, if you have a different
 - ~~Help command~~ (Done)
 - ~~Better FileManager / ConfigManager~~ (Not needed as of now)
 - Enhance some code
-- Multi Versioning! Exactly, joining 1.12 servers in 1.8.8...
+- ~~Multi Versioning! Exactly, joining 1.12 servers in 1.8.8...~~ (Added in commit #135 / fdad885c)
 
 ------------
 
