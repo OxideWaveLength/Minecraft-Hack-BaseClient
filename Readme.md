@@ -54,7 +54,7 @@ _Note: the instructions in italic apply ONLY to Eclipse, if you have a different
 - Slick's FontManager (Edited by Russian412 and me) - Updated in the commit #77 / a0bfdf7
 - IRC Client
 - FriendsManager - manages friends and enemies. Added in the commit #95 / d5e1270 by [@evrec](https://github.com/evrec)
-- ClickGui - This is not completely finished yet, but it's working and will be completed in the future. Added in the commit #112 / 0cded5b
+- ClickGui - This is not completely finished by Ihaveatrashaim!Added settings...
 
 ------------
 
@@ -65,8 +65,9 @@ _Note: the instructions in italic apply ONLY to Eclipse, if you have a different
 - ~~Better font manager~~ (Added in commit #77 / a0bfdf7)
 - ~~Help command~~ (Done)
 - ~~Better FileManager / ConfigManager~~ (Not needed as of now)
-- Enhance some code
-- Multi Versioning! Exactly, joining 1.12 servers in 1.8.8...
+- ~~Enhance some code~~
+- ~~Multi Versioning! Exactly, joining 1.12 servers in 1.8.8...~~
+- Add New Settings To The TabGUI
 
 ------------
 
