@@ -1,4 +1,4 @@
-package me.wavelength.baseclient.module.modules.movement;
+package me.wavelength.baseclient.module.modules;
 
 import me.wavelength.baseclient.event.events.PacketReceivedEvent;
 import me.wavelength.baseclient.event.events.UpdateEvent;
@@ -9,11 +9,13 @@ import me.wavelength.baseclient.module.Value;
 
 public class TestModule extends Module {
 
+	//Show you everthing
+	
 	public Value<Boolean> booleanValue = new Value("BooleanTest", true);
 	public Value<Integer> intValue = new Value("IntTest", 1);
 	public Value<Double> doubleValue = new Value("DoubleTest", 1.2D);
 	public Value<Float> floatValue = new Value("FloatTest", 1.2F);
-
+	
 	public TestModule() {
 		super("TestModule", "This is a test module...", 0, Category.MOVEMENT, AntiCheat.AAC);
 	}

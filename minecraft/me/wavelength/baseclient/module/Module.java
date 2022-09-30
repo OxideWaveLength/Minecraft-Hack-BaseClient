@@ -1,6 +1,8 @@
 package me.wavelength.baseclient.module;
 
 import java.awt.Color;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -177,5 +179,47 @@ public class Module extends EventListener {
 		this.antiCheat = antiCheat;
 		moduleSettings.set("anticheat", antiCheat.name().toLowerCase());
 	}
+	
+	public Value getValue(final String valueName) {
+        for(final Field field : getClass().getDeclaredFields()) {
+            try{
+                field.setAccessible(true);
+
+                final Object o = field.get(this);
+
+                System.out.println(field.getName());
+
+                if(o instanceof Value) {
+                    final Value value = (Value) o;
+
+                    if(value.getValueName().equalsIgnoreCase(valueName))
+                        return value;
+                }
+            }catch(IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
+    public ArrayList<Value> getValues() {
+        final ArrayList<Value> values = new ArrayList<>();
+
+        for(final Field field : getClass().getDeclaredFields()) {
+            try{
+                field.setAccessible(true);
+
+                final Object o = field.get(this);
+
+                if(o instanceof Value)
+                    values.add((Value) o);
+            }catch(IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return values;
+    }
 
 }
