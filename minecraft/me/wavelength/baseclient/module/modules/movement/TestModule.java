@@ -5,8 +5,14 @@ import me.wavelength.baseclient.event.events.UpdateEvent;
 import me.wavelength.baseclient.module.AntiCheat;
 import me.wavelength.baseclient.module.Category;
 import me.wavelength.baseclient.module.Module;
+import me.wavelength.baseclient.module.Value;
 
 public class TestModule extends Module {
+
+	public Value<Boolean> booleanValue = new Value("BooleanTest", true);
+	public Value<Integer> intValue = new Value("IntTest", 1);
+	public Value<Double> doubleValue = new Value("DoubleTest", 1.2D);
+	public Value<Float> floatValue = new Value("FloatTest", 1.2F);
 
 	public TestModule() {
 		super("TestModule", "This is a test module...", 0, Category.MOVEMENT, AntiCheat.AAC);
@@ -18,6 +24,11 @@ public class TestModule extends Module {
 
 	@Override
 	public void onEnable() {
+		//Get values;
+		this.getValue("BooleanTest");
+		this.getValue("IntTest");
+		this.getValue("DoubleTest");
+		this.getValue("FloatTest");
 	}
 
 	@Override

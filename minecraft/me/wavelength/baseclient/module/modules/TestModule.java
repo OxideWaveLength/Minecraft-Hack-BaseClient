@@ -17,7 +17,7 @@ public class TestModule extends Module {
 	public Value<Float> floatValue = new Value("FloatTest", 1.2F);
 	
 	public TestModule() {
-		super("TestModule", "This is a test module...", 0, Category.Movement, AntiCheat.AAC);
+		super("TestModule", "This is a test module...", 0, Category.MOVEMENT, AntiCheat.AAC);
 	}
 
 	@Override

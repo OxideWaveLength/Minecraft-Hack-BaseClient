@@ -14,7 +14,7 @@ import me.wavelength.baseclient.event.events.KeyPressedEvent;
 import me.wavelength.baseclient.event.events.MouseClickEvent;
 import me.wavelength.baseclient.event.events.MouseScrollEvent;
 import me.wavelength.baseclient.event.events.Render2DEvent;
-import me.wavelength.baseclient.gui.clickgui.ClickGui;
+import me.wavelength.baseclient.gui.clickgui.ClickGUI;
 import me.wavelength.baseclient.gui.clickgui.GuiBind;
 import me.wavelength.baseclient.module.AntiCheat;
 import me.wavelength.baseclient.module.Category;
@@ -116,7 +116,7 @@ public class TabGui1 extends EventListener {
 
 		GuiScreen currentScreen = mc.currentScreen;
 
-		if (currentScreen != null && (currentScreen instanceof ClickGui || currentScreen instanceof GuiBind))
+		if (currentScreen != null && (currentScreen instanceof ClickGUI || currentScreen instanceof GuiBind))
 			return;
 
 		// TODO: Render ICON

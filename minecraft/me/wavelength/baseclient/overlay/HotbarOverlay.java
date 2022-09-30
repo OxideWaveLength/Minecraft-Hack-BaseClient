@@ -5,7 +5,7 @@ import java.awt.Color;
 import me.wavelength.baseclient.BaseClient;
 import me.wavelength.baseclient.event.EventListener;
 import me.wavelength.baseclient.event.events.Render2DEvent;
-import me.wavelength.baseclient.gui.clickgui.ClickGui;
+import me.wavelength.baseclient.gui.clickgui.ClickGUI;
 import me.wavelength.baseclient.gui.clickgui.GuiBind;
 import me.wavelength.baseclient.utils.RenderUtils;
 import me.wavelength.baseclient.utils.Time;
@@ -30,7 +30,7 @@ public class HotbarOverlay extends EventListener {
 
 		GuiScreen currentScreen = mc.currentScreen;
 
-		if (currentScreen != null && !(currentScreen instanceof ClickGui) && !(currentScreen instanceof GuiBind))
+		if (currentScreen != null && !(currentScreen instanceof ClickGUI) && !(currentScreen instanceof GuiBind))
 			return;
 
 		renderText(event, "&7[&dFPS&7]&5 " + Minecraft.getDebugFPS(), 2);

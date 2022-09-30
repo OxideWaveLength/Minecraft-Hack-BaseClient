@@ -21,11 +21,11 @@ import net.minecraft.util.ResourceLocation;
 public class GuiBind extends GuiScreen {
 
 	private Module module;
-	private ClickGui clickGui;
+	private ClickGUI clickGui;
 
 	private boolean fastRender;
 
-	public GuiBind(Module module, ClickGui clickGui) {
+	public GuiBind(Module module, ClickGUI clickGui) {
 		this.module = module;
 		this.clickGui = clickGui;
 	}

@@ -129,7 +129,7 @@ public class ModuleButton {
     			this.expanded = !this.expanded;
     		}
     		if(mouseButton == 2) {
-    			Minecraft.getMinecraft().displayGuiScreen(new GuiBind(module));
+    			Minecraft.getMinecraft().displayGuiScreen(new GuiBind(module, new ClickGUI()));
     		}
     	}
     	

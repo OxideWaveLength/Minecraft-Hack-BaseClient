@@ -12,7 +12,7 @@ import me.wavelength.baseclient.event.EventManager;
 import me.wavelength.baseclient.font.Font;
 import me.wavelength.baseclient.friends.FriendsManager;
 import me.wavelength.baseclient.gui.altmanager.GuiAltManager;
-import me.wavelength.baseclient.gui.clickgui.ClickGui;
+import me.wavelength.baseclient.gui.clickgui.ClickGUI;
 import me.wavelength.baseclient.irc.IRCClient;
 import me.wavelength.baseclient.module.ModuleManager;
 import me.wavelength.baseclient.overlay.HotbarOverlay;
@@ -68,7 +68,7 @@ public class BaseClient {
 
 	private Config genericConfig;
 
-	private ClickGui clickGui;
+	private ClickGUI clickGui;
 
 	private Locale englishLocale;
 
@@ -95,7 +95,6 @@ public class BaseClient {
 
 		this.accountManager = new AccountManager(new File(accountManagerFolder));
 
-		this.clickGui = new ClickGui();
 
 		this.eventManager = new EventManager();
 
@@ -105,7 +104,9 @@ public class BaseClient {
 		this.commandManager = new CommandManager(".");
 
 		commandManager.registerCommands(); // Moved here to make sure the CommandManager instance is created, else the
-											// "commandManager" variable in the Command class would be null (since we are
+					
+		
+		this.clickGui = new ClickGUI();
 											// getting the CommandManager instance from this class)
 
 		this.altService = new AltService();
@@ -204,7 +205,7 @@ public class BaseClient {
 		return genericConfig;
 	}
 
-	public ClickGui getClickGui() {
+	public ClickGUI getClickGui() {
 		return clickGui;
 	}
 

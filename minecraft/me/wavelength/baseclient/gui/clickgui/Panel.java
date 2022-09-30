@@ -50,7 +50,7 @@ public class Panel {
 
     public void drawPanel(int mouseX, int mouseY) {
     	Gui.drawRect(this.x, this.y, this.x + this.width, this.y + this.height, new Color(92, 230, 90,89).getRGB());
-		RenderUtils.drawString(category.name(), x + 5, y + 5, -1);
+		RenderUtils.drawString(category.name().toLowerCase(), x + 5, y + 5, -1);
 
         int yList = y + 20;
         for(ModuleButton m : mods) {
