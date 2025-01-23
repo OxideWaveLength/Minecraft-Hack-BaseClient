@@ -1,5 +1,8 @@
 # Minecraft Base Hacked Client 1.8.8 (with Optifine)
 
+# New Repository
+This repository hasn't been updated in a while, and while there's no excuse, please take a look at [issue #114](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/issues/114) for updates and the future of this project.
+
 ## Welcome!
 We have a FAQ (Q&A) section! If you are interested you can click [here](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/FAQ-(Q&A))
 
@@ -43,7 +46,7 @@ _Note: the instructions in italic apply ONLY to Eclipse, if you have a different
 ### Features
 
 - CommandManager (with four commands, "irc", "set", "help", "bind" (added in the commit #41 / 0be34e4), "friend" and "names" (both added in the commit #78 / aa78114)
-- ModuleManager (with module settings, four example module (Fly, TestModule, Friends and NameProtect) and the "AdvancedTabGUI" module)
+- ModuleManager (with module settings, four example modules (Fly, TestModule, Friends and NameProtect) and the "AdvancedTabGUI" module)
 - [EventManager](https://github.com/OxideWaveLength/Minecraft-Hack-BaseClient/wiki/EventManager)
 - FileManager
 - ConfigManager
